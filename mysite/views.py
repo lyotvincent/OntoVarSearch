@@ -17,12 +17,97 @@ from pymongo import MongoClient
 import re
 
 
-def index(request):
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
+                            np.int16, np.int32, np.int64, np.uint8,
+                            np.uint16, np.uint32, np.uint64)):
+            return int(obj)
+        elif isinstance(obj, (np.float_, np.float16, np.float32,
+                              np.float64)):
+            return float(obj)
+        # elif isinstance(obj, np.ndarray):
+        #     return list(obj)
+        elif isinstance(obj, np.bool_):
+            return bool(obj)
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+class MyEncoder_ALL(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
+                            np.int16, np.int32, np.int64, np.uint8,
+                            np.uint16, np.uint32, np.uint64)):
+            return int(obj)
+        elif isinstance(obj, (np.float_, np.float16, np.float32,
+                              np.float64)):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return list(obj)
+        elif isinstance(obj, np.bool_):
+            return bool(obj)
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+def html_index(request):
     return render(request, "index.html")
 
-def upload(request):
+def html_upload(request):
     return render(request, "upload.html")
 
+def html_search(request):
+    return render(request, "search.html")
+
+def html_about(request):
+    return render(request, "about.html")
+
+def html_browse(request):
+    return render(request, "browse.html")
+
+def html_contact(request):
+    return render(request, "contact.html")
+
+def html_download(request):
+    return render(request, "download.html")
+
+
+#search data
+@csrf_exempt
+def dosearch(request):
+    if request.method == 'POST':
+        json_data = request.POST.get("json_data")
+        condition = json.loads(json_data)
+        connection = MongoClient("mongodb://127.0.0.1:27017")
+
+        collection = connection.mydb.test1
+        results = collection.find({"POS": {"$lt": 20000, "$gt": 10000}}, {"_id": 0})
+
+        response_data = []
+        for result in results:
+            response_data.append(result)
+
+    return HttpResponse(json.dumps(response_data), content_type="application/text")
+    # return JsonResponse(response_data,encoder=MyEncoder_ALL, safe= False)
+    # return HttpResponse(response_data, content_type="application/json")
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+    return JsonResponse(response_data, encoder=MyEncoder, safe=False)
+
+
+
+        # collection = connection.mydb.genefile
+        # collectionNames = collection.distinct("collectionName")
+        # Allresults = []
+        #
+        # for collectionName in collectionNames:
+        #     datacolletion = connection.mydb[collectionName]
+        #     results = datacolletion.find(condition)
+        #     if results.count():
+        #         for result in results:
+        #             Allresults.append(result)
+    return JsonResponse(results)
+
+
+#接收分片
 @csrf_exempt
 def doupload(request):
     if request.method == 'POST':
@@ -56,7 +141,7 @@ def doupload(request):
 
     return HttpResponse()
 
-
+#合并分片
 @csrf_exempt
 def uploadcomplete(request):
     if request.method == 'POST':
@@ -168,22 +253,6 @@ def uploadimportDB(request):
     return HttpResponse()
 
 
-class MyEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
-                            np.int16, np.int32, np.int64, np.uint8,
-                            np.uint16, np.uint32, np.uint64)):
-            return int(obj)
-        elif isinstance(obj, (np.float_, np.float16, np.float32,
-                              np.float64)):
-            return float(obj)
-        # elif isinstance(obj, np.ndarray):
-        #     return list(obj)
-        elif isinstance(obj, np.bool_):
-            return bool(obj)
-        else:
-            return json.JSONEncoder.default(self, obj)
-
 
 def vcf2json_Single(filepath_vcf, filepath_json):
 
@@ -197,11 +266,12 @@ def vcf2json_Single(filepath_vcf, filepath_json):
                     print("i: ", i)
                 recorddict1={
                     k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
-                    #k_field: chunker[0][k_field][i].tolist() for k_field in fields if 'variants/' in k_field
-                    #k_field: chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
                 }
                 recorddict2={
-                   k_sample: {k_field[9:]: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field} for k_sample, j in zip(samples, range(0, samples.size))
+                    "Samples": {
+                        k_sample: {
+                        k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field} for k_sample, j in zip(samples, range(0, samples.size))
+                    }
                 }
                 recorddict = dict(recorddict1, **recorddict2)
                 li.append(recorddict)
@@ -226,8 +296,9 @@ def IoOperat_multi(chunker):
             k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
         }
         recorddict2 = {
-            k_sample: {
-                k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field} for k_sample, j in zip(samples, range(0, samples.size))
+            "Samples": {
+                k_sample: {k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field} for k_sample, j in zip(samples, range(0, samples.size))
+            }
         }
         recorddict = dict(recorddict1, **recorddict2)
         li.append(recorddict)

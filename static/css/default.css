@@ -70,7 +70,7 @@ hr {
 }
 
 .container {
-	width: 1200px;
+	width: 1400px;
 	margin: 0px auto;
     /*display: flex;*/
     /*flex-direction: column;*/
@@ -256,10 +256,6 @@ hr {
 	flex: 1 0 auto;
 }
 
-.container {
-	width: 1200px;
-	margin: 0px auto;
-}
 
 .clearfix {
 	clear: both;
@@ -361,7 +357,7 @@ hr {
 
 #banner {
 	overflow: hidden;
-	height: 500px;
+	/*height: 500px;*/
 	margin: 3em auto;
     /*background: linear-gradient(50deg, rgb(87, 160, 255), rgb(81, 255, 182));*/
 	/*background: #17689D;*/
@@ -513,3 +509,92 @@ display: inline-block;
   -ms-transition: .5s all;
 }
 /*navigation end*/
+
+
+/*search.css begin*/
+#json {
+	margin: 10px 10px 10px 32px;
+	width: 100%;
+	min-height: 300px;
+}
+
+#legend {
+	display: inline;
+	margin-left: 30px;
+}
+
+#legend h2 {
+	display: inline;
+	font-size: 18px;
+	margin-right: 20px;
+}
+
+#legend a {
+	color: white;
+	margin-right: 20px;
+}
+
+#legend span {
+	padding: 2px 4px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: white;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px black;
+	background-color: black;
+}
+
+#legend .string {
+	background-color: #009408;
+}
+
+#legend .array {
+	background-color: #2D5B89;
+}
+
+#legend .object {
+	background-color: #E17000;
+}
+
+#legend .number {
+	background-color: #497B8D;
+}
+
+#legend .boolean {
+	background-color: #B1C639;
+}
+
+#legend .null {
+	background-color: #B1C639;
+}
+
+#expander {
+	cursor: pointer;
+	margin-right: 20px;
+}
+
+label[for="json"] {
+	margin-left: 30px;
+	display: block;
+}
+
+#json-note {
+	margin-left: 30px;
+	font-size: 12px;
+}
+
+.addthis_toolbox {
+	position: relative;
+	top: -10px;
+	margin-left: 30px;
+}
+
+#disqus_thread {
+	margin-top: 50px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+}
+/*search.css end*/

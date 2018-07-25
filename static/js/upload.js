@@ -89,7 +89,8 @@ $(function() {
             },
             accept:{
                 title: 'VCF',
-                extensions: 'vcf,gz'
+                extensions: 'vcf',
+                mimeTypes: '.vcf'
             }
         });
         uploader.on('startUpload', function() {       //开始上传时，调用该方法
@@ -109,21 +110,6 @@ $(function() {
             var data = {'task_id': task_id, 'name': file.source['name'], 'fileMd5': md5 };
             //ajax携带data向该url发请求
             DoProcess(data);
-            // var uploadpromise = $.post('/upload/uploadcomplete', data);
-            // var convertpromise = uploadpromise.done(function () {
-            //     $('#progress-bar-upload').css('width', '60%');
-            //     $('#progress-bar-upload').text('Converting file to json...');
-            //     return $.post('/upload/convert', data);
-            // });
-            // var importDBpromise = convertpromise.done(function () {
-            //     $('#progress-bar-upload').css('width', '80%');
-            //     $('#progress-bar-upload').text('Importing json to mongodb...');
-            //     return $.post('/upload/importDB', data);
-            // });
-            // importDBpromise.done(function () {
-            //     $('#progress-bar-upload').css('width', '100%');
-            //     $('#progress-bar-upload').text('Success. you can search in this file');
-            // });
             $('#progress-bar-upload').css('width', '50%');
             $('#progress-bar-upload').text('Upload complete. Merging files...');
         });

@@ -19,13 +19,20 @@ from mysite import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index', views.index),
-    path('upload', views.upload),
+    path('index', views.html_index),
+    path('upload', views.html_upload),
+    path('about', views.html_about),
+    path('browse', views.html_browse),
+    path('contact', views.html_contact),
+    path('download', views.html_download),
     path('upload/doupload', views.doupload),
     path('upload/uploadcomplete', views.uploadcomplete),
     path('upload/uploadcheckchunk', views.uploadcheckchunk),
     path('upload/uploadcheckfile', views.uploadcheckfile),
     path('upload/convert', views.uploadconvert),
-    path('upload/importDB', views.uploadimportDB)
+    path('upload/importDB', views.uploadimportDB),
+    path('search', views.html_search),
+    path('search/dosearch', views.dosearch),
+
 
 ]

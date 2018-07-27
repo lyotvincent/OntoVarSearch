@@ -15,6 +15,8 @@ import pickle
 from lockfile import LockFile
 from pymongo import MongoClient
 import re
+import zipfile
+import zlib
 
 
 class MyEncoder(json.JSONEncoder):
@@ -28,22 +30,6 @@ class MyEncoder(json.JSONEncoder):
             return float(obj)
         # elif isinstance(obj, np.ndarray):
         #     return list(obj)
-        elif isinstance(obj, np.bool_):
-            return bool(obj)
-        else:
-            return json.JSONEncoder.default(self, obj)
-
-class MyEncoder_ALL(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
-                            np.int16, np.int32, np.int64, np.uint8,
-                            np.uint16, np.uint32, np.uint64)):
-            return int(obj)
-        elif isinstance(obj, (np.float_, np.float16, np.float32,
-                              np.float64)):
-            return float(obj)
-        elif isinstance(obj, np.ndarray):
-            return list(obj)
         elif isinstance(obj, np.bool_):
             return bool(obj)
         else:
@@ -70,6 +56,14 @@ def html_contact(request):
 def html_download(request):
     return render(request, "download.html")
 
+#get download file list
+@csrf_exempt
+def GetDownloadfileList(request):
+    if request.method == 'POST':
+        connection = MongoClient("mongodb://127.0.0.1:27017")
+        collection = connection.mydb.genefile
+    return
+
 
 #search data
 @csrf_exempt
@@ -79,32 +73,26 @@ def dosearch(request):
         condition = json.loads(json_data)
         connection = MongoClient("mongodb://127.0.0.1:27017")
 
-        collection = connection.mydb.test1
-        results = collection.find({"POS": {"$lt": 20000, "$gt": 10000}}, {"_id": 0})
+    #     collection = connection.mydb.test1
+    #     results = collection.find(condition, {"_id": 0})
+    #
+    #     response_data = []
+    #     for result in results:
+    #         response_data.append(result)
+    #
+    # return HttpResponse(json.dumps(response_data), content_type="application/text")
 
-        response_data = []
-        for result in results:
-            response_data.append(result)
+        collection = connection.mydb.genefile
+        collectionNames = collection.distinct("collectionName")
+        Allresults = []
 
-    return HttpResponse(json.dumps(response_data), content_type="application/text")
-    # return JsonResponse(response_data,encoder=MyEncoder_ALL, safe= False)
-    # return HttpResponse(response_data, content_type="application/json")
-    return HttpResponse(json.dumps(response_data), content_type='application/json')
-    return JsonResponse(response_data, encoder=MyEncoder, safe=False)
-
-
-
-        # collection = connection.mydb.genefile
-        # collectionNames = collection.distinct("collectionName")
-        # Allresults = []
-        #
-        # for collectionName in collectionNames:
-        #     datacolletion = connection.mydb[collectionName]
-        #     results = datacolletion.find(condition)
-        #     if results.count():
-        #         for result in results:
-        #             Allresults.append(result)
-    return JsonResponse(results)
+        for collectionName in collectionNames:
+            datacolletion = connection.mydb[collectionName]
+            results = datacolletion.find(condition, {"_id": 0})
+            if results.count():
+                for result in results:
+                    Allresults.append(result)
+    return HttpResponse(json.dumps(Allresults), content_type="application/text")
 
 
 #接收分片
@@ -135,8 +123,11 @@ def doupload(request):
                                'filename_vcf': targetfilename,
                                'collectionName': os.path.splitext(targetfilename)[0],
                                'filename_json': os.path.splitext(targetfilename)[0] + ".json",
+                               'filename_zip': os.path.splitext(targetfilename)[0] + ".zip",
                                'isconvertcomplete': False,
-                               'isimportcomplete': False
+                               'isimportcomplete': False,
+                               'iszipcomplete': False,
+                               'size_vcf': request.POST.get('size')
                                })
 
     return HttpResponse()
@@ -222,7 +213,9 @@ def uploadconvert(request):
         if result and result['isconvertcomplete'] is False:
             vcfpath = result["filepath"]+result["filename_vcf"]
             jsonpath = result["filepath"]+result["filename_json"]
-            if os.path.splitext(vcfpath)[1] == ".gz":
+            filesize_vcf = int(result['size_vcf'])
+            if os.path.splitext(vcfpath)[1] == ".gz" or filesize_vcf <= 100 * 1024 * 1024:
+                #100M文件以下使用单进程
                 #gzip压缩文件需要用单进程处理,原因未知
                 vcf2json_Single(vcfpath, jsonpath)
             else:
@@ -231,11 +224,18 @@ def uploadconvert(request):
                 p = multiprocessing.Process(target=vcf2json_multi, args=(vcfpath, jsonpath))
                 p.start()
                 p.join()
-
             collection.update({'filemd5': md5}, {'$set': {'isconvertcomplete': True}})
+        zipjsonfile(collection, md5, result["filepath"], result["filename_json"])
     return HttpResponse()
 
 
+#压缩json文件
+def zipjsonfile(collection, md5, filepath, filename_json):
+    zipfilename = filepath + os.path.splitext(filename_json)[0] + '.zip'
+    with zipfile.ZipFile(zipfilename, mode='w', allowZip64=True) as zipf:
+        zipf.write(filepath + filename_json, filename_json, compress_type=zipfile.ZIP_DEFLATED)
+        collection.update({'filemd5': md5}, {'$set': {'iszipcomplete': True}})
+    return
 
 #Json2mongodb
 @csrf_exempt

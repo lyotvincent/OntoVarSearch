@@ -1,22 +1,40 @@
-var jsondata;
+//var jsondata;
 // var json = {
 //     "$or": [{"POS": {"$lt": 11000, "$gt": 10400}}, {
 //         "GS000013208-ASM.calldata/EHQ.1": 263,
 //         "GS000013208-ASM.calldata/EHQ.0": 7
 //     }]
 // };
-var json = {
+
+// var json = {
+//     "POS": {
+//         "$lt": 20000,
+//         "$gt": 400
+//     }
+// };
+
+var json ={
+  "$or": [
+    {
       "POS": {
-        "$lt": 11000,
-        "$gt": 10400
+        "$lt": 9000,
+        "$gt": 8500
       }
-    };
+    },
+    {
+      "POS": {
+        "$lt": 6500,
+        "$gt": 6000
+      }
+    }
+  ]
+}
 var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
+
 function printJSON() {
     $('#json').val(JSON.stringify(json,undefined,2));
-
 }
 
 function updateJSON(data) {
@@ -73,39 +91,12 @@ $(document).ready(function() {
 function DoSearch() {
     var data = {"json_data": $('#json').val()};
     $.post('/search/dosearch',data, null, 'text').done(function (data) {
-        jsondata = ParseJsonData(data);
-        CreatTable('#DataTable', jsondata);
+        CreatTable('#DataTable', ParseJsonData(data), true);
     })
 }
 //二级table的模板
 function format2(table_id) {
     return '<table id="DataTable'+ table_id +'" class="table table-striped table-bordered table-hover" cellpadding="5" cellspacing="0" border="0"></table>';
-}
-
-function format ( d ) {
-    // `d` is the original data object for the row
-    return '<table id="table2" class="table table-striped table-bordered table-hover" cellpadding="5" cellspacing="0" border="0">'+
-    ['    <thead>',
-        '    <tr>',
-        '        <th>key</th>',
-        '        <th>value</th>',
-        '    </tr>',
-        '    </thead>'].join('') +
-        // '    <tbody>',
-        '<tr>' +
-        '<td>Samples:</td>' +
-        '<td>' + d.Samples + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>Extension number:</td>' +
-        '<td>' + d.extn + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>Extra info:</td>' +
-        '<td>And any further details here (images etc)...</td>' +
-        '</tr>' +
-        // '    </tbody>',
-    '</table>';
 }
 
 //根据json数据 创建列
@@ -127,12 +118,49 @@ function CreatColums(data) {
     return columns;
 }
 
-function CreatTable(tableID, data) {
+function CreatTable(tableID, data, IsRoot) {
+    if (data.length === 0 && IsRoot){
+        //如果没有得到数据 就自己初始化一个空表格
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: true, //翻页功能
+            bAutoWidth: false,//自动宽度
+            //"autoWidth": false,
+            paging: true, // 分页
+            bInfo: true, //Showing x to x of x entries
+            columns:[
+                {"title":"CHROM"},
+                {"title":"POS"},
+                {"title":"ID"},
+                {"title":"REF"},
+                {"title":"ALT"},
+                {"title":"QUAL"},
+                {"title":"FILTER"},
+                {"title":"Info"},
+                {"title":"Samples"}
+            ]
+        });
+        return;
+    }
+    bLengthChange = IsRoot;
+    bPaginate = IsRoot;
+    paging = IsRoot;
+    bInfo = IsRoot;
+
     var table = $(tableID).DataTable({
-        // "ajax": jsondata,
         destroy: true,
         bSort: false,
         searching: false,
+        bLengthChange:bLengthChange,//去掉每页多少条框体
+        bPaginate: bPaginate, //翻页功能
+        bAutoWidth: false,//自动宽度
+        "autoWidth": false,
+        paging: paging, // 禁止分页
+        bInfo : bInfo, //Showing x to x of x entries
+        scrollX: false,  //水平滚动条
         columns: CreatColums(data),
         data: data,
 
@@ -146,25 +174,35 @@ function CreatTable(tableID, data) {
             }
         }
     });
-    //$(tableID).on('click', ' tbody td .row-details', function () {
-    $(tableID).on('click', ' tbody td.details-control', function () {
 
+    $(tableID).on('click', ' tbody td.details-control', function () {
+        var OpenCell = function (obj) {
+            ++tableIndex;
+            row.child(format2(tableIndex)).show();
+            $(obj).children('span').removeClass(IconPlus).addClass(IconMinus);
+            var tmp = [];
+            tmp.push(table.cell(obj).data());
+            CreatTable('#DataTable' + tableIndex, tmp, false);
+        };
         var Tr = $(this).parents('tr');
-        var row = table.row( Tr );
+        var row = table.row(Tr);
         if (row.child.isShown()) {
-            // This row is already open - close it
             row.child.hide();
-            $(this).children('span').removeClass(IconMinus).addClass(IconPlus);
+            var span = Tr.find('span.fa-minus-square-o');
+            if ($(this).children('span')[0] === span[0]) {
+                // This cell is already open - close it
+                $(this).children('span').removeClass(IconMinus).addClass(IconPlus);
+            } else {
+                //other cell is open, close other cell and then open current cell
+                span.removeClass(IconMinus).addClass(IconPlus);
+                OpenCell(this);
+            }
         }
         else {
             // Open this row (the format() function would return the data to be shown)
-            ++tableIndex;
-            row.child(format2(tableIndex)).show();
-            $(this).children('span').removeClass(IconPlus).addClass(IconMinus);
-            var tmp = [];
-            tmp.push(table.cell( this ).data());
-            CreatTable('#DataTable' + tableIndex, tmp);
+            OpenCell(this);
         }
+
     });
 }
 
@@ -179,7 +217,14 @@ function ParseJsonData(strdata) {
         var info_row = {};
         var filter_row = {};
         var rowData = data[line];
-        for (var key in rowData){
+        //保证顺序 可以让datatales 按序显示
+        rowJson["CHROM"] = rowData["CHROM"];
+        rowJson["POS"] = rowData["POS"];
+        rowJson["ID"] = rowData["ID"];
+        rowJson["REF"] = rowData["REF"];
+        rowJson["ALT"] = rowData["ALT"];
+        rowJson["QUAL"] = rowData["QUAL"];
+        for (var key in rowData) {
             switch (key) {
                 case "CHROM":
                 case "POS":
@@ -187,24 +232,21 @@ function ParseJsonData(strdata) {
                 case "REF":
                 case "QUAL":
                 case "Samples":
-                    rowJson[key] = rowData[key];
-                    break;
                 case "ALT":
-                    rowJson[key] = rowData[key];
-                    //rowJson[key] = rowData[key].join('');
                     break;
                 default:
                     //区分filter 和 info
-                    if (key.match(/^FILTER_/g)){
+                    if (key.match(/^FILTER_/g)) {
                         filter_row[key] = rowData[key]
-                    }else{
+                    } else {
                         info_row[key] = rowData[key];
                     }
                     break;
             }
         }
-        rowJson["Info"] = info_row;
         rowJson["FILTER"] = filter_row;
+        rowJson["Info"] = info_row;
+        rowJson["Samples"] = rowData["Samples"];
         result.push(rowJson);
     }
     return result;

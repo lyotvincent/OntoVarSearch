@@ -17,7 +17,8 @@ from pymongo import MongoClient
 import re
 import zipfile
 import zlib
-
+from django.http import StreamingHttpResponse
+from wsgiref.util import FileWrapper
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -56,13 +57,33 @@ def html_contact(request):
 def html_download(request):
     return render(request, "download.html")
 
+
+#download file
+@csrf_exempt
+def DownloadFile(request):
+    if request.method == 'GET':
+        filemd5 = request.GET.get('fileMD5')
+        connection = MongoClient("mongodb://127.0.0.1:27017")
+        collection = connection.mydb.genefile
+        result = collection.find_one({"filemd5": filemd5})
+        target = result["filepath"] + result["filename_zip"]
+        response = StreamingHttpResponse(FileWrapper(open(target, 'rb')), content_type="application/octet-stream")
+        response['Content-Disposition'] = 'attachment;filename="{0}"'.format(result["filename_zip"])
+        response['Content-Length'] = os.path.getsize(target)
+        return response
+
+
 #get download file list
 @csrf_exempt
 def GetDownloadfileList(request):
     if request.method == 'POST':
         connection = MongoClient("mongodb://127.0.0.1:27017")
         collection = connection.mydb.genefile
-    return
+        results = collection.find({'iszipcomplete': True}, {"_id": 0, "collectionName": 1, "filemd5": 1, "filepath": 1, "filename_zip": 1, "filename_vcf": 1})
+        response_data = []
+        for result in results:
+            response_data.append(result)
+    return JsonResponse(response_data, safe=False)
 
 
 #search data
@@ -72,16 +93,6 @@ def dosearch(request):
         json_data = request.POST.get("json_data")
         condition = json.loads(json_data)
         connection = MongoClient("mongodb://127.0.0.1:27017")
-
-    #     collection = connection.mydb.test1
-    #     results = collection.find(condition, {"_id": 0})
-    #
-    #     response_data = []
-    #     for result in results:
-    #         response_data.append(result)
-    #
-    # return HttpResponse(json.dumps(response_data), content_type="application/text")
-
         collection = connection.mydb.genefile
         collectionNames = collection.distinct("collectionName")
         Allresults = []

@@ -33,6 +33,7 @@ urlpatterns = [
     path('upload/importDB', views.uploadimportDB),
     path('search', views.html_search),
     path('search/dosearch', views.dosearch),
-
+    path('download/showfiellist', views.GetDownloadfileList),
+    path('download/dodownload/', views.DownloadFile),
 
 ]

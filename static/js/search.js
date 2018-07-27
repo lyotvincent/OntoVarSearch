@@ -28,7 +28,7 @@ var json ={
       }
     }
   ]
-}
+};
 var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";

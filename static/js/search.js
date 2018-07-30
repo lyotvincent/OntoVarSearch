@@ -89,9 +89,11 @@ $(document).ready(function() {
 });
 
 function DoSearch() {
+    $.busyLoadFull("show", { spinner: "accordion"});
     var data = {"json_data": $('#json').val()};
     $.post('/search/dosearch',data, null, 'text').done(function (data) {
         CreatTable('#DataTable', ParseJsonData(data), true);
+        $.busyLoadFull("hide");
     })
 }
 //二级table的模板
@@ -103,17 +105,22 @@ function format2(table_id) {
 function CreatColums(data) {
     var columns = [];
     var rowData = data instanceof Array? data[0] : data;
+    rowData = rowData instanceof Array? rowData[0]:rowData;
     for (var k in rowData){
         var column = {};
         column.data = k;
         column.title = k;
+        column.className = 'gridtitle ';
         if (rowData[k] instanceof Object){
-            column.className = 'details-control';
+            column.className += 'details-control';
             column.targets = -1;
             column.orderable = false;
             column.defaultContent = '';
         }
-        columns.push(column);
+        column.createdCell = function (td, cellData, rowData, row, col) {
+            $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+        };
+        column.data === 'SampleNo'?columns.unshift(column):columns.push(column);
     }
     return columns;
 }
@@ -163,7 +170,9 @@ function CreatTable(tableID, data, IsRoot) {
         scrollX: !IsRoot,  //水平滚动条
         columns: CreatColums(data),
         data: data,
-
+        colReorder: {
+          order: [0]
+        },
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             var i = 0;
             for (var k in aData){
@@ -180,8 +189,13 @@ function CreatTable(tableID, data, IsRoot) {
             ++tableIndex;
             row.child(format2(tableIndex)).show();
             $(obj).children('span').removeClass(IconPlus).addClass(IconMinus);
+            var childdata = table.cell(obj).data();
             var tmp = [];
-            tmp.push(table.cell(obj).data());
+            if (childdata instanceof Array){
+                tmp = childdata;
+            }else{
+                tmp.push(childdata);
+            }
             CreatTable('#DataTable' + tableIndex, tmp, false);
         };
         var Tr = $(this).parents('tr');

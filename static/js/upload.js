@@ -191,7 +191,7 @@ function DoProcess(data) {
     timer =  window.setInterval(progressAdd,1000*60);//每隔1min调用一次show函数, 防止用户以为卡死
     var uploadpromise = function(){
         var deferred = $.Deferred();
-        $.post('/upload/uploadcomplete', data, function (val) {
+        $.post('/upload/uploadcomplete', data).then( function (val) {
             return val["IsFirstUpdate"] === false ? deferred.reject(val["isimportcomplete"]) : deferred.resolve();
         });
         return deferred.promise();
@@ -208,15 +208,15 @@ function DoProcess(data) {
         $('#progress-bar-upload').css('width', '100%');
         $('#progress-bar-upload').text('100%');
         if(Allset){
-            $('#upload_state').text('Your file has been uploaded to the server and the server is processing, please wait a moment');
-        }else{
             $('#upload_state').text('Success, you can search for data in this file');
+        }else{
+            $('#upload_state').text('Your file has been uploaded to the server and the server is processing, please wait a moment');
         }
 
     });
     var importDBpromise = convertpromise.then(function () {
         var result_width = GetProgressWidth($('#progress-bar-upload'));
-        if (result_width < 60){
+        if (result_width < 80){
             $('#progress-bar-upload').css('width', '80%');
             $('#progress-bar-upload').text('80%');
         }
@@ -236,8 +236,10 @@ function DoProcess(data) {
 //伪进度条
 function progressAdd() {
     var result_width = GetProgressWidth($('#progress-bar-upload'));
-    $('#progress-bar-upload').css('width', ++result_width[0]+'%');
-    $('#progress-bar-upload').text(result_width[0]+'%');
+    if (result_width < 99){
+        $('#progress-bar-upload').css('width', ++result_width[0] + '%');
+        $('#progress-bar-upload').text(result_width[0] + '%');
+    }
 }
 
 function GetProgressWidth(selector) {

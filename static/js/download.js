@@ -7,17 +7,24 @@ function GetFilelist() {
         var downloadtable = $('#DataTable_Files').DataTable({
             bLengthChange:false,    //每页多少条框体
             bPaginate: false, //翻页功能
-            bAutoWidth: false,//自动宽度
+            bAutoWidth: true,//自动宽度
             paging: false,  // 分页
             destroy: true,
             scrollY: "550px",
             scrollCollapse: "true",
             columns:[
-                {"title":"File", "data":"filename_zip"}
+                {
+                    "title": "File",
+                    "data": "filename_zip",
+                    "className": "gridtitle",
+                    "createdCell": function (td, cellData, rowData, row, col) {
+                        $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+                    }
+                }
             ],
             data:data,
             "columnDefs": [// 定义操作列,######以下是重点########
-                { "sWidth": "65%", "aTargets": [ 0 ] } ,
+                { "sWidth": "80%", "aTargets": [ 0 ] } ,
                 {
                 "targets": 1,//操作按钮目标列
                 "data": null,

@@ -19,6 +19,7 @@ import zipfile
 import zlib
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
+from functools import partial
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -230,11 +231,12 @@ def uploadconvert(request):
                 #gzip压缩文件需要用单进程处理,原因未知
                 vcf2json_Single(vcfpath, jsonpath)
             else:
+                vcf2json_multi(vcfpath, jsonpath, md5)
                 # 创建进程执行转换的原因, 可以并发处理请求.
                 # 转换函数会创建进程池, 使用文件进行参数传递, 为了让并发请求不共享这个文件, 所以此处创建进程
-                p = multiprocessing.Process(target=vcf2json_multi, args=(vcfpath, jsonpath))
-                p.start()
-                p.join()
+                # p = multiprocessing.Process(target=vcf2json_multi, args=(vcfpath, jsonpath))
+                # p.start()
+                # p.join()
             collection.update({'filemd5': md5}, {'$set': {'isconvertcomplete': True}})
             zipjsonfile(collection, md5, result["filepath"], result["filename_json"])
     return HttpResponse()
@@ -273,17 +275,30 @@ def vcf2json_Single(filepath_vcf, filepath_json):
             recordstring = str()
             li=[]
             for i in range(0, chunker[1]):
-                if i % 10000 == 0 :
-                    print("i: ", i)
-                recorddict1={
-                    k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
+                # if i % 10000 == 0 :
+                #     print("i: ", i)
+                recorddict1 = {
+                    k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(
+                        chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if
+                'variants/' in k_field
                 }
-                recorddict2={
-                    "Samples": {
-                        k_sample: {
-                        k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field} for k_sample, j in zip(samples, range(0, samples.size))
+                recordsamples = []
+                for k_sample, j in zip(samples, range(0, samples.size)):
+                    recordsample1 = {
+                        "SampleNo": k_sample
                     }
+                    recordsample2 = {
+                        k_field: [chunker[0][k_field][i][j][n] for n in
+                                  range(chunker[0][k_field][i][j].size)] if type(
+                            chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in
+                        fields if "calldata/" in k_field
+                    }
+                    recordsample = dict(recordsample1, **recordsample2)
+                    recordsamples.append(recordsample)
+                recorddict2 = {
+                    "Samples": recordsamples
                 }
+
                 recorddict = dict(recorddict1, **recorddict2)
                 li.append(recorddict)
             recordstring = json.dumps(li, cls=MyEncoder) + '\n'
@@ -292,8 +307,8 @@ def vcf2json_Single(filepath_vcf, filepath_json):
     return
 
 
-def IoOperat_multi(chunker):
-    tmpfile = "value_" + str(os.getppid()) + ".dat"
+def IoOperat_multi(tmpfile, chunker):
+    #tmpfile = "value_" + md5 + ".dat"
     with open(tmpfile, "rb") as f:
         fields = pickle.load(f)
         samples = pickle.load(f)
@@ -304,12 +319,25 @@ def IoOperat_multi(chunker):
     li = []
     for i in range(chunker[1]):
         recorddict1 = {
-            k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
+            k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(
+                chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if
+        'variants/' in k_field
         }
-        recorddict2 = {
-            "Samples": {
-                k_sample: {k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field} for k_sample, j in zip(samples, range(0, samples.size))
+        recordsamples = []
+        for k_sample, j in zip(samples, range(0, samples.size)):
+            recordsample1 = {
+                "SampleNo": k_sample
             }
+            recordsample2 = {
+                k_field: [chunker[0][k_field][i][j][n] for n in
+                          range(chunker[0][k_field][i][j].size)] if type(
+                    chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in
+                fields if "calldata/" in k_field
+            }
+            recordsample = dict(recordsample1, **recordsample2)
+            recordsamples.append(recordsample)
+        recorddict2 = {
+            "Samples": recordsamples
         }
         recorddict = dict(recorddict1, **recorddict2)
         li.append(recorddict)
@@ -322,10 +350,11 @@ def IoOperat_multi(chunker):
     return
 
 
-def vcf2json_multi(filepath_vcf, filepath_json):
+def vcf2json_multi(filepath_vcf, filepath_json, md5):
 
-    fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['variants/*', 'calldata/*'])
-    tmpfile = "value_" + str(os.getpid()) + ".dat"
+    fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['variants/*', 'calldata/*'], chunk_length=500)
+    #tmpfile = "value_" + str(os.getpid()) + ".dat"
+    tmpfile = "value_" + md5 + ".dat"
     with open(tmpfile, "wb") as f:
         pickle.dump(fields, f)
         pickle.dump(samples, f)
@@ -334,8 +363,11 @@ def vcf2json_multi(filepath_vcf, filepath_json):
 
     cores = multiprocessing.cpu_count()
     pool = multiprocessing.Pool(processes=max(cores-2, 2))
-
-    pool.map(IoOperat_multi, chunks)
+    # P = pool.map_async(IoOperat_multi, chunks)
+    # P.wait()
+    # if P.ready() and P.successful():
+    #     print("success")
+    pool.map(partial(IoOperat_multi, tmpfile), chunks)
     pool.close()
     pool.join()  # 主进程阻塞等待子进程的退出
     os.remove(tmpfile)  # 删除该分片，节约空间
@@ -349,15 +381,15 @@ def ImportJson2Mongodb(filepath_json, collection):
     #time_start = time.time()
     #connection = MongoClient("mongodb://127.0.0.1:27017")
     #collection = connection.mydb.test2
-    file = open(filepath_json)
-    while True:
-        line = file.readline()
-        if not line:
-            break
-        else:
-            line = RenameJsonKey(line)
-            buf = json.loads(line)
-            collection.insert_many(buf)
+    with open(filepath_json) as file:
+        while True:
+            line = file.readline()
+            if not line:
+                break
+            else:
+                line = RenameJsonKey(line)
+                buf = json.loads(line)
+                collection.insert_many(buf)
     # time_end = time.time()
     # print("save done: ", time_end-time_start)
     return

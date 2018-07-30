@@ -44,7 +44,7 @@
                 <li><a href="/index">Home</a></li>
                 <li><a href="/about">About Us</a></li>
                 <li><a class="active" href="/upload">Upload</a></li>
-                <li><a href="/browse">Browse</a></li>
+{#                <li><a href="/browse">Browse</a></li>#}
                 <li><a href="/search">Search</a></li>
                 <li><a href="/download">Download</a></li>
                 <li><a href="/contact">Contact</a></li>
@@ -55,18 +55,28 @@
     </div>
 
     <div id="wrapper">
-        <div id="banner" class="container">
-            <div id="column1">
-                <div id="picker">请选择</div>   <!-- 上传按钮，必须指定id选择器的值 -->
-                <div class="progress progress-striped active" style="height: 20px">         <!-- 进度条 -->
-                    <div id="progress-bar-upload" class="progress-bar progress-bar-striped active progress-bar-warning" role="progressbar" style="width:0%;"></div>
-                </div>
+        <div id="banner" class="container row">
+            <div class="col-md-3">
+                <span class="btn btn-success fileinput-button"
+                      style="background-color:#666666;border-color:#666666; width:300px">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Add files...</span>
+                    <div id="picker">select file</div>
+                    <br/>
+                    <button id="ctlBtn" class="btn btn-default">upload</button>
+                </span>
             </div>
-            <div id="column2">
-
+            <div class="col-md-7">
+                <div id="thelist" class="uploader-list"></div>      <!--用来存放文件信息-->
+                <div id="progress-control" class="progress progress-striped active" style="height: 25px;">         <!-- 进度条 -->
+                    <div id="progress-bar-upload" class="progress-bar progress-bar-striped active progress-bar-warning"
+                         role="progressbar" style="width:0%;"></div>
+                </div>
             </div>
         </div>
     </div>
+
+
     <div id="footer-content">
         <div class="row container">
             <div class="col-md-6">

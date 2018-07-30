@@ -25,7 +25,7 @@ function GetFilelist() {
                 "render": function (data, type, row) {
                     var target = '"' + row.filepath + row.filename_zip + '"';
                     var filemd5 = row.filemd5;
-                    var html = "<a href='/download/dodownload/?fileMD5=" + filemd5 +"' onclick='dodownload(" + target + ")' class='button button-raised button-primary'  ><i class='fa fa-cloud-download'></i> Download </a>"
+                    var html = "<a href='/download/dodownload/?fileMD5=" + filemd5 +"' class='button button-raised button-primary'  ><i class='fa fa-cloud-download'></i> Download </a>"
                     // html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
                     // html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
                     return html;
@@ -33,10 +33,4 @@ function GetFilelist() {
             }]
         })
     })
-}
-
-function dodownload(target) {
-    if(!!target){
-        //$.post("/download/dodownload", {"target":target});
-    }
 }

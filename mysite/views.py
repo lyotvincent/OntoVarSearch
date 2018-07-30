@@ -152,7 +152,7 @@ def uploadcomplete(request):
         collection = connection.mydb.genefile
         result = collection.find_one({'filemd5': md5})
         if result and result["isuploadcomplete"]:
-            pass
+            return JsonResponse({"IsFirstUpdate": False, "IsImportComplete": result["isimportcomplete"]})
         else:
             chunk = 0  # 分片序号
             with open(filedir+targetfilename, 'wb') as target_file:  # 创建新文件
@@ -236,7 +236,7 @@ def uploadconvert(request):
                 p.start()
                 p.join()
             collection.update({'filemd5': md5}, {'$set': {'isconvertcomplete': True}})
-        zipjsonfile(collection, md5, result["filepath"], result["filename_json"])
+            zipjsonfile(collection, md5, result["filepath"], result["filename_json"])
     return HttpResponse()
 
 

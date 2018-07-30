@@ -156,11 +156,11 @@ function CreatTable(tableID, data, IsRoot) {
         searching: false,
         bLengthChange:bLengthChange,//去掉每页多少条框体
         bPaginate: bPaginate, //翻页功能
-        bAutoWidth: false,//自动宽度
-        "autoWidth": false,
+        bAutoWidth: true,//自动宽度
+        "autoWidth": true,
         paging: paging, // 禁止分页
         bInfo : bInfo, //Showing x to x of x entries
-        scrollX: false,  //水平滚动条
+        scrollX: !IsRoot,  //水平滚动条
         columns: CreatColums(data),
         data: data,
 
@@ -168,7 +168,7 @@ function CreatTable(tableID, data, IsRoot) {
             var i = 0;
             for (var k in aData){
                 if (aData[k] instanceof Object){
-                    $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'></span>&nbsp;" + aData[k]);
+                    $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + aData[k]+"</span>");
                 }
                 ++i;
             }

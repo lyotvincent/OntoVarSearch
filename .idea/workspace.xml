@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="">
+    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. 修改后台: 之前逻辑python创建孙子进程, 测试发现孙子进程不执行,原因未知. 现在修改为创建子进程&#10;2. 修改后台: 改变samples, 现在改成array 方便前台数组显示&#10;3. 前台: 增加搜索等待画面&#10;4. 前台: 修改进度条bug&#10;5. 前台: 修改单元格数据过多 省略显示">
+      <change afterPath="$PROJECT_DIR$/doc/httpd.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GeneJson/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GeneJson/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/wsgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/default.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/download.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/download.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/download.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/download.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
     </list>
     <ignored path="GeneJson.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,8 +47,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3244">
-              <caret line="269" column="4" selection-start-line="269" selection-start-column="4" selection-end-line="269" selection-end-column="4" />
+            <state relative-caret-position="277">
+              <caret line="279" selection-start-line="279" selection-end-line="279" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -61,7 +59,7 @@
       <file leaf-file-name="builtins.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/1798730440/builtins.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
+            <state relative-caret-position="7458">
               <caret line="339" column="4" selection-start-line="339" selection-start-column="4" selection-end-line="339" selection-end-column="4" />
             </state>
           </provider>
@@ -70,8 +68,8 @@
       <file leaf-file-name="search.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="117" column="39" lean-forward="true" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
+            <state relative-caret-position="393">
+              <caret line="186" column="13" lean-forward="true" selection-start-line="186" selection-start-column="13" selection-end-line="186" selection-end-column="13" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#46#52#1" expanded="true" />
@@ -80,43 +78,53 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GeneJson/wsgi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+              <folding>
+                <element signature="e#225#234#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/core/wsgi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GeneJson/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="726">
+              <caret line="72" column="24" selection-start-line="72" selection-start-column="24" selection-end-line="72" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="e#22#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="default.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/default.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
+            <state relative-caret-position="301">
               <caret line="605" column="10" selection-start-line="605" selection-start-column="1" selection-end-line="605" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="browse.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/browse.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1210">
-              <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="download.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/download.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1298">
-              <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/search.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1585">
-              <caret line="84" column="72" selection-start-line="84" selection-start-column="72" selection-end-line="84" selection-end-column="72" />
-              <folding>
-                <element signature="n#style#0;n#textarea#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#div#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -124,26 +132,8 @@
       <file leaf-file-name="download.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/download.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="contact.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/contact.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1210">
-              <caret line="55" column="12" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="upload.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/upload.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="234" lean-forward="true" selection-start-line="234" selection-end-line="234" />
+            <state relative-caret-position="132">
+              <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -160,8 +150,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>picker</find>
-      <find>CORS_ALLOW_METHODS</find>
       <find>i</find>
       <find>page-wrapper</find>
       <find>name</find>
@@ -190,6 +178,8 @@
       <find>wrapper</find>
       <find>FileWrapper</find>
       <find>&quot;item-file</find>
+      <find>DEBUG</find>
+      <find>INSTALLED_APPS</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\quz\PycharmProjects\GeneJson\static</dir>
@@ -203,7 +193,6 @@
       <list>
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/static/module/webuploader/webuploader.js" />
-        <option value="$PROJECT_DIR$/GeneJson/settings.py" />
         <option value="$PROJECT_DIR$/static/plugins/buttons.css" />
         <option value="$PROJECT_DIR$/GeneJson/urls.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
@@ -216,6 +205,8 @@
         <option value="$PROJECT_DIR$/templates/search.html" />
         <option value="$PROJECT_DIR$/static/css/default.css" />
         <option value="$PROJECT_DIR$/static/js/download.js" />
+        <option value="$PROJECT_DIR$/GeneJson/settings.py" />
+        <option value="$PROJECT_DIR$/GeneJson/wsgi.py" />
         <option value="$PROJECT_DIR$/mysite/views.py" />
         <option value="$PROJECT_DIR$/static/js/search.js" />
       </list>
@@ -231,7 +222,7 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
+    <option name="x" value="-4" />
     <option name="width" value="1932" />
     <option name="height" value="1056" />
   </component>
@@ -252,6 +243,11 @@
             <path>
               <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
               <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
+              <item name="doc" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
               <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -262,25 +258,7 @@
             <path>
               <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
               <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="mysite" type="462c0819:PsiDirectoryNode" />
-              <item name="views.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="imgs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
@@ -291,13 +269,11 @@
             <path>
               <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
               <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -447,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1532910285387</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1. 修改后台: 之前逻辑python创建孙子进程, 测试发现孙子进程不执行,原因未知. 现在修改为创建子进程&#10;2. 修改后台: 改变samples, 现在改成array 方便前台数组显示&#10;3. 前台: 增加搜索等待画面&#10;4. 前台: 修改进度条bug&#10;5. 前台: 修改单元格数据过多 省略显示">
+      <created>1532959720564</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1532959720565</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -461,24 +444,25 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32897604" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32824427" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50159913" side_tool="true" weight="0.5387132" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3293348" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32824427" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.3293348" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32897604" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.46346784" visible="true" weight="0.2217484" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.25408942" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32824427" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.46346784" visible="true" weight="0.22441365" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49840087" weight="0.32824427" />
       <window_info anchor="right" id="SciView" order="6" weight="0.32995737" />
       <window_info id="Structure" order="0" sideWeight="0.5638889" side_tool="true" weight="0.19829424" />
       <window_info id="Favorites" order="2" sideWeight="0.53594774" side_tool="true" weight="0.20895523" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49840087" visible="true" weight="0.36205018" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="8" weight="0.32897604" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49840087" weight="0.5201745" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -488,37 +472,36 @@
       <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="5" side_tool="true" weight="0.32675907" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49840087" weight="0.32824427" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="8" weight="0.32897604" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32897604" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.32897604" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.21568628" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="1" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="2" sideWeight="0.68786126" visible="true" weight="0.19616205" />
       <window_info id="Structure" order="0" sideWeight="0.31213874" side_tool="true" visible="true" weight="0.19616205" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32897604" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32897604" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Changes" order="8" />
-      <window_info anchor="bottom" id="manage.py@GeneJson" order="16" weight="0.32897604" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Application Servers" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
       <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="6" side_tool="true" weight="0.32675907" />
       <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
       <window_info anchor="right" id="Coverage" order="5" side_tool="true" />
       <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" visible="true" weight="0.24618736" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.32897604" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.26252723" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="manage.py@GeneJson" order="16" weight="0.32897604" />
       <window_info anchor="right" id="SciView" order="4" weight="0.32995737" />
-      <window_info anchor="bottom" id="Application Servers" order="11" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32897604" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.26252723" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="15" weight="0.32897604" />
-      <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32897604" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +522,8 @@
     <MESSAGE value="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json" />
     <MESSAGE value="1. 完成下载功能" />
     <MESSAGE value="1. 修改上传界面, 加入伪进度条&#10;2. 删除browse页面&#10;3. 修改重复提交文件,后台相关逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 修改上传界面, 加入伪进度条&#10;2. 删除browse页面&#10;3. 修改重复提交文件,后台相关逻辑" />
+    <MESSAGE value="1. 修改后台: 之前逻辑python创建孙子进程, 测试发现孙子进程不执行,原因未知. 现在修改为创建子进程&#10;2. 修改后台: 改变samples, 现在改成array 方便前台数组显示&#10;3. 前台: 增加搜索等待画面&#10;4. 前台: 修改进度条bug&#10;5. 前台: 修改单元格数据过多 省略显示" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 修改后台: 之前逻辑python创建孙子进程, 测试发现孙子进程不执行,原因未知. 现在修改为创建子进程&#10;2. 修改后台: 改变samples, 现在改成array 方便前台数组显示&#10;3. 前台: 增加搜索等待画面&#10;4. 前台: 修改进度条bug&#10;5. 前台: 修改单元格数据过多 省略显示" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -562,7 +546,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="239" />
+      <option name="time" value="242" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
@@ -624,32 +608,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/1798730440/nt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="211" column="4" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/multiprocessing/process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="92" selection-start-line="92" selection-end-line="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons/multiprocessing/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/plugins/FlexiJsonEditor/jquery.jsoneditor.min.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/dashboard.css" />
-    <entry file="file://$PROJECT_DIR$/static/imgs/pics02.jpg" />
     <entry file="file://$PROJECT_DIR$/static/imgs/pic01.jpg" />
     <entry file="file://$PROJECT_DIR$/static/plugins/FlexiJsonEditor/jsoneditor.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -911,58 +869,97 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/upload.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
+        <state relative-caret-position="5148">
           <caret line="234" lean-forward="true" selection-start-line="234" selection-end-line="234" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/search.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1585">
+        <state relative-caret-position="1848">
           <caret line="84" column="72" selection-start-line="84" selection-start-column="72" selection-end-line="84" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/1798730440/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7458">
+          <caret line="339" column="4" selection-start-line="339" selection-start-column="4" selection-end-line="339" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django.wsgi">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneJson/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
           <folding>
-            <element signature="n#style#0;n#textarea#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#225#234#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/core/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneJson/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="72" column="24" selection-start-line="72" selection-start-column="24" selection-end-line="72" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#22#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/default.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
+        <state relative-caret-position="301">
           <caret line="605" column="10" selection-start-line="605" selection-start-column="1" selection-end-line="605" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/1798730440/builtins.py">
+    <entry file="file://$PROJECT_DIR$/static/js/download.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="339" column="4" selection-start-line="339" selection-start-column="4" selection-end-line="339" selection-end-column="4" />
+        <state relative-caret-position="132">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mysite/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3244">
-          <caret line="269" column="4" selection-start-line="269" selection-start-column="4" selection-end-line="269" selection-end-column="4" />
+        <state relative-caret-position="277">
+          <caret line="279" selection-start-line="279" selection-end-line="279" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/download.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/search.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="117" column="39" lean-forward="true" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
+        <state relative-caret-position="393">
+          <caret line="186" column="13" lean-forward="true" selection-start-line="186" selection-start-column="13" selection-end-line="186" selection-end-column="13" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#46#52#1" expanded="true" />

@@ -278,9 +278,7 @@ def vcf2json_Single(filepath_vcf, filepath_json):
                 # if i % 10000 == 0 :
                 #     print("i: ", i)
                 recorddict1 = {
-                    k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(
-                        chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if
-                'variants/' in k_field
+                    k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
                 }
                 recordsamples = []
                 for k_sample, j in zip(samples, range(0, samples.size)):
@@ -288,10 +286,7 @@ def vcf2json_Single(filepath_vcf, filepath_json):
                         "SampleNo": k_sample
                     }
                     recordsample2 = {
-                        k_field: [chunker[0][k_field][i][j][n] for n in
-                                  range(chunker[0][k_field][i][j].size)] if type(
-                            chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in
-                        fields if "calldata/" in k_field
+                        k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field
                     }
                     recordsample = dict(recordsample1, **recordsample2)
                     recordsamples.append(recordsample)
@@ -319,9 +314,7 @@ def IoOperat_multi(tmpfile, chunker):
     li = []
     for i in range(chunker[1]):
         recorddict1 = {
-            k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(
-                chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if
-        'variants/' in k_field
+            k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type( chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
         }
         recordsamples = []
         for k_sample, j in zip(samples, range(0, samples.size)):
@@ -329,10 +322,7 @@ def IoOperat_multi(tmpfile, chunker):
                 "SampleNo": k_sample
             }
             recordsample2 = {
-                k_field: [chunker[0][k_field][i][j][n] for n in
-                          range(chunker[0][k_field][i][j].size)] if type(
-                    chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in
-                fields if "calldata/" in k_field
+                k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field
             }
             recordsample = dict(recordsample1, **recordsample2)
             recordsamples.append(recordsample)

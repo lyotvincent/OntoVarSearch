@@ -43,6 +43,7 @@ function updateJSON(data) {
 }
 
 function showPath(path) {
+    BindAutoconplete($("input:focus"));
     $('#path').text(path);
 }
 
@@ -86,7 +87,60 @@ $(document).ready(function() {
 
     printJSON();
     $('#JsonEditor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
+
+    //BindAutoconplete()
 });
+
+//input加入autocomplete 绑定key
+function BindAutoconplete(element) {
+    $.post("/search/getkeyfield").done(function (data) {
+        element.autocomplete({
+            minLength: 0,
+            source: data,
+            disabled:false,
+            focus: function (event, ui) {
+                element.val(ui.item.label);
+                return false;
+            },
+            // focus :function () {
+            //     return false;
+            // },
+            select: function(event, ui){
+                $this = $(this);
+                setTimeout(function () {
+                    $this.blur();
+                }, 1);
+            }
+        }).focus(function(){
+                $(this).autocomplete("search");
+                return false;
+            }
+        )
+        .data("ui-autocomplete")._renderItem = function (ul, item) {
+            if (item.desc){
+                return $("<li>")
+                .append("<a>" + item.value + "<br>" + item.desc + "</a>")
+                .appendTo(ul);
+            }else{
+                return $("<li>")
+                .append("<a>" + item.value +"</a>")
+                .appendTo(ul);
+            }
+
+        }
+        // ._renderMenu = function (ul, items) {
+        //     var that = this,
+        //         currentCategory = "";
+        //     $.each(items, function (index, item) {
+        //         if (item.category != currentCategory) {
+        //             ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+        //             currentCategory = item.category;
+        //         }
+        //         that._renderItemData(ul, item);
+        //     });
+        // }
+    })
+}
 
 function DoSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});

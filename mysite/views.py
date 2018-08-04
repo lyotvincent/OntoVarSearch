@@ -1,22 +1,17 @@
-from multiprocessing.pool import Pool
-
+from bson import Code
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
 import allel
-import pandas as pd
 import numpy as np
 import json
-import time
-import threading
 import multiprocessing
 import pickle
 from lockfile import LockFile
 from pymongo import MongoClient
 import re
 import zipfile
-import zlib
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
 from functools import partial
@@ -262,10 +257,66 @@ def uploadimportDB(request):
             jsonpath = result["filepath"] + result["filename_json"]
             datacollection = connection.mydb[result['collectionName']]
             ImportJson2Mongodb(jsonpath, datacollection)
+            updatekeyfield(datacollection)
             collection.update({'filemd5': md5}, {'$set': {'isimportcomplete': True}})
     return HttpResponse()
 
 
+#获取表的key, 用于查询时的字段提示
+def updatekeyfield(collection):
+    map = Code("""
+    function(){
+        for (var key in this) { 
+          emit(key, null);
+        }
+    }
+    """)
+    reduce=Code("""
+        function (key, values) {
+            return key;
+        }
+    """)
+    collection.map_reduce(map, reduce, out="tempkey")
+    connection = MongoClient("mongodb://127.0.0.1:27017")
+    keycollection = connection.mydb.keyfield
+    results = connection.mydb.tempkey.distinct("value")
+    for result in results:
+        if result != "Samples" and result != "_id":
+            existdata = keycollection.find_one({"value": result})
+            if not existdata:
+                keycollection.insert({"value": result, "category": "field"})
+    #清除临时数据表数据
+    connection.mydb.tempkey.remove()
+    #updatekeyfield_Operator(keycollection)
+    return
+
+
+def updatekeyfield_Operator(collection):
+    data = [
+        {"value": "$ne", "category": "operator", "desc": "doesn't equal"},
+        {"value": "$gt", "category": "operator", "desc": ">"},
+        {"value": "$gte", "category": "operator", "desc": ">="},
+        {"value": "$lt", "category": "operator", "desc": "<"},
+        {"value": "$lte", "category": "operator", "desc": "<="},
+        {"value": "$or", "category": "operator", "desc": "match any of"},
+        {"value": "$nor", "category": "operator", "desc": "match none of"}
+    ]
+    for line in data:
+        collection.insert(line)
+    return
+
+
+#获取所有表的key
+@csrf_exempt
+def GetKeyField(request):
+    if request.method == 'POST':
+        connection = MongoClient("mongodb://127.0.0.1:27017")
+        keycollection = connection.mydb.keyfield
+        results = keycollection.find({}, {"_id": 0})
+        keyfield = []
+        for result in results:
+            keyfield.append(result)
+    return JsonResponse(keyfield, safe=False)
 
 def vcf2json_Single(filepath_vcf, filepath_json):
 
@@ -368,9 +419,6 @@ def vcf2json_multi(filepath_vcf, filepath_json, md5):
 
 #json文件导入mongodb的collection
 def ImportJson2Mongodb(filepath_json, collection):
-    #time_start = time.time()
-    #connection = MongoClient("mongodb://127.0.0.1:27017")
-    #collection = connection.mydb.test2
     with open(filepath_json) as file:
         while True:
             line = file.readline()
@@ -380,8 +428,6 @@ def ImportJson2Mongodb(filepath_json, collection):
                 line = RenameJsonKey(line)
                 buf = json.loads(line)
                 collection.insert_many(buf)
-    # time_end = time.time()
-    # print("save done: ", time_end-time_start)
     return
 
 def RenameJsonKey(strJson):

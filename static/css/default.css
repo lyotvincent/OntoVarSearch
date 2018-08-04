@@ -293,7 +293,8 @@ ul.style4 .first {
 
 #logo p {
     margin-top: -5px;
-    padding: 0px;
+    /*padding: 0px;*/
+    padding-left: 77px;
     text-transform: uppercase;
     font-size: 12px;
     color: #7C7C7C;
@@ -608,5 +609,16 @@ label[for="json"] {
     white-space: nowrap; /*文本不换行*/
     max-width: 200px; /*最大宽度*/
     overflow: hidden; /*超长部分隐藏掉*/
+}
+
+/*autocomplete 下拉菜单过长*/
+.ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 200px;
 }
 /*search.css end*/

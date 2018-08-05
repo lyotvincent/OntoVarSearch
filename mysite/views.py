@@ -32,6 +32,9 @@ class MyEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
+UploadFilePath = "C:/Project/vcf2json_file/Files"
+#UploadFilePath = 'F:/data/File/'
+
 def html_index(request):
     return render(request, "index.html")
 
@@ -205,7 +208,7 @@ def GetInfo(request):
     targetfilename = request.POST.get("name")
     md5 = request.POST.get('fileMd5')
     chunk = request.POST.get('chunk', 0)  # 获取该分片在所有分片中的序号
-    filedir = 'F:/data/File/' + md5 + '/'
+    filedir = UploadFilePath + md5 + '/'
     return md5, chunk, filedir, targetfilename
 
 
@@ -279,6 +282,8 @@ def updatekeyfield(collection):
     collection.map_reduce(map, reduce, out="tempkey")
     connection = MongoClient("mongodb://127.0.0.1:27017")
     keycollection = connection.mydb.keyfield
+    # updatekeyfield_Operator(keycollection)
+
     results = connection.mydb.tempkey.distinct("value")
     for result in results:
         if result != "Samples" and result != "_id":
@@ -287,7 +292,7 @@ def updatekeyfield(collection):
                 keycollection.insert({"value": result, "category": "field"})
     #清除临时数据表数据
     connection.mydb.tempkey.remove()
-    #updatekeyfield_Operator(keycollection)
+
     return
 
 

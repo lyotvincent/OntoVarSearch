@@ -168,7 +168,7 @@ function CreatColums(data) {
         column.data = k;
         column.title = k;
         column.className = 'gridtitle ';
-        if (rowData[k] instanceof Object){
+        if (rowData[k] instanceof Object && (k === 'Info' || k === 'Samples' || k === 'FILTER')){
             column.className += 'details-control';
             column.targets = -1;
             column.orderable = false;

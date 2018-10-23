@@ -15,6 +15,7 @@ import zipfile
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
 from functools import partial
+from mysite.transform_core import *
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -31,6 +32,18 @@ class MyEncoder(json.JSONEncoder):
             return bool(obj)
         else:
             return json.JSONEncoder.default(self, obj)
+
+class Transform(TransformV2J):
+
+    def dotranform(self, filepath_vcf, mode, IsAddHead):
+        TransformV2J.dotranform(self, filepath_vcf, mode, IsAddHead)
+
+    # with output path
+    def dotransformWithOutPath(self, filepath_vcf, filepath_json, mode, IsAddHead):
+        TransformV2J.dotransformWithOutPath(self, filepath_vcf, filepath_json, mode, IsAddHead)
+
+    def preview(self, filepath_vcf, mode):
+        return TransformV2J.preview(self, filepath_vcf, mode)
 
 UploadFilePath = "C:/Project/vcf2json_file/Files"
 #UploadFilePath = 'F:/data/File/'
@@ -224,17 +237,13 @@ def uploadconvert(request):
             vcfpath = result["filepath"]+result["filename_vcf"]
             jsonpath = result["filepath"]+result["filename_json"]
             filesize_vcf = int(result['size_vcf'])
-            if os.path.splitext(vcfpath)[1] == ".gz" or filesize_vcf <= 100 * 1024 * 1024:
-                #100M文件以下使用单进程
-                #gzip压缩文件需要用单进程处理,原因未知
-                vcf2json_Single(vcfpath, jsonpath)
-            else:
-                vcf2json_multi(vcfpath, jsonpath, md5)
-                # 创建进程执行转换的原因, 可以并发处理请求.
-                # 转换函数会创建进程池, 使用文件进行参数传递, 为了让并发请求不共享这个文件, 所以此处创建进程
-                # p = multiprocessing.Process(target=vcf2json_multi, args=(vcfpath, jsonpath))
-                # p.start()
-                # p.join()
+            V2J = Transform()
+            V2J.dotransformWithOutPath(vcfpath,jsonpath, mode='MergeAll', IsAddHead=False)
+            # if os.path.splitext(vcfpath)[1] == ".gz" or filesize_vcf <= 100 * 1024 * 1024:
+            #     vcf2json_Single(vcfpath, jsonpath)
+            # else:
+            #     vcf2json_multi(vcfpath, jsonpath, md5)
+
             collection.update({'filemd5': md5}, {'$set': {'isconvertcomplete': True}})
             zipjsonfile(collection, md5, result["filepath"], result["filename_json"])
     return HttpResponse()
@@ -323,106 +332,6 @@ def GetKeyField(request):
             keyfield.append(result)
     return JsonResponse(keyfield, safe=False)
 
-def vcf2json_Single(filepath_vcf, filepath_json):
-
-    fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['*'])
-    with open(filepath_json, 'a') as fp:
-        for chunker in chunks:
-            recordstring = str()
-            li=[]
-            for i in range(0, chunker[1]):
-                # if i % 10000 == 0 :
-                #     print("i: ", i)
-                recorddict1 = {
-                    k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type(chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
-                }
-                recordsamples = []
-                for k_sample, j in zip(samples, range(0, samples.size)):
-                    recordsample1 = {
-                        "SampleNo": k_sample
-                    }
-                    recordsample2 = {
-                        k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field
-                    }
-                    recordsample = dict(recordsample1, **recordsample2)
-                    recordsamples.append(recordsample)
-                recorddict2 = {
-                    "Samples": recordsamples
-                }
-
-                recorddict = dict(recorddict1, **recorddict2)
-                li.append(recorddict)
-            recordstring = json.dumps(li, cls=MyEncoder) + '\n'
-            fp.write(recordstring)
-
-    return
-
-
-def IoOperat_multi(tmpfile, chunker):
-    #tmpfile = "value_" + md5 + ".dat"
-    with open(tmpfile, "rb") as f:
-        fields = pickle.load(f)
-        samples = pickle.load(f)
-        headers = pickle.load(f)
-        filepath_json = pickle.load(f)
-
-    recordstring = str()
-    li = []
-    for i in range(chunker[1]):
-        recorddict1 = {
-            k_field[9:]: [chunker[0][k_field][i][m] for m in range(chunker[0][k_field][i].size)] if type( chunker[0][k_field][i]) == np.ndarray else chunker[0][k_field][i] for k_field in fields if 'variants/' in k_field
-        }
-        recordsamples = []
-        for k_sample, j in zip(samples, range(0, samples.size)):
-            recordsample1 = {
-                "SampleNo": k_sample
-            }
-            recordsample2 = {
-                k_field: [chunker[0][k_field][i][j][n] for n in range(chunker[0][k_field][i][j].size)] if type(chunker[0][k_field][i][j]) == np.ndarray else chunker[0][k_field][i][j] for k_field in fields if "calldata/" in k_field
-            }
-            recordsample = dict(recordsample1, **recordsample2)
-            recordsamples.append(recordsample)
-        recorddict2 = {
-            "Samples": recordsamples
-        }
-        recorddict = dict(recorddict1, **recorddict2)
-        li.append(recorddict)
-    recordstring = json.dumps(li, cls=MyEncoder) + '\n'
-    lock = LockFile(filepath_json)
-    lock.acquire()
-    with open(filepath_json, "a") as fp:
-        fp.write(recordstring)
-    lock.release()
-    return
-
-
-def vcf2json_multi(filepath_vcf, filepath_json, md5):
-
-    fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['variants/*', 'calldata/*'], chunk_length=500)
-    #tmpfile = "value_" + str(os.getpid()) + ".dat"
-    tmpfile = "value_" + md5 + ".dat"
-    with open(tmpfile, "wb") as f:
-        pickle.dump(fields, f)
-        pickle.dump(samples, f)
-        pickle.dump(headers, f)
-        pickle.dump(filepath_json, f)
-
-    cores = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(processes=max(cores-2, 2))
-    # P = pool.map_async(IoOperat_multi, chunks)
-    # P.wait()
-    # if P.ready() and P.successful():
-    #     print("success")
-    pool.map(partial(IoOperat_multi, tmpfile), chunks)
-    pool.close()
-    pool.join()  # 主进程阻塞等待子进程的退出
-    os.remove(tmpfile)  # 删除该分片，节约空间
-    # time_end = time.time()
-    # print("total cost: ", time_end - time_start)
-    return
-
-
-#json文件导入mongodb的collection
 def ImportJson2Mongodb(filepath_json, collection):
     with open(filepath_json) as file:
         while True:
@@ -430,6 +339,8 @@ def ImportJson2Mongodb(filepath_json, collection):
             if not line:
                 break
             else:
+                #delete space and \r\n
+                line = '[' + line[:-2] + ']'
                 line = RenameJsonKey(line)
                 buf = json.loads(line)
                 collection.insert_many(buf)

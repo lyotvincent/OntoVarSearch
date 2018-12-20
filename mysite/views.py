@@ -1,7 +1,7 @@
 from bson import Code
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import os
 import allel
 import numpy as np
@@ -16,6 +16,7 @@ from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
 from functools import partial
 from mysite.transform_core import *
+
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -45,8 +46,12 @@ class Transform(TransformV2J):
     def preview(self, filepath_vcf, mode):
         return TransformV2J.preview(self, filepath_vcf, mode)
 
-UploadFilePath = "C:/Project/vcf2json_file/Files"
-#UploadFilePath = 'F:/data/File/'
+UploadFilePath = "C:/Project/vcf2json_file/"
+#UploadFilePath = 'E:\\project\\GeneSearch'
+MongodbAddrLocal = "mongodb://127.0.0.1:27017"
+MongodbAddrRemote = "mongodb://123.207.240.94:27017"
+MongoIndexField = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
+
 
 def html_index(request):
     return render(request, "index.html")
@@ -75,7 +80,7 @@ def html_download(request):
 def DownloadFile(request):
     if request.method == 'GET':
         filemd5 = request.GET.get('fileMD5')
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         result = collection.find_one({"filemd5": filemd5})
         target = result["filepath"] + result["filename_zip"]
@@ -89,7 +94,7 @@ def DownloadFile(request):
 @csrf_exempt
 def GetDownloadfileList(request):
     if request.method == 'POST':
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         results = collection.find({'iszipcomplete': True}, {"_id": 0, "collectionName": 1, "filemd5": 1, "filepath": 1, "filename_zip": 1, "filename_vcf": 1})
         response_data = []
@@ -104,7 +109,7 @@ def dosearch(request):
     if request.method == 'POST':
         json_data = request.POST.get("json_data")
         condition = json.loads(json_data)
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         collectionNames = collection.distinct("collectionName")
         Allresults = []
@@ -116,6 +121,59 @@ def dosearch(request):
                 for result in results:
                     Allresults.append(result)
     return HttpResponse(json.dumps(Allresults), content_type="application/text")
+
+#DiseaseSearch
+@csrf_exempt
+def DiseaseSearch(request):
+    if request.method == 'POST':
+        disease = request.POST.get("json_data")
+        connection = MongoClient(MongodbAddrRemote)
+        collection_hpo = connection.vcf_hpo.hpo
+        collection_gtf = connection.vcf_hpo.gtf
+        collection_vcf = connection.vcf_hpo.autosomes
+
+        regx = re.compile(".*"+ disease +".*", re.IGNORECASE)
+        results_disease = collection_hpo.find({"HPO_Term_Name": regx}).sort("HPO_Term_Name",1)
+        Allresults = []
+        for result_disease in results_disease:
+            #result = {}
+            genesymbol = result_disease["entrez_gene_symbol"]
+            result1 = {
+                "Disease": result_disease["HPO_Term_Name"],
+                "GeneName": genesymbol
+            }
+            results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name" : genesymbol})
+            for result_gene in results_gene:
+                result2 = {
+                    "seqname": result_gene["seqname"],
+                    "start": result_gene["start"],
+                    "end": result_gene["end"]
+                }
+                Allresults.append(dict(result1, **result2))
+        return JsonResponse(Allresults, safe=False)
+
+
+#GeneSearch
+@csrf_exempt
+def GeneSearch(request):
+    if request.method == 'POST':
+        GeneName = request.POST.get("GeneName")
+        connection = MongoClient(MongodbAddrRemote)
+        #collection_hpo = connection.vcf_hpo.hpo
+        collection_gtf = connection.vcf_hpo.gtf
+        collection_vcf = connection.vcf_hpo.autosomes
+        Allresults =[]
+        results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name" : GeneName})
+        for result_gene in results_gene:
+            seqname = result_gene["seqname"]
+            chrom_start = result_gene["start"]
+            chrom_end = result_gene["end"]
+            results_vcf = collection_vcf.find({"CHROM": seqname, "POS": {"$gte": int(chrom_start), "$lte": int(chrom_end)}}, {"_id":0})
+            for result_vcf in results_vcf:
+                Allresults.append(result_vcf)
+            #     Allresults.append(dict(result1, **result_vcf))
+            # Allresults.append(dict(result1, **result2))
+        return JsonResponse(Allresults, safe=False)
 
 
 #接收分片
@@ -132,9 +190,9 @@ def doupload(request):
         with open(destination, 'wb') as fp:
             fp.write(upload_file.read())
         #更新mongodb
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
-        result = collection.find_one({'filemd5': md5})
+        result = collection.find_one({'filem0d5': md5})
         if result:
             #之前有记录, 更新
             collection.update({'filemd5': md5}, {'$push': {'chunklist': chunk}})
@@ -160,7 +218,7 @@ def doupload(request):
 def uploadcomplete(request):
     if request.method == 'POST':
         md5, _, filedir, targetfilename = GetInfo(request)
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         result = collection.find_one({'filemd5': md5})
         if result and result["isuploadcomplete"]:
@@ -188,7 +246,7 @@ def uploadcomplete(request):
 def uploadcheckfile(request):
     if request.method == 'POST':
         md5 = request.POST.get("fileMd5")
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         result = collection.find_one({'filemd5': md5})
         isExist = False
@@ -205,7 +263,7 @@ def uploadcheckchunk(request):
     if request.method == 'POST':
         md5 = request.POST.get("fileMd5")
         chunk = request.POST.get('chunk', 0)
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         result = collection.find_one({'filemd5': md5})
         isExist = False
@@ -230,7 +288,7 @@ def GetInfo(request):
 def uploadconvert(request):
     if request.method == 'POST':
         md5 = request.POST.get("fileMd5")
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         result = collection.find_one({'filemd5': md5})
         if result and result['isconvertcomplete'] is False:
@@ -262,7 +320,7 @@ def zipjsonfile(collection, md5, filepath, filename_json):
 def uploadimportDB(request):
     if request.method == 'POST':
         md5 = request.POST.get("fileMd5")
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
         result = collection.find_one({'filemd5': md5})
         if result and result['isimportcomplete'] is False:
@@ -270,9 +328,29 @@ def uploadimportDB(request):
             datacollection = connection.mydb[result['collectionName']]
             ImportJson2Mongodb(jsonpath, datacollection)
             updatekeyfield(datacollection)
+            CreatIndex(datacollection)
             collection.update({'filemd5': md5}, {'$set': {'isimportcomplete': True}})
     return HttpResponse()
 
+#每个字段都创建索引
+def CreatIndex(collection):
+    map = Code("""
+    function(){
+        for (var key in this) { 
+          emit(key, null);
+        }
+    }
+    """)
+    reduce=Code("""
+        function (key, values) {
+            return key;
+        }
+    """)
+    keys = collection.map_reduce(map, reduce, out = {'inline' : 1} , full_response = True)
+    for key in keys['results']:
+        if key['value'].upper() in MongoIndexField:
+            collection.create_index([(key['value'], 1)], background=True)
+    return
 
 #获取表的key, 用于查询时的字段提示
 def updatekeyfield(collection):
@@ -289,7 +367,7 @@ def updatekeyfield(collection):
         }
     """)
     collection.map_reduce(map, reduce, out="tempkey")
-    connection = MongoClient("mongodb://127.0.0.1:27017")
+    connection = MongoClient(MongodbAddrRemote)
     keycollection = connection.mydb.keyfield
     # updatekeyfield_Operator(keycollection)
 
@@ -324,7 +402,7 @@ def updatekeyfield_Operator(collection):
 @csrf_exempt
 def GetKeyField(request):
     if request.method == 'POST':
-        connection = MongoClient("mongodb://127.0.0.1:27017")
+        connection = MongoClient(MongodbAddrRemote)
         keycollection = connection.mydb.keyfield
         results = keycollection.find({}, {"_id": 0})
         keyfield = []

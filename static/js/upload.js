@@ -94,8 +94,8 @@ $(function () {
         },
         accept: {
             title: 'VCF',
-            extensions: 'vcf',
-            mimeTypes: '.vcf'
+            extensions: 'vcf,gz',
+            mimeTypes: '.vcf,.gz'
         }
     });
 

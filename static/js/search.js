@@ -6,90 +6,10 @@
 //     }]
 // };
 
-// var json = {
-//     "POS": {
-//         "$lt": 20000,
-//         "$gt": 400
-//     }
-// };
-
-var json ={
-  "$or": [
-    {
-      "POS": {
-        "$lt": 9000,
-        "$gt": 8500
-      }
-    },
-    {
-      "POS": {
-        "$lt": 6500,
-        "$gt": 6000
-      }
-    }
-  ]
-};
-var tableIndex = 1;
-var IconPlus = "fa fa-plus-square-o";
-var IconMinus = "fa fa-minus-square-o";
-
-function printJSON() {
-    $('#json').val(JSON.stringify(json,undefined,2));
-}
-
-function updateJSON(data) {
-    json = data;
-    printJSON();
-}
-
-function showPath(path) {
-    BindAutoconplete($("input:focus"));
-    $('#path').text(path);
-}
-
 $(document).ready(function() {
-
-    $('#rest > button').click(function() {
-        var url = $('#rest-url').val();
-        $.ajax({
-            url: url,
-            dataType: 'jsonp',
-            jsonp: $('#rest-callback').val(),
-            success: function(data) {
-                json = data;
-                $('#JsonEditor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
-                printJSON();
-            },
-            error: function() {
-                alert('Something went wrong, double-check the URL and callback parameter.');
-            }
-        });
-    });
-
-    $('#json').change(function() {
-        var val = $('#json').val();
-
-        if (val) {
-            try { json = JSON.parse(val); }
-            catch (e) { alert('Error in parsing json. ' + e); }
-        } else {
-            json = {};
-        }
-
-        $('#JsonEditor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
-    });
-
-    $('#expander').click(function() {
-        var editor = $('#JsonEditor');
-        editor.toggleClass('expanded');
-        $(this).text(editor.hasClass('expanded') ? 'Collapse' : 'Expand all');
-    });
-
-    printJSON();
-    $('#JsonEditor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
-
-    //BindAutoconplete()
+    $('.tabsholder3').cardTabs({theme: 'graygreen'});
 });
+
 
 //input加入autocomplete 绑定key
 function BindAutoconplete(element) {
@@ -142,18 +62,32 @@ function BindAutoconplete(element) {
     })
 }
 
-function DoSearch() {
+function DoDiseaseSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
-    var data = {"json_data": $('#json').val()};
-    $.post('/search/dosearch', data, null, 'text')
+    var disease = {"json_data": $('#search_disease_input').val()};
+    $.post('/search/doDiseaseSearch', disease, null, 'json')
         .done(function (data) {
-            CreatTable('#DataTable', ParseJsonData(data), true);
+            CreatDiseaseTable('#DiseaseDataTable', data, true);
             $.busyLoadFull("hide");
         })
         .fail(function () {
             $.busyLoadFull("hide");
         })
 }
+
+function DoVCFSearch(GeneName) {
+    $.busyLoadFull("show", { spinner: "accordion"});
+    var geneName = {"GeneName": GeneName};
+    $.post('/search/doGeneSearch/', geneName, null, 'json')
+        .done(function (data) {
+            CreatVCFTable('#DataTable', ParseJsonData(data), true);
+            $.busyLoadFull("hide");
+        })
+        .fail(function () {
+            $.busyLoadFull("hide");
+        })
+}
+
 //二级table的模板
 function format2(table_id) {
     return '<table id="DataTable'+ table_id +'" class="table table-striped table-bordered table-hover" cellpadding="5" cellspacing="0" border="0"></table>';
@@ -182,7 +116,119 @@ function CreatColums(data) {
     return columns;
 }
 
-function CreatTable(tableID, data, IsRoot) {
+function CreatDiseaseTable(tableID, data, IsRoot) {
+    if (data.length === 0 && IsRoot){
+        //如果没有得到数据 就自己初始化一个空表格
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: true, //翻页功能
+            bAutoWidth: false,//自动宽度
+            //"autoWidth": false,
+            paging: true, // 分页
+            bInfo: true, //Showing x to x of x entries
+            columns:[
+                {"title":"Disease"},
+                {"title":"GeneName"},
+                {"title":"seqname"},
+                {"title":"start"},
+                {"title":"end"},
+            ]
+        });
+        return;
+    }
+    bLengthChange = IsRoot;
+    bPaginate = IsRoot;
+    paging = IsRoot;
+    bInfo = IsRoot;
+
+    var table = $(tableID).DataTable({
+        destroy: true,
+        bSort: true,
+        searching: false,
+        bLengthChange:bLengthChange,//去掉每页多少条框体
+        bPaginate: true, //翻页功能
+        bAutoWidth: true,//自动宽度
+        "autoWidth": true,
+        paging: paging, // 禁止分页
+        bInfo : bInfo, //Showing x to x of x entries
+        scrollX: !IsRoot,  //水平滚动条
+        columns: CreatColums(data),
+        data: data,
+        ordering: true,
+        // colReorder: {
+        //   order: [0]
+        // },
+        "columnDefs": [// 定义操作列,######以下是重点########
+            {
+                "targets": 1,//操作按钮目标列
+                "data": null,
+                // "orderable": false,
+                "render": function (data, type, row) {
+                    //var target = '"' + row.filepath + row.filename_zip + '"';
+                    //var filemd5 = row.filemd5;
+                    var GeneName = row.GeneName;
+                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "'>" + GeneName + " </a>";
+                    //var html = "<a href='#'  onclick='DoVCFSearch(" + GeneName + ")' >" + GeneName + "</a>"
+                    var html ="<a href='#' onclick='DoVCFSearch(\""+ GeneName + "\")';>"+GeneName+"</a>"
+                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "' class='button button-raised button-primary'  ><i class='fa fa-cloud-download'></i> Download </a>"
+                    // html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
+                    // html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
+                    return html;
+                }
+            }]
+        // "fnCreatedRow": function (nRow, aData, iDataIndex) {
+        //     var i = 0;
+        //     for (var k in aData){
+        //         var isobject = $('td:eq('+i+')', nRow).hasClass("details-control");
+        //         if (isobject){
+        //             $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
+        //         }
+        //         ++i;
+        //     }
+        // }
+    });
+
+    // $(tableID).on('click', ' tbody td.details-control', function () {
+    //     var OpenCell = function (obj) {
+    //         ++tableIndex;
+    //         row.child(format2(tableIndex)).show();
+    //         $(obj).children('span').removeClass(IconPlus).addClass(IconMinus);
+    //         var childdata = table.cell(obj).data();
+    //         var tmp = [];
+    //         if (childdata instanceof Array){
+    //             tmp = childdata;
+    //         }else{
+    //             tmp.push(childdata);
+    //         }
+    //         CreatTable('#DataTable' + tableIndex, tmp, false);
+    //     };
+    //     var Tr = $(this).parents('tr');
+    //     var row = table.row(Tr);
+    //     if (row.child.isShown()) {
+    //         row.child.hide();
+    //         var span = Tr.find('span.fa-minus-square-o');
+    //         if ($(this).children('span')[0] === span[0]) {
+    //             // This cell is already open - close it
+    //             $(this).children('span').removeClass(IconMinus).addClass(IconPlus);
+    //         } else {
+    //             //other cell is open, close other cell and then open current cell
+    //             span.removeClass(IconMinus).addClass(IconPlus);
+    //             OpenCell(this);
+    //         }
+    //     }
+    //     else {
+    //         // Open this row (the format() function would return the data to be shown)
+    //         OpenCell(this);
+    //     }
+    //
+    // });
+}
+
+
+function CreatVCFTable(tableID, data, IsRoot) {
     if (data.length === 0 && IsRoot){
         //如果没有得到数据 就自己初始化一个空表格
         $(tableID).DataTable({
@@ -216,10 +262,10 @@ function CreatTable(tableID, data, IsRoot) {
 
     var table = $(tableID).DataTable({
         destroy: true,
-        bSort: false,
+        bSort: true,
         searching: false,
         bLengthChange:bLengthChange,//去掉每页多少条框体
-        bPaginate: bPaginate, //翻页功能
+        bPaginate: true, //翻页功能
         bAutoWidth: true,//自动宽度
         "autoWidth": true,
         paging: paging, // 禁止分页
@@ -227,6 +273,7 @@ function CreatTable(tableID, data, IsRoot) {
         scrollX: !IsRoot,  //水平滚动条
         columns: CreatColums(data),
         data: data,
+        ordering: true,
         colReorder: {
           order: [0]
         },
@@ -254,7 +301,7 @@ function CreatTable(tableID, data, IsRoot) {
             }else{
                 tmp.push(childdata);
             }
-            CreatTable('#DataTable' + tableIndex, tmp, false);
+            CreatVCFTable('#DataTable' + tableIndex, tmp, false);
         };
         var Tr = $(this).parents('tr');
         var row = table.row(Tr);
@@ -289,7 +336,7 @@ function ParseJsonData(strdata) {
         var info_row = {};
         var filter_row = {};
         var rowData = data[line];
-        //保证顺序 可以让datatales 按序显示
+        //保证顺序 可以让datatables 按序显示
         rowJson["CHROM"] = rowData["CHROM"];
         rowJson["POS"] = rowData["POS"];
         rowJson["ID"] = rowData["ID"];

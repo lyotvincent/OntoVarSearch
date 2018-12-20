@@ -621,4 +621,14 @@ label[for="json"] {
     overflow-x: hidden;
     max-height: 200px;
 }
+.instructions{
+    margin: 0 auto;
+    display: block;
+    margin-top: 1em;
+    font-size: 15.113em;
+    color: #9fa6b5;
+    text-align: center;
+}
+
+
 /*search.css end*/

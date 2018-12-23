@@ -1,10 +1,12 @@
-//var jsondata;
-// var json = {
-//     "$or": [{"POS": {"$lt": 11000, "$gt": 10400}}, {
-//         "GS000013208-ASM.calldata/EHQ.1": 263,
-//         "GS000013208-ASM.calldata/EHQ.0": 7
-//     }]
-// };
+
+layui.use(['layer', 'form'], function(){
+  var layer = layui.layer
+  ,form = layui.form;
+});
+var Search_rownum = 1;
+var tableIndex = 1;
+var IconPlus = "fa fa-plus-square-o";
+var IconMinus = "fa fa-minus-square-o";
 
 $(document).ready(function() {
     $('.tabsholder3').cardTabs({theme: 'graygreen'});
@@ -48,23 +50,15 @@ function BindAutoconplete(element) {
             }
 
         }
-        // ._renderMenu = function (ul, items) {
-        //     var that = this,
-        //         currentCategory = "";
-        //     $.each(items, function (index, item) {
-        //         if (item.category != currentCategory) {
-        //             ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-        //             currentCategory = item.category;
-        //         }
-        //         that._renderItemData(ul, item);
-        //     });
-        // }
     })
 }
 
 function DoDiseaseSearch() {
+    var inputdisease = $('#search_disease_input').val()
+    if(inputdisease == "" || inputdisease == null || inputdisease == undefined)
+        return;
+    var disease = {"json_data": inputdisease};
     $.busyLoadFull("show", { spinner: "accordion"});
-    var disease = {"json_data": $('#search_disease_input').val()};
     $.post('/search/doDiseaseSearch', disease, null, 'json')
         .done(function (data) {
             CreatDiseaseTable('#DiseaseDataTable', data, true);
@@ -76,11 +70,12 @@ function DoDiseaseSearch() {
 }
 
 function DoVCFSearch(GeneName) {
+    if(GeneName == "" || GeneName == null || GeneName == undefined) return;
     $.busyLoadFull("show", { spinner: "accordion"});
     var geneName = {"GeneName": GeneName};
     $.post('/search/doGeneSearch/', geneName, null, 'json')
         .done(function (data) {
-            CreatVCFTable('#DataTable', ParseJsonData(data), true);
+            CreatVCFTable('#DataTable', data, true);
             $.busyLoadFull("hide");
         })
         .fail(function () {
@@ -158,17 +153,12 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
         columns: CreatColums(data),
         data: data,
         ordering: true,
-        // colReorder: {
-        //   order: [0]
-        // },
         "columnDefs": [// 定义操作列,######以下是重点########
             {
                 "targets": 1,//操作按钮目标列
                 "data": null,
                 // "orderable": false,
                 "render": function (data, type, row) {
-                    //var target = '"' + row.filepath + row.filename_zip + '"';
-                    //var filemd5 = row.filemd5;
                     var GeneName = row.GeneName;
                     //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "'>" + GeneName + " </a>";
                     //var html = "<a href='#'  onclick='DoVCFSearch(" + GeneName + ")' >" + GeneName + "</a>"
@@ -179,52 +169,7 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
                     return html;
                 }
             }]
-        // "fnCreatedRow": function (nRow, aData, iDataIndex) {
-        //     var i = 0;
-        //     for (var k in aData){
-        //         var isobject = $('td:eq('+i+')', nRow).hasClass("details-control");
-        //         if (isobject){
-        //             $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
-        //         }
-        //         ++i;
-        //     }
-        // }
     });
-
-    // $(tableID).on('click', ' tbody td.details-control', function () {
-    //     var OpenCell = function (obj) {
-    //         ++tableIndex;
-    //         row.child(format2(tableIndex)).show();
-    //         $(obj).children('span').removeClass(IconPlus).addClass(IconMinus);
-    //         var childdata = table.cell(obj).data();
-    //         var tmp = [];
-    //         if (childdata instanceof Array){
-    //             tmp = childdata;
-    //         }else{
-    //             tmp.push(childdata);
-    //         }
-    //         CreatTable('#DataTable' + tableIndex, tmp, false);
-    //     };
-    //     var Tr = $(this).parents('tr');
-    //     var row = table.row(Tr);
-    //     if (row.child.isShown()) {
-    //         row.child.hide();
-    //         var span = Tr.find('span.fa-minus-square-o');
-    //         if ($(this).children('span')[0] === span[0]) {
-    //             // This cell is already open - close it
-    //             $(this).children('span').removeClass(IconMinus).addClass(IconPlus);
-    //         } else {
-    //             //other cell is open, close other cell and then open current cell
-    //             span.removeClass(IconMinus).addClass(IconPlus);
-    //             OpenCell(this);
-    //         }
-    //     }
-    //     else {
-    //         // Open this row (the format() function would return the data to be shown)
-    //         OpenCell(this);
-    //     }
-    //
-    // });
 }
 
 
@@ -369,4 +314,80 @@ function ParseJsonData(strdata) {
         result.push(rowJson);
     }
     return result;
+}
+
+function Search_AddRow() {
+    var html_bar = "  <div id='Search_row_"+Search_rownum+"' >"+
+        "                        <div class=\"layui-inline Search_layui_inline_1 d2\">"+
+"                            <form class=\"layui-form\" action=\"\">"+
+"                                <select name=\"Search_sel_Conjunction\" lay-verify=\"\" lay-search>"+
+"                                    <option value=\"AND\" selected>AND</option>"+
+"                                    <option value=\"OR\">OR</option>"+
+"                                    <option value=\"NOT\">NOT</option>"+
+"                                </select>"+
+"                            </form>"+
+"                        </div>"+
+"                        <div class=\"layui-inline d2 Search_layui_inline_2\">"+
+"                            <input type=\"text\" name=\"title\" autocomplete=\"on\" class=\"layui-input\">"+
+"                        </div>"+
+"                        <div class=\"layui-inline d2 Search_layui_inline_3\">"+
+"                            <form class=\"layui-form\" action=\"\">"+
+"                                <select name=\"Search_sel_Fields\" lay-verify=\"\" lay-search"+
+"                                        lay-filter=\"lay_Search_sel_Fields\">"+
+"                                    <option value=\"eq\" selected>==</option>"+
+"                                    <option value=\"ne\">!=</option>"+
+"                                    <option value=\"gte\">&ge;</option>"+
+"                                    <option value=\"gt\">&gt;</option>"+
+"                                    <option value=\"lt\">&lt;</option>"+
+"                                    <option value=\"lte\">&le;</option>"+
+"                                </select>"+
+"                            </form>"+
+"                        </div>"+
+"                        <div class=\"layui-inline d2 Search_layui_inline_4\">"+
+"                            <input type=\"text\" name=\"title\" autocomplete=\"off\" class=\"layui-input\">"+
+"                        </div>"+
+                "                <div class=\"layui-inline Search_layui_inline_5\">"+
+        "                    <div class=\"layui-btn-group\">"+
+        "                        <button onclick='del("+Search_rownum+")' class=\"layui-btn layui-btn-primary layui-btn-sm\" id='Search_btn_delrow_"+Search_rownum+"'\">"+
+        "                            <i class=\"layui-icon\">&#xe640;</i>"+
+        "                        </button>"+
+        "                    </div>"+
+        "                </div>"+
+    "             </div>";
+
+    $('#exactbar_contend').append(html_bar);
+
+    Search_rownum++;
+    layui.use('form', function() {
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+    });
+}
+
+function  del(id) {
+    $("#Search_row_"+id).remove();
+}
+
+function Search_reset() {
+    //删除新增的行
+    $("#exactbar_contend").children().each(function () {
+        var strID = $(this).attr('id');
+        if (strID != null){
+            var id = strID.match(/\d+/);
+            del(id);
+        }
+    });
+    //重置原有表单
+    $("#exactbar_contend").children().each(function () {
+        $(this).each(function () {
+            $(this).find("select[name='Search_sel_Fields']").val("eq");
+            $(this).find("input[name='title']").val("");
+        });
+    });
+    // $("#Search_input_fuzzy").val("");
+    //刷新
+    layui.use('form', function() {
+        var form = layui.form;
+        form.render();
+    });
 }

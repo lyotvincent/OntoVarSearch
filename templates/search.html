@@ -13,9 +13,9 @@
     {#Font Awesome 国内#}
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     {#Font Awesome 海外#}
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- layui -->
-{#    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"  media="all">#}
+    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"  media="all">
 {#    <link href="//unpkg.com/vue2-datatable-component/dist/min.css" rel="stylesheet">#}
 <!-- DataTables CSS -->
 {#    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">#}
@@ -73,59 +73,103 @@
     </div>
 
     <div id="wrapper">
-        <div id="banner" class="container">
-            <div class="row">
-		        <div class='example'>
-			        <div class='tabsholder3'>
-			            <div data-tab="Disease">
-{#                            <div class="search d3">#}
-{#                                <form>#}
-{#                                    <input type="text" placeholder="搜索从这里开始...">#}
-{#                                    <button type="submit"></button>#}
-{#                                </form>#}
-{#                            </div>#}
-                            <div class="search d2">
-                                <form>
-                                    <input id="search_disease_input" type="text" placeholder="Search Disease...">
-                                    <button id="search_disease_button" type="button" onclick="DoDiseaseSearch()"></button>
-                                    <h1 class="instructions">Search for a molecule, gene, variant, or combination</h1>
+        <br id="banner" class="container">
+        <div class="container">
+            {#		        <div class='example'>#}
+            <div class='tabsholder3'>
+                <div data-tab="Disease">
+                    <div class="search d2 tabcontent">
+                        <form>
+                            <input id="search_disease_input" type="text" placeholder="Search Disease...">
+                            <button id="search_disease_button" type="button" onclick="DoDiseaseSearch()"></button>
+                            <h1 class="instructions">Search for a molecule, gene, variant, or combination</h1>
+                        </form>
+                    </div>
+                </div>
+                <div data-tab="Custom">
+                    <div class="layui-form-item tabcontent" id="exactbar_contend">
+                        <div>
+                            <div class="layui-inline d2 Search_layui_inline_2_firstline">
+                                <input type="text" name="title" autocomplete="on" class="layui-input">
+                            </div>
+                            <div class="layui-inline d2 Search_layui_inline_3">
+                                <form class="layui-form" action="">
+                                    <select name="Search_sel_Fields" lay-verify="" lay-search
+                                            lay-filter="lay_Search_sel_Fields">
+                                        <option value="eq" selected>==</option>
+                                        <option value="ne">!=</option>
+                                        <option value="gte">&ge;</option>
+                                        <option value="gt">&gt;</option>
+                                        <option value="lt">&lt;</option>
+                                        <option value="lte">&le;</option>
+                                    </select>
                                 </form>
                             </div>
-			            </div>
-			            <div data-tab="Custom">
-                            ="http://ajax.googleapis.com/aj第三方士大夫ax/libs/jquery
-			            </div>
-			        </div>
-		        </div>
+                            <div class="layui-inline d2 Search_layui_inline_4">
+                                <input type="text" name="title" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-inline Search_layui_inline_5">
+                                <div class="layui-btn-group">
+                                    <button class="layui-btn layui-btn-primary layui-btn-sm"
+                                            onclick="Search_AddRow()">
+                                        <i class="layui-icon">&#xe654;</i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div style="padding: 0px 100px; height:40px">
+                        <li>
+                            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal exact_search_btn"
+                                    onclick="Search_exactSearch()">Search
+                            </button>
+                            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal exact_search_btn"
+                                    onclick="Search_reset()">Reset
+                            </button>
+                        </li>
+                    </div>
+                </div>
             </div>
 
-            <div id="app">
-                <div class="container">
-{#                    <table id="DataTable" class="table display"></table>#}
-                    <table id="DiseaseDataTable" class="table table-striped table-bordered table-hover" style="table-layout: fixed"></table>
-                </div>
-                <div class="container">
-                    {#                    <table id="DataTable" class="table display"></table>#}
-                    <table id="DataTable" class="table table-striped table-bordered table-hover"
-                           style="table-layout: fixed"></table>
-                </div>
+
+
+        </div>
+        </br>
+        </br>
+        <div id="app">
+            <div class="container">
+                {#                    <table id="DataTable" class="table display"></table>#}
+                <table id="DiseaseDataTable" class="table table-striped table-bordered table-hover"
+                       style="table-layout: fixed"></table>
+            </div>
+            </br>
+            <div class="container">
+                {#                    <table id="DataTable" class="table display"></table>#}
+                <table id="DataTable" class="table table-striped table-bordered table-hover"
+                       style="table-layout: fixed"></table>
             </div>
         </div>
     </div>
+
 
     <div id="footer-content">
         <div class="row container">
             <div class="col-md-6">
             </div>
             <div class="col-md-6">
-                    <p class="text-right pull-right">
-                        <h4 class="text-right pull-right">Copyright &copy; <a href="http://www.cs.hit.edu.cn/" target="_blank" title="hit" style="color:#919191">Harbin Institute of Technology</a></h4>
-    {#                    &<a href="http://www.zjyy.com.cn/" title="smu">Zhujiang Hospital of Southern Medical University</a>#}
-                        <!-- - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> -->
-                    </p>
+                <p class="text-right pull-right">
+                <h4 class="text-right pull-right">Copyright &copy; <a href="http://www.cs.hit.edu.cn/" target="_blank"
+                                                                      title="hit" style="color:#919191">Harbin Institute
+                    of Technology</a></h4>
+                {#                    &<a href="http://www.zjyy.com.cn/" title="smu">Zhujiang Hospital of Southern Medical University</a>#}
+                <!-- - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> -->
+                </p>
             </div>
         </div>
     </div>
+
 </div>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 {#jquery google cdn#}
@@ -147,6 +191,8 @@
 <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
 {#tab#}
 <script type='text/javascript' src='/static/plugins/GraygreenTab/js/jquery.cardtabs.js'></script>
+{#layui#}
+<script type='text/javascript' src='/static/plugins/layui/layui.js'></script>
 {#my js#}
 <script type="text/javascript" src="/static/js/search.js"></script>
 </body>

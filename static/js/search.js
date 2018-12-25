@@ -8,6 +8,10 @@ var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
 
+function IsEmpty(str){
+    return (str == "" || str == null || str == undefined)
+}
+
 $(document).ready(function() {
     $('.tabsholder3').cardTabs({theme: 'graygreen'});
 });
@@ -55,8 +59,7 @@ function BindAutoconplete(element) {
 
 function DoDiseaseSearch() {
     var inputdisease = $('#search_disease_input').val()
-    if(inputdisease == "" || inputdisease == null || inputdisease == undefined)
-        return;
+    if(IsEmpty(inputdisease))   return;
     var disease = {"json_data": inputdisease};
     $.busyLoadFull("show", { spinner: "accordion"});
     $.post('/search/doDiseaseSearch', disease, null, 'json')
@@ -70,7 +73,8 @@ function DoDiseaseSearch() {
 }
 
 function DoVCFSearch(GeneName) {
-    if(GeneName == "" || GeneName == null || GeneName == undefined) return;
+    if(IsEmpty(GeneName))   return;
+    //if(GeneName == "" || GeneName == null || GeneName == undefined) return;
     $.busyLoadFull("show", { spinner: "accordion"});
     var geneName = {"GeneName": GeneName};
     $.post('/search/doGeneSearch/', geneName, null, 'json')
@@ -317,43 +321,43 @@ function ParseJsonData(strdata) {
 }
 
 function Search_AddRow() {
-    var html_bar = "  <div id='Search_row_"+Search_rownum+"' >"+
-        "                        <div class=\"layui-inline Search_layui_inline_1 d2\">"+
-"                            <form class=\"layui-form\" action=\"\">"+
-"                                <select name=\"Search_sel_Conjunction\" lay-verify=\"\" lay-search>"+
-"                                    <option value=\"AND\" selected>AND</option>"+
-"                                    <option value=\"OR\">OR</option>"+
-"                                    <option value=\"NOT\">NOT</option>"+
-"                                </select>"+
-"                            </form>"+
-"                        </div>"+
-"                        <div class=\"layui-inline d2 Search_layui_inline_2\">"+
-"                            <input type=\"text\" name=\"title\" autocomplete=\"on\" class=\"layui-input\">"+
-"                        </div>"+
-"                        <div class=\"layui-inline d2 Search_layui_inline_3\">"+
-"                            <form class=\"layui-form\" action=\"\">"+
-"                                <select name=\"Search_sel_Fields\" lay-verify=\"\" lay-search"+
-"                                        lay-filter=\"lay_Search_sel_Fields\">"+
-"                                    <option value=\"eq\" selected>==</option>"+
-"                                    <option value=\"ne\">!=</option>"+
-"                                    <option value=\"gte\">&ge;</option>"+
-"                                    <option value=\"gt\">&gt;</option>"+
-"                                    <option value=\"lt\">&lt;</option>"+
-"                                    <option value=\"lte\">&le;</option>"+
-"                                </select>"+
-"                            </form>"+
-"                        </div>"+
-"                        <div class=\"layui-inline d2 Search_layui_inline_4\">"+
-"                            <input type=\"text\" name=\"title\" autocomplete=\"off\" class=\"layui-input\">"+
-"                        </div>"+
-                "                <div class=\"layui-inline Search_layui_inline_5\">"+
-        "                    <div class=\"layui-btn-group\">"+
-        "                        <button onclick='del("+Search_rownum+")' class=\"layui-btn layui-btn-primary layui-btn-sm\" id='Search_btn_delrow_"+Search_rownum+"'\">"+
-        "                            <i class=\"layui-icon\">&#xe640;</i>"+
-        "                        </button>"+
-        "                    </div>"+
-        "                </div>"+
-    "             </div>";
+    var html_bar = "  <div id='Search_row_" + Search_rownum + "' >" +
+        "                        <div class=\"layui-inline Search_layui_inline_1 d2\">" +
+        "                            <form class=\"layui-form\" action=\"\">" +
+        "                                <select name=\"Search_sel_Conjunction\" lay-verify=\"\" lay-search>" +
+        "                                    <option value=\"AND\" selected>AND</option>" +
+        "                                    <option value=\"OR\">OR</option>" +
+        "                                    <option value=\"NOT\">NOT</option>" +
+        "                                </select>" +
+        "                            </form>" +
+        "                        </div>" +
+        "                        <div class=\"layui-inline d2 Search_layui_inline_2\">" +
+        "                            <input type=\"text\" name=\"key\" autocomplete=\"on\" class=\"layui-input\">" +
+        "                        </div>" +
+        "                        <div class=\"layui-inline d2 Search_layui_inline_3\">" +
+        "                            <form class=\"layui-form\" action=\"\">" +
+        "                                <select name=\"Search_sel_Fields\" lay-verify=\"\" lay-search" +
+        "                                        lay-filter=\"lay_Search_sel_Fields\">" +
+        "                                    <option value=\"eq\" selected>=</option>" +
+        "                                    <option value=\"ne\">!=</option>" +
+        "                                    <option value=\"gte\">&ge;</option>" +
+        "                                    <option value=\"gt\">&gt;</option>" +
+        "                                    <option value=\"lt\">&lt;</option>" +
+        "                                    <option value=\"lte\">&le;</option>" +
+        "                                </select>" +
+        "                            </form>" +
+        "                        </div>" +
+        "                        <div class=\"layui-inline d2 Search_layui_inline_4\">" +
+        "                            <input type=\"text\" name=\"value\" autocomplete=\"off\" class=\"layui-input\">" +
+        "                        </div>" +
+        "                <div class=\"layui-inline Search_layui_inline_5\">" +
+        "                    <div class=\"layui-btn-group\">" +
+        "                        <button onclick='del(" + Search_rownum + ")' class=\"layui-btn layui-btn-primary layui-btn-sm\" id='Search_btn_delrow_" + Search_rownum + "'\">" +
+        "                            <i class=\"layui-icon\">&#xe640;</i>" +
+        "                        </button>" +
+        "                    </div>" +
+        "                </div>" +
+        "             </div>";
 
     $('#exactbar_contend').append(html_bar);
 
@@ -381,7 +385,8 @@ function Search_reset() {
     $("#exactbar_contend").children().each(function () {
         $(this).each(function () {
             $(this).find("select[name='Search_sel_Fields']").val("eq");
-            $(this).find("input[name='title']").val("");
+            $(this).find("input[name='key']").val("");
+            $(this).find("input[name='value']").val("");
         });
     });
     // $("#Search_input_fuzzy").val("");
@@ -390,4 +395,90 @@ function Search_reset() {
         var form = layui.form;
         form.render();
     });
+}
+
+function Search_exactSearch(){
+    var data = new Array();
+    var row=0,column=0;
+    var GetDataFunc = function(){
+        $("#exactbar_contend").children().each(function () {
+            data[row] = new Array();
+            column = 0;
+            $(this).each(function () {
+                if ($(this).find("select[name='Search_sel_Conjunction']").val() != null) {
+                    data[row][column++] = $(this).find("select[name='Search_sel_Conjunction']").val();
+                }else{
+                    data[row][column++] = "AND";
+                }
+                data[row][column++] = $(this).find("input[name='key']").val();
+                data[row][column++] = $(this).find("select[name='Search_sel_Fields']").val();
+                data[row][column++] = $(this).find("input[name='value']").val();
+            });
+            row++;
+        });
+        return data;
+    };
+    var FormatData = function (data) {
+        if (IsEmpty(data[0][1])) return data;
+        for (var i in data){
+            strkey = data[i][1].toUpperCase();
+            if (strkey == 'POS'){
+                data[i][3] = parseInt(data[i][3]);
+            }
+        }
+        return data;
+    };
+    var ConvertData2Json = function(data){
+        if (IsEmpty(data[0][1])) return;
+        var sqlJson = {};
+        var len = data.length;
+        for (var i =0; i < len; ++i){
+            if (data[i][0] == "AND" && i+1<len?data[i+1][0] != "OR":1){
+                switch (data[i][2]){
+                    case 'eq':
+                        sqlJson[data[i][1].toUpperCase()] = data[i][3];
+                        break;
+                    default:
+                        var tmp = {};
+                        tmp["$"+ data[i][2]] = data[i][3];
+                        sqlJson[data[i][1].toUpperCase()] =  tmp;
+                        break;
+                }
+            }else if (data[i][0] == "NOT" && i+1<len?data[i+1][0] != "OR":1){
+                switch (data[i][2]){
+                    case 'eq':
+                        var tmp = {};
+                        tmp["$not"] = data[i][3];
+                        sqlJson[data[i][1].toUpperCase()] = tmp;
+                        break;
+                    default:
+                        var tmp1 = {}, tmp2 ={};
+                        tmp1["$"+ data[i][2]] = data[i][3];
+                        tmp2["$not"] = tmp1;
+                        sqlJson[data[i][1].toUpperCase()] = tmp2;
+                        break;
+                }
+            }else if (data[i][0] == "OR"){
+
+                // while (i < data.length){
+                //     if (data[i+1][0] == "OR")
+                // }
+            }
+        }
+        return sqlJson;
+
+    };
+    var data = FormatData(GetDataFunc());
+    var sqljson = ConvertData2Json(data);
+    if (IsEmpty(sqljson))   return;
+    $.busyLoadFull("show", { spinner: "accordion"});
+    var condition = {'condition': JSON.stringify(sqljson)};
+    $.post('/search/doexactSearch/', condition, null, 'json')
+        .done(function (data) {
+            CreatVCFTable('#DataTable', data, true);
+            $.busyLoadFull("hide");
+        })
+        .fail(function () {
+            $.busyLoadFull("hide");
+        })
 }

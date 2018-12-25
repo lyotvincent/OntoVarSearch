@@ -122,6 +122,22 @@ def dosearch(request):
                     Allresults.append(result)
     return HttpResponse(json.dumps(Allresults), content_type="application/text")
 
+
+#search data
+@csrf_exempt
+def doexactSearch(request):
+    if request.method == 'POST':
+        json_data = request.POST.get("condition")
+        condition = json.loads(json_data)
+        connection = MongoClient(MongodbAddrRemote)
+        collection_vcf = connection.vcf_hpo.autosomes
+        Allresults=[]
+        results = collection_vcf.find(condition, {"_id": 0})
+        for result in results:
+            Allresults.append(result)
+    return JsonResponse(Allresults, safe=False)
+
+
 #DiseaseSearch
 @csrf_exempt
 def DiseaseSearch(request):

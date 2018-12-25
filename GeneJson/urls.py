@@ -34,6 +34,7 @@ urlpatterns = [
     path('search', views.html_search),
     path('search/doDiseaseSearch', views.DiseaseSearch),
     path('search/doGeneSearch/', views.GeneSearch),
+    path('search/doexactSearch/', views.doexactSearch),
     #path('download/showfiellist', views.GetDownloadfileList),
     path('download/showfiellist', views.GetDownloadfileList),
     path('download/dodownload/', views.DownloadFile),

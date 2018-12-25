@@ -90,13 +90,13 @@
                     <div class="layui-form-item tabcontent" id="exactbar_contend">
                         <div>
                             <div class="layui-inline d2 Search_layui_inline_2_firstline">
-                                <input type="text" name="title" autocomplete="on" class="layui-input">
+                                <input type="text" name="key" autocomplete="on" class="layui-input">
                             </div>
                             <div class="layui-inline d2 Search_layui_inline_3">
                                 <form class="layui-form" action="">
                                     <select name="Search_sel_Fields" lay-verify="" lay-search
                                             lay-filter="lay_Search_sel_Fields">
-                                        <option value="eq" selected>==</option>
+                                        <option value="eq" selected>=</option>
                                         <option value="ne">!=</option>
                                         <option value="gte">&ge;</option>
                                         <option value="gt">&gt;</option>
@@ -106,7 +106,7 @@
                                 </form>
                             </div>
                             <div class="layui-inline d2 Search_layui_inline_4">
-                                <input type="text" name="title" autocomplete="off" class="layui-input">
+                                <input type="text" name="value" autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-inline Search_layui_inline_5">
                                 <div class="layui-btn-group">
@@ -150,6 +150,8 @@
                 <table id="DataTable" class="table table-striped table-bordered table-hover"
                        style="table-layout: fixed"></table>
             </div>
+            </br>
+            </br>
         </div>
     </div>
 

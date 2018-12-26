@@ -430,42 +430,135 @@ function Search_exactSearch(){
     };
     var ConvertData2Json = function(data){
         if (IsEmpty(data[0][1])) return;
-        var sqlJson = {};
+
         var len = data.length;
-        for (var i =0; i < len; ++i){
-            if (data[i][0] == "AND" && i+1<len?data[i+1][0] != "OR":1){
-                switch (data[i][2]){
-                    case 'eq':
-                        sqlJson[data[i][1].toUpperCase()] = data[i][3];
-                        break;
-                    default:
-                        var tmp = {};
-                        tmp["$"+ data[i][2]] = data[i][3];
-                        sqlJson[data[i][1].toUpperCase()] =  tmp;
-                        break;
-                }
-            }else if (data[i][0] == "NOT" && i+1<len?data[i+1][0] != "OR":1){
-                switch (data[i][2]){
+        //convert NOT to AND
+        line = [];
+        for (var i =0; i < len; ++i) {
+            var sqlJson = {};
+            if (data[i][0] == 'NOT'){
+                switch (data[i][2]) {
                     case 'eq':
                         var tmp = {};
                         tmp["$not"] = data[i][3];
                         sqlJson[data[i][1].toUpperCase()] = tmp;
                         break;
                     default:
-                        var tmp1 = {}, tmp2 ={};
-                        tmp1["$"+ data[i][2]] = data[i][3];
+                        var tmp1 = {}, tmp2 = {};
+                        tmp1["$" + data[i][2]] = data[i][3];
                         tmp2["$not"] = tmp1;
                         sqlJson[data[i][1].toUpperCase()] = tmp2;
                         break;
                 }
-            }else if (data[i][0] == "OR"){
-
-                // while (i < data.length){
-                //     if (data[i+1][0] == "OR")
-                // }
+                linedata = {};
+                linedata.key = "AND";   //change to AND
+                linedata.value = sqlJson;
+                line.push(linedata);
+            }else{
+                switch (data[i][2]) {
+                    case 'eq':
+                        sqlJson[data[i][1].toUpperCase()] = data[i][3];
+                        break;
+                    default:
+                        var tmp = {};
+                        tmp["$" + data[i][2]] = data[i][3];
+                        sqlJson[data[i][1].toUpperCase()] = tmp;
+                        break;
+                }
+                linedata = {};
+                linedata.key = data[i][0];
+                linedata.value = sqlJson;
+                line.push(linedata);
             }
         }
-        return sqlJson;
+        //merge AND
+        var lineAND = [];
+        for (var i =0; i < line.length; ++i) {
+            if (line[i]['key'] == 'AND'){
+                var start = i;
+                while (i + 1 < line.length) {
+                    if (line[i + 1]['key'] == 'AND'){
+                        i++;
+                    }else{
+                        var end = i;
+                        var value = [];
+                        for (var j = Math.max(start-1,0); j <= end; j++){
+                            value.push(line[j]['value']);
+                        }
+                        var value_and = {};
+                        value_and['$and'] = value;
+                        lineAND.push(value_and);
+                        break;
+                    }
+                }
+                if (i + 1 >= line.length){
+                    var end = i;
+                    var value = [];
+                    for (var j = Math.max(start - 1, 0); j <= end; j++) {
+                        value.push(line[j]['value']);
+                    }
+                    var value_and = {};
+                    value_and['$and'] = value;
+                    lineAND.push(value_and);
+                    break;
+                }
+            }else {
+                lineAND.push(line[i]['value']);
+            }
+        }
+        //merge OR
+        if (lineAND.length != 1){
+            value_or = [];
+            for (var i = 0; i < lineAND.length - 1; ++i) {
+                value_or.push(lineAND[i]);
+            }
+            var value_tmp = {};
+            value_tmp['$or'] = value_or;
+            var result = {};
+            result = value_tmp;
+            return result;
+        }else{
+            return lineAND[0];
+        }
+
+
+        // for (var i =0; i < len; ++i){
+        //
+        //
+        //
+        //     if (data[i][0] == "AND" && i+1<len?data[i+1][0] != "OR":1){
+        //         switch (data[i][2]){
+        //             case 'eq':
+        //                 sqlJson[data[i][1].toUpperCase()] = data[i][3];
+        //                 break;
+        //             default:
+        //                 var tmp = {};
+        //                 tmp["$"+ data[i][2]] = data[i][3];
+        //                 sqlJson[data[i][1].toUpperCase()] =  tmp;
+        //                 break;
+        //         }
+        //     }else if (data[i][0] == "NOT" && i+1<len?data[i+1][0] != "OR":1){
+        //         switch (data[i][2]){
+        //             case 'eq':
+        //                 var tmp = {};
+        //                 tmp["$not"] = data[i][3];
+        //                 sqlJson[data[i][1].toUpperCase()] = tmp;
+        //                 break;
+        //             default:
+        //                 var tmp1 = {}, tmp2 ={};
+        //                 tmp1["$"+ data[i][2]] = data[i][3];
+        //                 tmp2["$not"] = tmp1;
+        //                 sqlJson[data[i][1].toUpperCase()] = tmp2;
+        //                 break;
+        //         }
+        //     }else if (data[i][0] == "OR"){
+        //
+        //         // while (i < data.length){
+        //         //     if (data[i+1][0] == "OR")
+        //         // }
+        //     }
+        // }
+        // return sqlJson;
 
     };
     var data = FormatData(GetDataFunc());

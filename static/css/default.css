@@ -7,7 +7,8 @@ body {
     padding: 0px;
     background: url(/static/imgs/page-wrapper.png) repeat;
     /*background: #1A1A1A url(/static/imgs/main-wrapper.png) repeat;*/
-    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
+    font-family: "Times New Roman";
     font-size: 1pt;
     color: #4F4F4F;
 }
@@ -498,7 +499,7 @@ ul.style4 .first {
 .top-nav ul li a {
     color: #FFF;
     font-size: 17px;
-    padding: 1.3em 4.8em 1.35em;
+    padding: 1.3em 5.8em 1.35em;
     text-decoration: none;
 }
 

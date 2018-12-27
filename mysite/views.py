@@ -46,8 +46,8 @@ class Transform(TransformV2J):
     def preview(self, filepath_vcf, mode):
         return TransformV2J.preview(self, filepath_vcf, mode)
 
-UploadFilePath = "C:/Project/vcf2json_file/"
-#UploadFilePath = 'E:\\project\\GeneSearch'
+#UploadFilePath = "C:/Project/vcf2json_file/"
+UploadFilePath = 'E:/project/GeneSearch/'
 MongodbAddrLocal = "mongodb://127.0.0.1:27017"
 MongodbAddrRemote = "mongodb://123.207.240.94:27017"
 MongoIndexField = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']

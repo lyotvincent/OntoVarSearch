@@ -13,9 +13,11 @@
     {#Font Awesome 国内#}
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     {#Font Awesome 海外#}
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{#    buttons#}
+    <link rel="stylesheet" href="/static/css/buttons.css"  media="all">
     <!-- layui -->
-{#    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"  media="all">#}
+    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"  media="all">
 {#    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css" />#}
     <link href="/static/css/default.css" rel="stylesheet" type="text/css" media="all" />
 {#    <link href="/static/css/dashboard.css" rel="stylesheet" type="text/css" media="all"/>#}
@@ -29,7 +31,7 @@
     <div class="header">
         <div id="header" class="container">
             <div id="logo">
-                <h1><a href="/index">VCFtoJson</a></h1>
+                <h1><a href="/index">GeneMiner</a></h1>
                 <p>Design by hitbic</p>
             </div>
 {#            <div id="menu">#}
@@ -51,7 +53,7 @@
 {#            <span class="menu">MENU</span>#}
             <ul class="nav1">
                 <li><a href="/index">Home</a></li>
-                <li><a href="/about">About Us</a></li>
+{#                <li><a href="/about">About Us</a></li>#}
                 <li><a href="/upload">Upload</a></li>
 {#                <li><a href="/browse">Browse</a></li>#}
                 <li><a href="/search">Search</a></li>
@@ -65,7 +67,108 @@
 
     <div id="wrapper">
         <div id="banner" class="container">
-            <h2>Contact</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="section-title">Support</h3>
+                    <p>
+                        <!--Lorem Ipsum is inting and typesetting in simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the is dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.-->
+                    </p>
+
+                    <form class="form-light mt-20 layui-form" role="form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input id="contact_name" type="text" class="form-control layui-input" lay-verify="required"
+                                   placeholder="Your name">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input id="contact_email" type="email" class="form-control"
+                                           lay-verify="required|email" placeholder="Email address">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input id="contact_phone" type="text" class="form-control" lay-verify="required"
+                                           placeholder="Phone number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input id="contact_subject" type="text" class="form-control" lay-verify="required"
+                                   placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" id="message" placeholder="Write you message here..."
+                                      lay-verify="required" style="height:100px;"></textarea>
+                        </div>
+                        <!--<button type="submit" class="btn btn-two">Send message</button><p><br/></p>-->
+                        <a class="button button-glow button-rounded button-raised button-primary" lay-submit
+                           lay-filter="contact_submit">Send message</a>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <!--<div class="row">-->
+                    <!--<div class="col-md-6">-->
+                    <h3 class="section-title marginlef14px">Get connected</h3>
+                    <div class="col-md-6">
+                        <div class="contact-info">
+                            <!--<p>jianliu, Professor, Harbin Institute Of Technology</p>-->
+                            <!--<br/>-->
+                            <!--&lt;!&ndash;<h5>Address</h5>&ndash;&gt;-->
+                            <!--<p>92 West Dazhi Street,Nan Gang District,Harbin,China</p>-->
+                            <!--<br/>-->
+                            <!--&lt;!&ndash;<h5>Email</h5>&ndash;&gt;-->
+                            <!--<p>jianliu@hit.edu.cn</p>-->
+                            <!--<p class="line-highet">-->
+                            <!--Center for Bioinformatics-->
+                            <!--School of Computer Science and Technology-->
+                            <!--Harbin Institute of Technology-->
+                            <!--No. 92 Xidazhi Street-->
+                            <!--ZIP Code:150001-->
+                            <!--Harbin, China-->
+                            <!--Tel.: +86 18686896700-->
+                            <!--Mail to: jianliu@hit.edu.cn-->
+                            <!--</p>-->
+                            <p class="normallinehight">Center for Bioinformatics</p>
+                            <p class="normallinehight">School of Computer Science and Technology</p>
+                            <p class="normallinehight">Harbin Institute of Technology</p>
+                            <p class="normallinehight">No. 92 Xidazhi Street</p>
+                            <p class="normallinehight">ZIP Code:150001</p>
+                            <p class="normallinehight">Harbin, China</p>
+                            <p class="normallinehight">Tel.: +86 18686896700</p>
+                            <p class="normallinehight">Mail to: jianliu@hit.edu.cn</p>
+
+                        </div>
+                    </div>
+
+
+                    <!--</div>-->
+                    <!--<div class="col-md-6">-->
+                    <!--<h3 class="section-title">Timings</h3>-->
+                    <!--<div class="contact-info">-->
+                    <!--<h5>Monday - Friday</h5>-->
+                    <!--<p>09:00 AM - 6:30 PM</p>-->
+
+                    <!--<h5>Saturday</h5>-->
+                    <!--<p>Closed</p>-->
+
+                    <!--<h5>Sunday</h5>-->
+                    <!--<p>Closed</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<h3 class="section-title">Get connected</h3>-->
+                    <p>
+                        <!--Lorem ipsumn qersl ioinm sersoe non urna dolor sit amet, consectetur piesn qersl ioinm sersoe non urna dolor aecena.-->
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -91,6 +194,7 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 {#<script src="/static/plugins/layui/layui.js"></script>#}
-
+{#layui#}
+<script type='text/javascript' src='/static/plugins/layui/layui.js'></script>
 </body>
 </html>

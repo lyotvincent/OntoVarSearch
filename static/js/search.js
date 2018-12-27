@@ -1,19 +1,36 @@
 
-layui.use(['layer', 'form'], function(){
-  var layer = layui.layer
-  ,form = layui.form;
-});
+Render();
+
 var Search_rownum = 1;
 var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
+
+function Render() {
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer
+            , form = layui.form;
+        form.render();
+    });
+}
 
 function IsEmpty(str){
     return (str == "" || str == null || str == undefined)
 }
 
 $(document).ready(function() {
+
     $('.tabsholder3').cardTabs({theme: 'graygreen'});
+    var GetVCFFilelist = function() {
+        $.post('/download/showfiellist').done(function (data) {
+            $("#Search_sel_DATABASE option").remove();
+            for (let i of data){
+                $("#Search_sel_DATABASE").append("<option value="+i['collectionName']+">"+i['collectionName']+"</option>");
+            }
+            Render();
+        })
+    };
+    GetVCFFilelist();
 });
 
 
@@ -58,9 +75,10 @@ function BindAutoconplete(element) {
 }
 
 function DoDiseaseSearch() {
-    var inputdisease = $('#search_disease_input').val()
-    if(IsEmpty(inputdisease))   return;
-    var disease = {"json_data": inputdisease};
+    var inputdisease = $('#search_disease_input').val();
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(inputdisease) || IsEmpty(database))   return;
+    var disease = {"json_data": inputdisease, "database":database};
     $.busyLoadFull("show", { spinner: "accordion"});
     $.post('/search/doDiseaseSearch', disease, null, 'json')
         .done(function (data) {
@@ -73,10 +91,11 @@ function DoDiseaseSearch() {
 }
 
 function DoVCFSearch(GeneName) {
-    if(IsEmpty(GeneName))   return;
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(GeneName) || IsEmpty(database))   return;
     //if(GeneName == "" || GeneName == null || GeneName == undefined) return;
     $.busyLoadFull("show", { spinner: "accordion"});
-    var geneName = {"GeneName": GeneName};
+    var geneName = {"GeneName": GeneName, "database":database};
     $.post('/search/doGeneSearch/', geneName, null, 'json')
         .done(function (data) {
             CreatVCFTable('#DataTable', data, true);
@@ -520,52 +539,13 @@ function Search_exactSearch(){
         }else{
             return lineAND[0];
         }
-
-
-        // for (var i =0; i < len; ++i){
-        //
-        //
-        //
-        //     if (data[i][0] == "AND" && i+1<len?data[i+1][0] != "OR":1){
-        //         switch (data[i][2]){
-        //             case 'eq':
-        //                 sqlJson[data[i][1].toUpperCase()] = data[i][3];
-        //                 break;
-        //             default:
-        //                 var tmp = {};
-        //                 tmp["$"+ data[i][2]] = data[i][3];
-        //                 sqlJson[data[i][1].toUpperCase()] =  tmp;
-        //                 break;
-        //         }
-        //     }else if (data[i][0] == "NOT" && i+1<len?data[i+1][0] != "OR":1){
-        //         switch (data[i][2]){
-        //             case 'eq':
-        //                 var tmp = {};
-        //                 tmp["$not"] = data[i][3];
-        //                 sqlJson[data[i][1].toUpperCase()] = tmp;
-        //                 break;
-        //             default:
-        //                 var tmp1 = {}, tmp2 ={};
-        //                 tmp1["$"+ data[i][2]] = data[i][3];
-        //                 tmp2["$not"] = tmp1;
-        //                 sqlJson[data[i][1].toUpperCase()] = tmp2;
-        //                 break;
-        //         }
-        //     }else if (data[i][0] == "OR"){
-        //
-        //         // while (i < data.length){
-        //         //     if (data[i+1][0] == "OR")
-        //         // }
-        //     }
-        // }
-        // return sqlJson;
-
     };
     var data = FormatData(GetDataFunc());
     var sqljson = ConvertData2Json(data);
-    if (IsEmpty(sqljson))   return;
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if (IsEmpty(sqljson) || IsEmpty(database))   return;
     $.busyLoadFull("show", { spinner: "accordion"});
-    var condition = {'condition': JSON.stringify(sqljson)};
+    var condition = {'condition': JSON.stringify(sqljson), 'database':database};
     $.post('/search/doexactSearch/', condition, null, 'json')
         .done(function (data) {
             CreatVCFTable('#DataTable', data, true);

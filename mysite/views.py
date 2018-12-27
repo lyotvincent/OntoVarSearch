@@ -128,9 +128,14 @@ def dosearch(request):
 def doexactSearch(request):
     if request.method == 'POST':
         json_data = request.POST.get("condition")
+        database = request.POST.get("database")
         condition = json.loads(json_data)
         connection = MongoClient(MongodbAddrRemote)
-        collection_vcf = connection.vcf_hpo.autosomes
+        if database in connection.mydb.collection_names():
+            collection_vcf = connection.mydb[database]
+        else:
+            collection_vcf = connection.vcf_hpo[database]
+        #collection_vcf = connection.vcf_hpo.autosomes
         Allresults=[]
         results = collection_vcf.find(condition, {"_id": 0})
         for result in results:
@@ -143,10 +148,16 @@ def doexactSearch(request):
 def DiseaseSearch(request):
     if request.method == 'POST':
         disease = request.POST.get("json_data")
+        database = request.POST.get("database")
         connection = MongoClient(MongodbAddrRemote)
+        # if database in connection.mydb.collection_names():
+        #     collection_vcf = connection.mydb[database]
+        # else
+        #     collection_vcf = connection.vcf_hpo[database]
+
         collection_hpo = connection.vcf_hpo.hpo
         collection_gtf = connection.vcf_hpo.gtf
-        collection_vcf = connection.vcf_hpo.autosomes
+        #collection_vcf = connection.vcf_hpo.autosomes
 
         regx = re.compile(".*"+ disease +".*", re.IGNORECASE)
         results_disease = collection_hpo.find({"HPO_Term_Name": regx}).sort("HPO_Term_Name",1)
@@ -174,10 +185,15 @@ def DiseaseSearch(request):
 def GeneSearch(request):
     if request.method == 'POST':
         GeneName = request.POST.get("GeneName")
+        database = request.POST.get("database")
         connection = MongoClient(MongodbAddrRemote)
         #collection_hpo = connection.vcf_hpo.hpo
         collection_gtf = connection.vcf_hpo.gtf
-        collection_vcf = connection.vcf_hpo.autosomes
+        if database in connection.mydb.collection_names():
+            collection_vcf = connection.mydb[database]
+        else:
+            collection_vcf = connection.vcf_hpo[database]
+        #collection_vcf = connection.vcf_hpo.autosomes
         Allresults =[]
         results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name" : GeneName})
         for result_gene in results_gene:

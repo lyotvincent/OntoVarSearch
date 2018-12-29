@@ -213,7 +213,8 @@ class TransformV2J(object):
 
         cores = multiprocessing.cpu_count()
         processnum = int(cores / 2)
-
+        if processnum < 2:
+            processnum = 2
         # 自己调度迭代器 防止内存溢出
         pool = multiprocessing.Pool(processes=processnum)
         index = 0

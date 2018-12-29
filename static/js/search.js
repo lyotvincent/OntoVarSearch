@@ -146,14 +146,14 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
             bAutoWidth: false,//自动宽度
             //"autoWidth": false,
             paging: true, // 分页
-            bInfo: true, //Showing x to x of x entries
-            columns:[
-                {"title":"Disease"},
-                {"title":"GeneName"},
-                {"title":"seqname"},
-                {"title":"start"},
-                {"title":"end"},
-            ]
+            bInfo: true //Showing x to x of x entries
+            // columns:[
+            //     {"title":"Disease"},
+            //     {"title":"GeneName"},
+            //     {"title":"seqname"},
+            //     {"title":"start"},
+            //     {"title":"end"},
+            // ]
         });
         return;
     }
@@ -179,8 +179,6 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
         "columnDefs": [// 定义操作列,######以下是重点########
             {
                 "targets": 1,//操作按钮目标列
-                "data": null,
-                // "orderable": false,
                 "render": function (data, type, row) {
                     var GeneName = row.GeneName;
                     //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "'>" + GeneName + " </a>";

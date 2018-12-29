@@ -50,7 +50,7 @@ class Transform(TransformV2J):
 UploadFilePath = 'E:/project/GeneSearch/'
 MongodbAddrLocal = "mongodb://127.0.0.1:27017"
 MongodbAddrRemote = "mongodb://123.207.240.94:27017"
-MongoIndexField = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
+MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
 
 
 def html_index(request):
@@ -359,7 +359,7 @@ def uploadimportDB(request):
             jsonpath = result["filepath"] + result["filename_json"]
             datacollection = connection.mydb[result['collectionName']]
             ImportJson2Mongodb(jsonpath, datacollection)
-            updatekeyfield(datacollection)
+            #updatekeyfield(datacollection)
             CreatIndex(datacollection)
             collection.update({'filemd5': md5}, {'$set': {'isimportcomplete': True}})
     return HttpResponse()
@@ -381,7 +381,10 @@ def CreatIndex(collection):
     keys = collection.map_reduce(map, reduce, out = {'inline' : 1} , full_response = True)
     for key in keys['results']:
         if key['value'].upper() in MongoIndexField:
-            collection.create_index([(key['value'], 1)], background=True)
+            try:
+                collection.create_index([(key['value'], 1)], background=True)
+            except:
+                continue
     return
 
 #获取表的key, 用于查询时的字段提示

@@ -14,6 +14,10 @@ from django.core.wsgi import get_wsgi_application
 #服务器使用,虚拟环境设置
 sys.path.append('C:/Project/vcf2json')
 sys.path.append('C:/Project/vcf2json_file/environment/venv/Lib/site-packages')
+sys.path.append('C:/Project/GeneJson')
+sys.path.append('C:/Project/GeneJson/venv_real/Lib/site-packages')
+# sys.path.append('C:/Python35/Lib/site-packages')
+
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GeneJson.settings")

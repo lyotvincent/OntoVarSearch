@@ -9,7 +9,7 @@ body {
     /*background: #1A1A1A url(/static/imgs/main-wrapper.png) repeat;*/
     /*font-family: 'Open Sans', sans-serif;*/
     font-family: "Times New Roman";
-    font-size: 1pt;
+    font-size: 14pt;
     color: #4F4F4F;
 }
 
@@ -105,7 +105,7 @@ ul.style1 a:hover {
 
 ul.style1 h3 {
     padding: 0 0 0.75em 0;
-    font-size: 1.10em;
+    /*font-size: 1.10em;*/
     font-weight: 400;
     color: #4F4F4F;
 }
@@ -626,7 +626,7 @@ label[for="json"] {
     margin: 0 auto;
     display: block;
     margin-top: 1em;
-    font-size: 15.113em;
+    /*font-size: 1.113em;*/
     color: #9fa6b5;
     text-align: center;
 }

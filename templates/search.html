@@ -90,10 +90,10 @@
             <div class='tabsholder3'>
                 <div data-tab="Disease">
                     <div class="search d2 tabcontent">
-                        <form onsubmit="return DoDiseaseSearch();">
-                            <input id="search_disease_input" type="text" placeholder="Search Disease...">
-                            <button id="search_disease_button" type="button" onclick="DoDiseaseSearch()"></button>
-                            <h1 class="instructions">Search for a disease, variant</h1>
+                        <form onsubmit="return DoMainSearch();">
+                            <input id="search_disease_input" type="text" placeholder="like: mkks, fever...">
+                            <button id="search_disease_button" type="button" onclick="DoMainSearch()"></button>
+                            <h1 class="instructions">Search for a gene, disease, variant</h1>
                         </form>
                     </div>
                 </div>
@@ -151,6 +151,12 @@
         </br>
         </br>
         <div id="app">
+            <div class="container">
+                {#                    <table id="DataTable" class="table display"></table>#}
+                <table id="GeneDiseaseTable" class="table table-striped table-bordered table-hover"
+                       style="table-layout: fixed"></table>
+            </div>
+            </br>
             <div class="container">
                 {#                    <table id="DataTable" class="table display"></table>#}
                 <table id="DiseaseDataTable" class="table table-striped table-bordered table-hover"

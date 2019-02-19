@@ -143,6 +143,23 @@ def doexactSearch(request):
     return JsonResponse(Allresults, safe=False)
 
 
+#gene-disease search
+@csrf_exempt
+def doGeneDiseaseSearch(request):
+    if request.method == 'POST':
+        GeneName = request.POST.get("json_data")
+        database = request.POST.get("database")
+        connection = MongoClient(MongodbAddrRemote)
+        collection_hpo = connection.vcf_hpo.hpo
+        collection_gtf = connection.vcf_hpo.gtf
+        regx = re.compile(".*"+ GeneName +".*", re.IGNORECASE)
+        results_genedisease = collection_hpo.find({"entrez_gene_symbol": regx},{"_id":0}).sort("entrz_gene_symbol",1)
+        Allresults = []
+        for result in results_genedisease:
+            Allresults.append(result)
+        return JsonResponse(Allresults, safe=False)
+
+
 #DiseaseSearch
 @csrf_exempt
 def DiseaseSearch(request):
@@ -150,10 +167,6 @@ def DiseaseSearch(request):
         disease = request.POST.get("json_data")
         database = request.POST.get("database")
         connection = MongoClient(MongodbAddrRemote)
-        # if database in connection.mydb.collection_names():
-        #     collection_vcf = connection.mydb[database]
-        # else
-        #     collection_vcf = connection.vcf_hpo[database]
 
         collection_hpo = connection.vcf_hpo.hpo
         collection_gtf = connection.vcf_hpo.gtf
@@ -195,7 +208,8 @@ def GeneSearch(request):
             collection_vcf = connection.vcf_hpo[database]
         #collection_vcf = connection.vcf_hpo.autosomes
         Allresults =[]
-        results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name" : GeneName})
+        regx = re.compile(".*" + GeneName + ".*", re.IGNORECASE)
+        results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name" : regx})
         for result_gene in results_gene:
             seqname = result_gene["seqname"]
             chrom_start = result_gene["start"]

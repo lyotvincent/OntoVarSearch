@@ -25,7 +25,7 @@ $(document).ready(function() {
         $.post('/download/showfiellist').done(function (data) {
             $("#Search_sel_DATABASE option").remove();
             for (let i of data){
-                $("#Search_sel_DATABASE").append("<option value="+i['collectionName']+">"+i['collectionName']+"</option>");
+                $("#Search_sel_DATABASE").append("<option value=" + i['collectionName'] + ">" + i['collectionName'] + "</option>");
             }
             Render();
         })
@@ -74,36 +74,69 @@ function BindAutoconplete(element) {
     })
 }
 
-function DoDiseaseSearch() {
-    var inputdisease = $('#search_disease_input').val();
-    var database = $('#Search_sel_DATABASE option:selected').val();
-    if(IsEmpty(inputdisease) || IsEmpty(database))   return;
-    var disease = {"json_data": inputdisease, "database":database};
+function DoMainSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
+    var inputgene = $('#search_disease_input').val();
+    $.when(DoGeneSearch(),DoDiseaseSearch(inputgene),DoVCFSearch(inputgene)).then(function () {
+        $.busyLoadFull("hide")
+    });
+    //DoGeneSearch().then(DoDiseaseSearch(inputgene));
+    //$.when(DoGeneSearch()).done($.busyLoadFull("hide"))
+    //DoGeneSearch().done($.busyLoadFull("hide"));//.then(DoDiseaseSearch);
+    //then(DoVCFSearch(inputgene)).then($.busyLoadFull("hide"));
+}
+
+function DoGeneSearch() {
+    var inputgene = $('#search_disease_input').val();
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(inputgene) || IsEmpty(database))   return;
+    var deferred = $.Deferred();
+    var Gene = {"json_data": inputgene, "database":database};
+    $.post('/search/doGeneDiseaseSearch/', Gene, null, 'json')
+        .done(function (data) {
+            CreatGeneDiseaseTable('#GeneDiseaseTable', data, true);
+            return deferred.resolve();
+        })
+        .fail(function () {
+            return deferred.reject();
+        });
+    return deferred.promise();
+}
+
+function DoDiseaseSearch(DiseaseName) {
+    //var inputdisease = $('#search_disease_input').val();
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(DiseaseName) || IsEmpty(database))   return;
+    var deferred = $.Deferred();
+    var disease = {"json_data": DiseaseName, "database":database};
+    //$.busyLoadFull("show", { spinner: "accordion"});
     $.post('/search/doDiseaseSearch', disease, null, 'json')
         .done(function (data) {
             CreatDiseaseTable('#DiseaseDataTable', data, true);
-            $.busyLoadFull("hide");
+            return deferred.resolve();
         })
         .fail(function () {
-            $.busyLoadFull("hide");
-        })
+            return deferred.reject();
+        });
+    return deferred.promise();
 }
 
 function DoVCFSearch(GeneName) {
     var database = $('#Search_sel_DATABASE option:selected').val();
     if(IsEmpty(GeneName) || IsEmpty(database))   return;
-    //if(GeneName == "" || GeneName == null || GeneName == undefined) return;
-    $.busyLoadFull("show", { spinner: "accordion"});
+    var deferred = $.Deferred();
+    //$.busyLoadFull("show", { spinner: "accordion"});
     var geneName = {"GeneName": GeneName, "database":database};
     $.post('/search/doGeneSearch/', geneName, null, 'json')
         .done(function (data) {
             CreatVCFTable('#DataTable', data, true);
-            $.busyLoadFull("hide");
+            return deferred.resolve();
         })
         .fail(function () {
-            $.busyLoadFull("hide");
-        })
+            return deferred.reject();
+        });
+
+    return deferred.promise();
 }
 
 //二级table的模板
@@ -164,6 +197,105 @@ function CreatColums(data) {
     return columns;
 }
 
+
+function CreatGeneDiseaseColums(data) {
+    var sort_up = function (x,y) {
+        return x.targets - y.targets;
+    };
+    var GetColumnPos = function(ColumnName){
+        switch (ColumnName) {
+            case "entrez_gene_id":
+                return 0;
+            case "entrez_gene_symbol":
+                return 1;
+            case "HPO_Term_Name":
+                return 2;
+            case "HPO_Term_ID":
+                return 3;
+            default:
+                return 100;
+        }
+    };
+    var columns = [];
+    var rowData = data instanceof Array? data[0] : data;
+    for (var k in rowData){
+        var column = {};
+        column.data = k;
+        column.title = k;
+        column.className = 'gridtitle';
+        column.targets = GetColumnPos(k);
+        column.createdCell = function (td, cellData, rowData, row, col) {
+            $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+        };
+        column.data === 'SampleNo'?columns.unshift(column):columns.push(column);
+    }
+    columns.sort(sort_up);
+    return columns;
+}
+
+function CreatGeneDiseaseTable(tableID, data, IsRoot) {
+    if (data.length === 0 && IsRoot){
+        //如果没有得到数据 就自己初始化一个空表格
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: true, //翻页功能
+            bAutoWidth: false,//自动宽度
+            paging: true, // 分页
+            bInfo: true, //Showing x to x of x entries
+            columns:[
+                {"title":"entrez_gene_id"},
+                {"title":"entrez_gene_symbol"},
+                {"title":"HPO_Term_Name"},
+                {"title":"HPO_Term_ID"}
+            ]
+        });
+        return;
+    }
+    bLengthChange = IsRoot;
+    bPaginate = IsRoot;
+    paging = IsRoot;
+    bInfo = IsRoot;
+
+    var table = $(tableID).DataTable({
+        destroy: true,
+        bSort: true,
+        searching: false,
+        bLengthChange:bLengthChange,//去掉每页多少条框体
+        bPaginate: true, //翻页功能
+        bAutoWidth: true,//自动宽度
+        "autoWidth": true,
+        paging: paging, // 禁止分页
+        bInfo : bInfo, //Showing x to x of x entries
+        scrollX: !IsRoot,  //水平滚动条
+        // columns:[
+        //     {"title":"entrez_gene_id"},
+        //     {"title":"entrez_gene_symbol"},
+        //     {"title":"HPO_Term_Name"},
+        //     {"title":"HPO_Term_ID"}
+        // ],
+        columns: CreatGeneDiseaseColums(data),
+        data: data,
+        ordering: true,
+        "columnDefs": [// 定义操作列,######以下是重点########
+            {
+                "targets": 2,//操作按钮目标列
+                "render": function (data, type, row) {
+                    var DiseaseName = row.HPO_Term_Name;
+                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "'>" + GeneName + " </a>";
+                    //var html = "<a href='#'  onclick='DoVCFSearch(" + GeneName + ")' >" + GeneName + "</a>"
+                    var html ="<a href='#' onclick='DoDiseaseSearch(\""+ DiseaseName + "\")';>"+DiseaseName+"</a>"
+                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "' class='button button-raised button-primary'  ><i class='fa fa-cloud-download'></i> Download </a>"
+                    // html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
+                    // html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
+                    return html;
+                }
+            }]
+    });
+}
+
 function CreatDiseaseColums(data) {
     var sort_up = function (x,y) {
         return x.targets - y.targets;
@@ -206,21 +338,21 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
         //如果没有得到数据 就自己初始化一个空表格
         $(tableID).DataTable({
             destroy: true,
-            bSort: false,
-            searching: false,
-            bLengthChange: false,//去掉每页多少条框体
+            //bSort: false,
+            //searching: false,
+            //bLengthChange: false,//去掉每页多少条框体
             bPaginate: true, //翻页功能
-            bAutoWidth: false,//自动宽度
+            //bAutoWidth: false,//自动宽度
             //"autoWidth": false,
             paging: true, // 分页
-            bInfo: true //Showing x to x of x entries
-            // columns:[
-            //     {"title":"Disease"},
-            //     {"title":"GeneName"},
-            //     {"title":"seqname"},
-            //     {"title":"start"},
-            //     {"title":"end"},
-            // ]
+            bInfo: true, //Showing x to x of x entries
+            columns:[
+                {"title":"Disease"},
+                {"title":"GeneName"},
+                {"title":"seqname"},
+                {"title":"start"},
+                {"title":"end"}
+            ]
         });
         return;
     }

@@ -6,12 +6,24 @@ var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
 
+$("input[id=search_disease_input]").keypress(function(e){
+    var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+    if (eCode == 13){
+        DoMainSearch();
+    }
+});
+
+
 function Render() {
-    layui.use(['layer', 'form'], function () {
-        var layer = layui.layer
-            , form = layui.form;
+    layui.use('form', function () {
+        var layer = layui.layer, form = layui.form;
         form.render();
     });
+    layui.use(['layer','element'], function () {
+        var element = layui.element;
+
+    });
+    Search_bind_autocomplete($("input[name='key']"),true);
 }
 
 function IsEmpty(str){
@@ -80,10 +92,6 @@ function DoMainSearch() {
     $.when(DoGeneSearch(),DoDiseaseSearch(inputgene),DoVCFSearch(inputgene)).then(function () {
         $.busyLoadFull("hide")
     });
-    //DoGeneSearch().then(DoDiseaseSearch(inputgene));
-    //$.when(DoGeneSearch()).done($.busyLoadFull("hide"))
-    //DoGeneSearch().done($.busyLoadFull("hide"));//.then(DoDiseaseSearch);
-    //then(DoVCFSearch(inputgene)).then($.busyLoadFull("hide"));
 }
 
 function DoGeneSearch() {
@@ -601,10 +609,12 @@ function Search_AddRow() {
     $('#exactbar_contend').append(html_bar);
 
     Search_rownum++;
+    //render();
     layui.use('form', function() {
         var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
         form.render();
     });
+    Search_bind_autocomplete($("input[name='key']"),true);
 }
 
 function  del(id) {
@@ -774,4 +784,40 @@ function Search_exactSearch(){
         .fail(function () {
             $.busyLoadFull("hide");
         })
+}
+
+//input绑定/解除 autocomplete
+function Search_bind_autocomplete(node,isbind) {
+    if (isbind){
+        var selsource = [
+                "GENENAME",
+                "CHROM",
+                "POS",
+                "ID",
+                "QUAL"
+            ];
+        node.autocomplete({
+            minLength: 0,
+            source: selsource,
+            disabled:false,
+            focus :function () {
+                return false;
+            },
+            select: function(event, ui){
+                $this = $(this);
+                setTimeout(function () {
+                    $this.blur();
+                }, 1);
+            }
+        }).focus(function(){
+                $(this).autocomplete("search");
+                return false;
+            }
+        );
+
+    }else {
+        node.autocomplete({
+            disabled:true
+        });
+    }
 }

@@ -123,13 +123,69 @@ def dosearch(request):
     return HttpResponse(json.dumps(Allresults), content_type="application/text")
 
 
+def ConvertKey(key, dic):
+    GeneName = dic[key]
+    connection = MongoClient(MongodbAddrRemote)
+    collection_gtf = connection.vcf_hpo.gtf
+    regx = re.compile(GeneName, re.IGNORECASE)
+    results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": regx})
+    for result_gene in results_gene:
+        seqname = result_gene["seqname"]
+        chrom_start = result_gene["start"]
+        chrom_end = result_gene["end"]
+        dic["CHROM"] = seqname
+        dic["POS"] = {"$gte": int(chrom_start), "$lte": int(chrom_end)}
+        #pos = {"POS": {"$gte": int(chrom_start), "$lte": int(chrom_end)}}
+        #dic.append(pos)
+        break
+    dic.pop(key)
+
+
+def get_target_value(key, dic, tmp_list):
+    """
+    :param key: 目标key值
+    :param dic: JSON数据
+    :param tmp_list: 用于存储获取的数据
+    :return: list
+    """
+    if not isinstance(dic, dict):  # 对传入数据进行格式校验
+        return tmp_list
+    if key in dic.keys():
+        ConvertKey(key, dic)
+        #tmp_list.append(dic[key])  # 传入数据存在则存入tmp_list
+    else:
+        for value in dic.values():  # 传入数据不符合则对其value值进行遍历
+            if isinstance(value, dict):
+                get_target_value(key, value, tmp_list)  # 传入数据的value值是字典，则直接调用自身
+            elif isinstance(value, (list, tuple)):
+                _get_value(key, value, tmp_list)  # 传入数据的value值是列表或者元组，则调用_get_value
+    return tmp_list
+
+
+def _get_value(key, val, tmp_list):
+    for val_ in val:
+        if isinstance(val_, dict):
+            get_target_value(key, val_, tmp_list)  # 传入数据的value值是字典，则调用get_target_value
+        elif isinstance(val_, (list, tuple)):
+            _get_value(key, val_, tmp_list)   # 传入数据的value值是列表或者元组，则调用自身
+
+
+#change genename --> chrom + pos
+@csrf_exempt
+def ConvertGeneName2cp(condition):
+    get_target_value("GENENAME", condition, [])
+    return condition
+
+
 #search data
 @csrf_exempt
 def doexactSearch(request):
     if request.method == 'POST':
-        json_data = request.POST.get("condition")
+        condition = request.POST.get("condition")
         database = request.POST.get("database")
-        condition = json.loads(json_data)
+        condition = json.loads(condition)
+        condition = ConvertGeneName2cp(condition)
+
         connection = MongoClient(MongodbAddrRemote)
         if database in connection.mydb.collection_names():
             collection_vcf = connection.mydb[database]

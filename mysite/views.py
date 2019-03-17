@@ -74,7 +74,6 @@ def html_contact(request):
 def html_download(request):
     return render(request, "download.html")
 
-
 #download file
 @csrf_exempt
 def DownloadFile(request):

@@ -674,6 +674,12 @@ function Search_exactSearch(){
             if (strkey == 'POS'){
                 data[i][3] = parseInt(data[i][3]);
             }
+            if (!IsEmpty(data[i][3]) && !isNaN(data[i][3])){
+                data[i][3] = parseInt(data[i][3]);
+            }
+            // if (strkey == 'ALT'){
+            //     data[i][1] = 'ALT.1'
+            // }
         }
         return data;
     };
@@ -794,7 +800,10 @@ function Search_bind_autocomplete(node,isbind) {
                 "CHROM",
                 "POS",
                 "ID",
-                "QUAL"
+                "QUAL",
+                "REF",
+                "ALT.1",
+                "FILTER.FILTER_PASS"
             ];
         node.autocomplete({
             minLength: 0,

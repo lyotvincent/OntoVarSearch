@@ -102,7 +102,7 @@ class TransformV2J(object):
                 }
                 #Info
                 recorddict3 = {
-                    "Info": {
+                    "INFO": {
                         k_Info[9:] : chunker[0][k_Info][i] for k_Info in fields if k_Info not in ['variants/CHROM', 'variants/POS', 'variants/ID', 'variants/REF', 'variants/ALT', 'variants/QUAL', 'variants/numalt', 'variants/svlen', 'variants/is_snp']
                         and 'variants/FILTER' not in k_Info and 'calldata/' not in k_Info
                     }
@@ -111,7 +111,7 @@ class TransformV2J(object):
                 recordsamples = []
                 for k_sample, j in zip(samples, range(samples.size)):
                     recordsample1 = {
-                        "SampleNo": k_sample
+                        "SAMPLENO": k_sample
                     }
                     recordsample2 = {
                         k_field[9:]: [chunker[0][k_field][i][j][n] for n in
@@ -122,7 +122,7 @@ class TransformV2J(object):
                     recordsample = dict(recordsample1, **recordsample2)
                     recordsamples.append(recordsample)
                 recorddict4 = {
-                    "Samples": recordsamples
+                    "SAMPLES": recordsamples
                 }
                 recorddictMerge = dict(recorddict1, **recorddict2, **recorddict3, **recorddict4)
                 li.append(recorddictMerge)
@@ -137,7 +137,7 @@ class TransformV2J(object):
                 recordsamples = []
                 for k_sample, j in zip(samples, range(samples.size)):
                     recordsample1 = {
-                        "SampleNo": k_sample
+                        "SAMPLENO": k_sample
                     }
                     recordsample2 = {
                         k_field[9:]: [chunker[0][k_field][i][j][n] for n in
@@ -148,7 +148,7 @@ class TransformV2J(object):
                     recordsample = dict(recordsample1, **recordsample2)
                     recordsamples.append(recordsample)
                 recorddict2 = {
-                    "Samples": recordsamples
+                    "SAMPLES": recordsamples
                 }
 
                 recorddict = dict(recorddict1, **recorddict2)

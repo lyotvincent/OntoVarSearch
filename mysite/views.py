@@ -198,6 +198,34 @@ def doexactSearch(request):
     return JsonResponse(Allresults, safe=False)
 
 
+#gene information search
+@csrf_exempt
+def doGeneInfoSearch(request):
+    if request.method == 'POST':
+        GeneName = request.POST.get("json_data")
+        connection = MongoClient(MongodbAddrRemote)
+        collection_hpo = connection.vcf_hpo.hpo
+        collection_gtf = connection.vcf_hpo.gtf
+        Allresults =[]
+        regx = re.compile(".*" + GeneName + ".*", re.IGNORECASE)
+        results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": regx})
+        for result_gene in results_gene:
+            seqname = result_gene["seqname"]
+            chrom_start = result_gene["start"]
+            chrom_end = result_gene["end"]
+            gene_id = result_gene["attribute"]["gene_id"]
+            strand = result_gene["strand"]
+            result = {
+                "GeneName": GeneName,
+                "GeneID": gene_id,
+                "Chromosome": seqname,
+                "Start": chrom_start,
+                "End": chrom_end,
+                "Strand": strand
+            }
+            Allresults.append(result)
+        return JsonResponse(Allresults, safe=False)
+
 #gene-disease search
 @csrf_exempt
 def doGeneDiseaseSearch(request):

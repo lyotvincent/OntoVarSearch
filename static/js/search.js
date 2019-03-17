@@ -89,9 +89,25 @@ function BindAutoconplete(element) {
 function DoMainSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
     var inputgene = $('#search_disease_input').val();
-    $.when(DoGeneSearch(),DoDiseaseSearch(inputgene),DoVCFSearch(inputgene)).then(function () {
+    $.when(DoGeneInfoSearch(), DoGeneSearch(), DoDiseaseSearch(inputgene), DoVCFSearch(inputgene)).then(function () {
         $.busyLoadFull("hide")
     });
+}
+
+function DoGeneInfoSearch() {
+    var inputgene = $('#search_disease_input').val();
+    if(IsEmpty(inputgene))   return;
+        var deferred = $.Deferred();
+    var Gene = {"json_data": inputgene};
+    $.post('/search/doGeneInfoSearch/', Gene, null, 'json')
+        .done(function (data) {
+            CreatGeneInfoTable('#GeneInfoTable', data, true);
+            return deferred.resolve();
+        })
+        .fail(function () {
+            return deferred.reject();
+        });
+    return deferred.promise();
 }
 
 function DoGeneSearch() {
@@ -205,6 +221,118 @@ function CreatColums(data) {
     return columns;
 }
 
+function CreatGeneInfoColums(data) {
+    var sort_up = function (x,y) {
+        return x.targets - y.targets;
+    };
+    var GetColumnPos = function(ColumnName){
+        switch (ColumnName) {
+            case "GeneName":
+                return 0;
+            case "GeneID":
+                return 1;
+            case "Chromosome":
+                return 2;
+            case "Start":
+                return 3;
+            case "End":
+                return 4;
+            case "Strand":
+                return 5;
+            case "External":
+                return 6;
+            default:
+                return 100;
+        }
+    };
+    var columns = [];
+    var rowData = data instanceof Array? data[0] : data;
+    for (var k in rowData){
+        var column = {};
+        column.data = k;
+        column.title = k;
+        column.className = 'gridtitle';
+        column.targets = GetColumnPos(k);
+        column.createdCell = function (td, cellData, rowData, row, col) {
+            $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+        };
+        column.data === 'SampleNo'?columns.unshift(column):columns.push(column);
+    }
+    {
+        var column = {};
+        column.data = "External";
+        column.title = "External";
+        column.className = 'gridtitle';
+        column.targets = 6;
+        // column.createdCell = function (td, cellData, rowData, row, col) {
+        //     $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+        // };
+        columns.push(column);
+    }
+    columns.sort(sort_up);
+    return columns;
+}
+
+function CreatGeneInfoTable(tableID, data, IsRoot) {
+    if (data.length === 0 && IsRoot){
+        //如果没有得到数据 就自己初始化一个空表格
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: false, //翻页功能
+            bAutoWidth: false,//自动宽度
+            paging: false, // 分页
+            bInfo: true, //Showing x to x of x entries
+            columns:[
+                {"title":"GeneName"},
+                {"title":"Gene ID"},
+                {"title":"Chromosome"},
+                {"title":"Start"},
+                {"title":"End"},
+                {"title":"Strand"},
+                {"title":"External"}
+            ]
+        });
+        return;
+    }
+    bLengthChange = IsRoot;
+    bPaginate = IsRoot;
+    paging = IsRoot;
+    bInfo = IsRoot;
+
+    var table = $(tableID).DataTable({
+        destroy: true,
+        bAutoWidth: true,//自动宽度
+        paging: false, // 禁止分页
+        bInfo : false, //Showing x to x of x entries
+        scrollX: !IsRoot,  //水平滚动条
+        columns: CreatGeneInfoColums(data),
+        data: data,
+        ordering: true,
+        "columnDefs": [// 定义操作列,######以下是重点########
+        {
+            "targets": 6,//操作按钮目标列
+            "width": "35%",
+            "render": function (data, type, row) {
+                var GeneName = row.GeneName;
+                var GeneID = row.GeneID;
+                var Chr = row.Chromosome;
+                var Start = row.Start;
+                var End = row.End;
+                var html ="<a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g="+ GeneID + "'>Ensembl</a>" + "&nbsp" +
+                    "<a class='btn btn-success' role='button' href='http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr"+ Chr + "%3A" + Start + "-" + End + "'>UCSC</a>" + "&nbsp" +
+                    "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene="+ GeneName + "'>GeneCard</a>" + "&nbsp" +
+                    "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term="+ GeneName + "'>NCBI</a>" + "&nbsp" +
+                    "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/"+ GeneName + "'>GTEX</a>"
+                    // "<a class='btn btn btn-dark' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g="+ GeneID + "'>" +GeneName+"</a>";
+                return html;
+            }
+        }]
+    });
+}
+
 
 function CreatGeneDiseaseColums(data) {
     var sort_up = function (x,y) {
@@ -249,9 +377,9 @@ function CreatGeneDiseaseTable(tableID, data, IsRoot) {
             bSort: false,
             searching: false,
             bLengthChange: false,//去掉每页多少条框体
-            bPaginate: true, //翻页功能
+            bPaginate: false, //翻页功能
             bAutoWidth: false,//自动宽度
-            paging: true, // 分页
+            paging: false, // 分页
             bInfo: true, //Showing x to x of x entries
             columns:[
                 {"title":"entrez_gene_id"},
@@ -346,13 +474,12 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
         //如果没有得到数据 就自己初始化一个空表格
         $(tableID).DataTable({
             destroy: true,
-            //bSort: false,
-            //searching: false,
-            //bLengthChange: false,//去掉每页多少条框体
-            bPaginate: true, //翻页功能
-            //bAutoWidth: false,//自动宽度
-            //"autoWidth": false,
-            paging: true, // 分页
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: false, //翻页功能
+            bAutoWidth: false,//自动宽度
+            paging: false, // 分页
             bInfo: true, //Showing x to x of x entries
             columns:[
                 {"title":"Disease"},
@@ -410,18 +537,6 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
 
 function CreatVCFTable(tableID, data, IsRoot) {
     if (data.length === 0 && IsRoot){
-        //del previous table
-        // for (var i = 1; i <= tableIndex; ++i){
-        //     var datatable = $('#DataTable' + i).DataTable();
-        //     if (datatable) {
-        //         datatable.clear();
-        //     }
-        // }
-        // try{
-        //     $(tableID).DataTable().clear();
-        // }catch(e){
-        //
-        // }
         if ($.fn.DataTable.isDataTable(tableID)) {
             $(tableID).DataTable().clear();
             $(tableID).DataTable().destroy();
@@ -433,10 +548,9 @@ function CreatVCFTable(tableID, data, IsRoot) {
             bSort: false,
             searching: false,
             bLengthChange: false,//去掉每页多少条框体
-            bPaginate: true, //翻页功能
+            bPaginate: false, //翻页功能
             bAutoWidth: false,//自动宽度
-            //"autoWidth": false,
-            paging: true, // 分页
+            paging: false, // 分页
             bInfo: true, //Showing x to x of x entries
             columns:[
                 {"title":"CHROM"},

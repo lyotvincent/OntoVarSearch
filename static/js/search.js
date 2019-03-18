@@ -6,12 +6,26 @@ var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
 
-$("input[id=search_disease_input]").keypress(function(e){
-    var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-    if (eCode == 13){
+// $("input[id=search_disease_input]").keypress(function(e){
+//     var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+//     if (eCode == 13){
+//         DoMainSearch();
+//     }
+// });
+
+function onKeyPress(e) {
+    var keyCode = null;
+    if (e.which)
+        keyCode = e.which;
+    else if (e.keyCode)
+        keyCode = e.keyCode;
+
+    if (keyCode == 13) {
         DoMainSearch();
+        return true;
     }
-});
+    return false;
+}
 
 
 function Render() {
@@ -86,18 +100,23 @@ function BindAutoconplete(element) {
     })
 }
 
+function DoMainSearchManual(input) {
+    $('#search_disease_input').val(input);
+    DoMainSearch();
+}
+
 function DoMainSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
-    var inputgene = $('#search_disease_input').val();
-    $.when(DoGeneInfoSearch(), DoGeneSearch(), DoDiseaseSearch(inputgene), DoVCFSearch(inputgene)).then(function () {
+    var input = $('#search_disease_input').val();
+    $.when(DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
         $.busyLoadFull("hide")
     });
 }
 
-function DoGeneInfoSearch() {
-    var inputgene = $('#search_disease_input').val();
+function DoGeneInfoSearch(inputgene) {
+    //var inputgene = $('#search_disease_input').val();
     if(IsEmpty(inputgene))   return;
-        var deferred = $.Deferred();
+    var deferred = $.Deferred();
     var Gene = {"json_data": inputgene};
     $.post('/search/doGeneInfoSearch/', Gene, null, 'json')
         .done(function (data) {
@@ -110,7 +129,7 @@ function DoGeneInfoSearch() {
     return deferred.promise();
 }
 
-function DoGeneSearch() {
+function DoGeneDiseaseSearch() {
     var inputgene = $('#search_disease_input').val();
     var database = $('#Search_sel_DATABASE option:selected').val();
     if(IsEmpty(inputgene) || IsEmpty(database))   return;
@@ -151,7 +170,7 @@ function DoVCFSearch(GeneName) {
     var deferred = $.Deferred();
     //$.busyLoadFull("show", { spinner: "accordion"});
     var geneName = {"GeneName": GeneName, "database":database};
-    $.post('/search/doGeneSearch/', geneName, null, 'json')
+    $.post('/search/doVCFSearch/', geneName, null, 'json')
         .done(function (data) {
             CreatVCFTable('#DataTable', data, true);
             return deferred.resolve();
@@ -285,6 +304,7 @@ function CreatGeneInfoTable(tableID, data, IsRoot) {
             bAutoWidth: false,//自动宽度
             paging: false, // 分页
             bInfo: true, //Showing x to x of x entries
+            data:data,
             columns:[
                 {"title":"GeneName"},
                 {"title":"Gene ID"},
@@ -307,29 +327,38 @@ function CreatGeneInfoTable(tableID, data, IsRoot) {
         bAutoWidth: true,//自动宽度
         paging: false, // 禁止分页
         bInfo : false, //Showing x to x of x entries
+        searching: false,
         scrollX: !IsRoot,  //水平滚动条
         columns: CreatGeneInfoColums(data),
         data: data,
         ordering: true,
         "columnDefs": [// 定义操作列,######以下是重点########
-        {
-            "targets": 6,//操作按钮目标列
-            "width": "35%",
-            "render": function (data, type, row) {
-                var GeneName = row.GeneName;
-                var GeneID = row.GeneID;
-                var Chr = row.Chromosome;
-                var Start = row.Start;
-                var End = row.End;
-                var html ="<a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g="+ GeneID + "'>Ensembl</a>" + "&nbsp" +
-                    "<a class='btn btn-success' role='button' href='http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr"+ Chr + "%3A" + Start + "-" + End + "'>UCSC</a>" + "&nbsp" +
-                    "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene="+ GeneName + "'>GeneCard</a>" + "&nbsp" +
-                    "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term="+ GeneName + "'>NCBI</a>" + "&nbsp" +
-                    "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/"+ GeneName + "'>GTEX</a>"
+            {
+                "targets": 6,//操作按钮目标列
+                "width": "35%",
+                "render": function (data, type, row) {
+                    var GeneName = row.GeneName;
+                    var GeneID = row.GeneID;
+                    var Chr = row.Chromosome;
+                    var Start = row.Start;
+                    var End = row.End;
+                    var html = "<a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g=" + GeneID + "'>Ensembl</a>" + "&nbsp" +
+                        "<a class='btn btn-success' role='button' href='http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr" + Chr + "%3A" + Start + "-" + End + "'>UCSC</a>" + "&nbsp" +
+                        "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +
+                        "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +
+                        "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTEX</a>"
                     // "<a class='btn btn btn-dark' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g="+ GeneID + "'>" +GeneName+"</a>";
-                return html;
-            }
-        }]
+                    return html;
+                }
+            },
+            {
+                "targets": 0,//操作按钮目标列
+                "render": function (data, type, row) {
+                    var GeneName = row.GeneName;
+                    var html = "<a href='#' onclick='DoMainSearchManual(\"" + GeneName + "\")';>" + GeneName + "</a>"
+                    return html;
+                }
+            }]
     });
 }
 
@@ -381,6 +410,7 @@ function CreatGeneDiseaseTable(tableID, data, IsRoot) {
             bAutoWidth: false,//自动宽度
             paging: false, // 分页
             bInfo: true, //Showing x to x of x entries
+            data:data,
             columns:[
                 {"title":"entrez_gene_id"},
                 {"title":"entrez_gene_symbol"},
@@ -420,12 +450,7 @@ function CreatGeneDiseaseTable(tableID, data, IsRoot) {
                 "targets": 2,//操作按钮目标列
                 "render": function (data, type, row) {
                     var DiseaseName = row.HPO_Term_Name;
-                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "'>" + GeneName + " </a>";
-                    //var html = "<a href='#'  onclick='DoVCFSearch(" + GeneName + ")' >" + GeneName + "</a>"
                     var html ="<a href='#' onclick='DoDiseaseSearch(\""+ DiseaseName + "\")';>"+DiseaseName+"</a>"
-                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "' class='button button-raised button-primary'  ><i class='fa fa-cloud-download'></i> Download </a>"
-                    // html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
-                    // html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
                     return html;
                 }
             }]
@@ -481,6 +506,7 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
             bAutoWidth: false,//自动宽度
             paging: false, // 分页
             bInfo: true, //Showing x to x of x entries
+            data:data,
             columns:[
                 {"title":"Disease"},
                 {"title":"GeneName"},
@@ -507,13 +533,6 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
         paging: paging, // 禁止分页
         bInfo : bInfo, //Showing x to x of x entries
         scrollX: !IsRoot,  //水平滚动条
-        // columns: [
-        //     {"title": "Disease"},
-        //     {"title": "GeneName"},
-        //     {"title": "seqname"},
-        //     {"title": "start"},
-        //     {"title": "end"},
-        // ],
         columns: CreatDiseaseColums(data),
         data: data,
         ordering: true,
@@ -522,12 +541,7 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
                 "targets": 1,//操作按钮目标列
                 "render": function (data, type, row) {
                     var GeneName = row.GeneName;
-                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "'>" + GeneName + " </a>";
-                    //var html = "<a href='#'  onclick='DoVCFSearch(" + GeneName + ")' >" + GeneName + "</a>"
                     var html ="<a href='#' onclick='DoVCFSearch(\""+ GeneName + "\")';>"+GeneName+"</a>"
-                    //var html = "<a href='/search/doGeneSearch/?GeneName=" + GeneName + "' class='button button-raised button-primary'  ><i class='fa fa-cloud-download'></i> Download </a>"
-                    // html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
-                    // html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
                     return html;
                 }
             }]
@@ -552,6 +566,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
             bAutoWidth: false,//自动宽度
             paging: false, // 分页
             bInfo: true, //Showing x to x of x entries
+            data:data,
             columns:[
                 {"title":"CHROM"},
                 {"title":"POS"},

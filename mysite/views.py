@@ -216,7 +216,7 @@ def doGeneInfoSearch(request):
             gene_id = result_gene["attribute"]["gene_id"]
             strand = result_gene["strand"]
             result = {
-                "GeneName": GeneName,
+                "GeneName": result_gene["attribute"]["gene_name"],
                 "GeneID": gene_id,
                 "Chromosome": seqname,
                 "Start": chrom_start,
@@ -276,9 +276,9 @@ def DiseaseSearch(request):
         return JsonResponse(Allresults, safe=False)
 
 
-#GeneSearch
+#VCF Search by Gene Name
 @csrf_exempt
-def GeneSearch(request):
+def doVCFSearch(request):
     if request.method == 'POST':
         GeneName = request.POST.get("GeneName")
         database = request.POST.get("database")
@@ -291,8 +291,8 @@ def GeneSearch(request):
             collection_vcf = connection.vcf_hpo[database]
         #collection_vcf = connection.vcf_hpo.autosomes
         Allresults =[]
-        regx = re.compile(".*" + GeneName + ".*", re.IGNORECASE)
-        results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name" : regx})
+        regx = re.compile('^'+GeneName+'$', re.IGNORECASE)
+        results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name": regx})
         for result_gene in results_gene:
             seqname = result_gene["seqname"]
             chrom_start = result_gene["start"]

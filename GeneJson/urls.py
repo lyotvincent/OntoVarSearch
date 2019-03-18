@@ -33,7 +33,7 @@ urlpatterns = [
     path('upload/importDB', views.uploadimportDB),
     path('search', views.html_search),
     path('search/doDiseaseSearch', views.DiseaseSearch),
-    path('search/doGeneSearch/', views.GeneSearch),
+    path('search/doVCFSearch/', views.doVCFSearch),
     path('search/doexactSearch/', views.doexactSearch),
     path('search/doGeneDiseaseSearch/', views.doGeneDiseaseSearch),
     path('search/doGeneInfoSearch/', views.doGeneInfoSearch),

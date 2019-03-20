@@ -6,13 +6,6 @@ var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
 
-// $("input[id=search_disease_input]").keypress(function(e){
-//     var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-//     if (eCode == 13){
-//         DoMainSearch();
-//     }
-// });
-
 function onKeyPress(e) {
     var keyCode = null;
     if (e.which)
@@ -108,7 +101,7 @@ function DoMainSearchManual(input) {
 function DoMainSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
     var input = $('#search_disease_input').val();
-    $.when(DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
+    $.when(DoGFF3Search(input), DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
         $.busyLoadFull("hide")
     });
 }
@@ -164,6 +157,25 @@ function DoDiseaseSearch(DiseaseName) {
     return deferred.promise();
 }
 
+function DoGFF3Search(input) {
+    //var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(input))   return;
+    var deferred = $.Deferred();
+    //$.busyLoadFull("show", { spinner: "accordion"});
+    var key = {"key": input};
+    $.post('/search/doGFF3Search/', key, null, 'json')
+        .done(function (data) {
+            CreatGFF3Table('#GFF3Table', data, true);
+            return deferred.resolve();
+        })
+        .fail(function () {
+            return deferred.reject();
+        });
+
+    return deferred.promise();
+}
+
+
 function DoVCFSearch(GeneName) {
     var database = $('#Search_sel_DATABASE option:selected').val();
     if(IsEmpty(GeneName) || IsEmpty(database))   return;
@@ -187,59 +199,9 @@ function format2(table_id) {
     return '<table id="DataTable'+ table_id +'" class="table table-striped table-bordered table-hover" cellpadding="5" cellspacing="0" border="0"></table>';
 }
 
-//根据json数据 创建列
-function CreatColums(data) {
-    var sort_up = function (x,y) {
-        return x.position - y.position;
-    };
-    var GetColumnPos = function(ColumnName){
-        switch (ColumnName) {
-            case "CHROM":
-                return 0;
-            case "POS":
-                return 1;
-            case "ID":
-                return 2;
-            case "REF":
-                return 3;
-            case "ALT":
-                return 4;
-            case "QUAL":
-                return 5;
-            case "FILTER":
-                return 6;
-            case "Info":
-                return 7;
-            case "Samples":
-                return 8;
-            default:
-                return 100;
-        }
-    };
-    var columns = [];
-    var rowData = data instanceof Array? data[0] : data;
-    for (var k in rowData){
-        var column = {};
-        column.data = k;
-        column.title = k;
-        column.className = 'gridtitle ';
-        column.position = GetColumnPos(k);
 
-        if (rowData[k] instanceof Object && (k === 'Info' || k === 'Samples' || k === 'FILTER')){
-            column.className += 'details-control';
-            column.targets = -1;
-            column.orderable = false;
-            column.defaultContent = '';
-        }
-        column.createdCell = function (td, cellData, rowData, row, col) {
-            $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
-        };
-        column.data === 'SampleNo'?columns.unshift(column):columns.push(column);
-    }
-    columns.sort(sort_up);
-    return columns;
-}
 
+//gene information
 function CreatGeneInfoColums(data) {
     var sort_up = function (x,y) {
         return x.targets - y.targets;
@@ -362,7 +324,7 @@ function CreatGeneInfoTable(tableID, data, IsRoot) {
     });
 }
 
-
+//gene with relative disease
 function CreatGeneDiseaseColums(data) {
     var sort_up = function (x,y) {
         return x.targets - y.targets;
@@ -457,6 +419,7 @@ function CreatGeneDiseaseTable(tableID, data, IsRoot) {
     });
 }
 
+//disease with its relative gene
 function CreatDiseaseColums(data) {
     var sort_up = function (x,y) {
         return x.targets - y.targets;
@@ -548,6 +511,58 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
     });
 }
 
+//variants
+function CreatVCFColums(data) {
+    var sort_up = function (x,y) {
+        return x.position - y.position;
+    };
+    var GetColumnPos = function(ColumnName){
+        switch (ColumnName) {
+            case "CHROM":
+                return 0;
+            case "POS":
+                return 1;
+            case "ID":
+                return 2;
+            case "REF":
+                return 3;
+            case "ALT":
+                return 4;
+            case "QUAL":
+                return 5;
+            case "FILTER":
+                return 6;
+            case "Info":
+                return 7;
+            case "Samples":
+                return 8;
+            default:
+                return 100;
+        }
+    };
+    var columns = [];
+    var rowData = data instanceof Array? data[0] : data;
+    for (var k in rowData){
+        var column = {};
+        column.data = k;
+        column.title = k;
+        column.className = 'gridtitle ';
+        column.position = GetColumnPos(k);
+
+        if (rowData[k] instanceof Object && (k === 'INFO' || k === 'SAMPLES' || k === 'FILTER')){
+            column.className += 'details-control';
+            column.targets = -1;
+            column.orderable = false;
+            column.defaultContent = '';
+        }
+        column.createdCell = function (td, cellData, rowData, row, col) {
+            $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+        };
+        column.data === 'SampleNo'?columns.unshift(column):columns.push(column);
+    }
+    columns.sort(sort_up);
+    return columns;
+}
 
 function CreatVCFTable(tableID, data, IsRoot) {
     if (data.length === 0 && IsRoot){
@@ -596,7 +611,161 @@ function CreatVCFTable(tableID, data, IsRoot) {
         paging: paging, // 禁止分页
         bInfo : bInfo, //Showing x to x of x entries
         scrollX: !IsRoot,  //水平滚动条
-        columns: CreatColums(data),
+        columns: CreatVCFColums(data),
+        data: data,
+        ordering: true,
+        colReorder: {
+          order: [0]
+        },
+        "fnCreatedRow": function (nRow, aData, iDataIndex) {
+            var i = 0;
+            for (var k in aData){
+                var isobject = $('td:eq('+i+')', nRow).hasClass("details-control");
+                if (isobject){
+                    $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
+                }
+                ++i;
+            }
+        }
+    });
+
+    $(tableID).on('click', ' tbody td.details-control', function () {
+        var OpenCell = function (obj) {
+            ++tableIndex;
+            row.child(format2(tableIndex)).show();
+            $(obj).children('span').removeClass(IconPlus).addClass(IconMinus);
+            var childdata = table.cell(obj).data();
+            var tmp = [];
+            if (childdata instanceof Array){
+                tmp = childdata;
+            }else{
+                tmp.push(childdata);
+            }
+            CreatVCFTable('#DataTable' + tableIndex, tmp, false);
+        };
+        var Tr = $(this).parents('tr');
+        var row = table.row(Tr);
+        if (row.child.isShown()) {
+            row.child.hide();
+            var span = Tr.find('span.fa-minus-square-o');
+            if ($(this).children('span')[0] === span[0]) {
+                // This cell is already open - close it
+                $(this).children('span').removeClass(IconMinus).addClass(IconPlus);
+            } else {
+                //other cell is open, close other cell and then open current cell
+                span.removeClass(IconMinus).addClass(IconPlus);
+                OpenCell(this);
+            }
+        }
+        else {
+            // Open this row (the format() function would return the data to be shown)
+            OpenCell(this);
+        }
+
+    });
+}
+
+//GFF3
+function CreatGFF3Colums(data) {
+    var sort_up = function (x,y) {
+        return x.position - y.position;
+    };
+    var GetColumnPos = function(ColumnName){
+        switch (ColumnName) {
+            case "seqid":
+                return 0;
+            case "source":
+                return 1;
+            case "type":
+                return 2;
+            case "start":
+                return 3;
+            case "end":
+                return 4;
+            case "score":
+                return 5;
+            case "strand":
+                return 6;
+            case "phase":
+                return 7;
+            case "attributes":
+                return 8;
+            default:
+                return 100;
+        }
+    };
+    var columns = [];
+    var rowData = data instanceof Array? data[0] : data;
+    for (var k in rowData){
+        var column = {};
+        column.data = k;
+        column.title = k;
+        column.className = 'gridtitle ';
+        column.position = GetColumnPos(k);
+
+        if (rowData[k] instanceof Object && (k === 'attributes')){
+            column.className += 'details-control';
+            column.targets = -1;
+            column.orderable = false;
+            column.defaultContent = '';
+        }
+        column.createdCell = function (td, cellData, rowData, row, col) {
+            $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+        };
+        column.data === 'SampleNo'?columns.unshift(column):columns.push(column);
+    }
+    columns.sort(sort_up);
+    return columns;
+}
+
+function CreatGFF3Table(tableID, data, IsRoot) {
+    if (data.length === 0 && IsRoot){
+        if ($.fn.DataTable.isDataTable(tableID)) {
+            $(tableID).DataTable().clear();
+            $(tableID).DataTable().destroy();
+        }
+
+        //如果没有得到数据 就自己初始化一个空表格
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: false, //翻页功能
+            bAutoWidth: false,//自动宽度
+            paging: false, // 分页
+            bInfo: true, //Showing x to x of x entries
+            data:data,
+            columns:[
+                {"title":"seqid"},
+                {"title":"source"},
+                {"title":"type"},
+                {"title":"start"},
+                {"title":"end"},
+                {"title":"strand"},
+                {"title":"phase"},
+                {"title":"attributes"}
+                // {"title":"Samples"}
+            ]
+        });
+        return;
+    }
+    bLengthChange = IsRoot;
+    bPaginate = IsRoot;
+    paging = IsRoot;
+    bInfo = IsRoot;
+    var table = $(tableID).DataTable({
+        destroy: true,
+        bSort: true,
+        searching: false,
+        bLengthChange:bLengthChange,//去掉每页多少条框体
+        bPaginate: true, //翻页功能
+        bAutoWidth: true,//自动宽度
+        "autoWidth": true,
+        paging: paging, // 禁止分页
+        bInfo : bInfo, //Showing x to x of x entries
+        scrollX: !IsRoot,  //水平滚动条
+        columns: CreatGFF3Colums(data),
         data: data,
         ordering: true,
         colReorder: {

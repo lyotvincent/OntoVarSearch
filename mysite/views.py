@@ -226,6 +226,24 @@ def doGeneInfoSearch(request):
             Allresults.append(result)
         return JsonResponse(Allresults, safe=False)
 
+
+#gff3 search
+@csrf_exempt
+def doGFF3Search(request):
+    if request.method == 'POST':
+        input = request.POST.get("key")
+        connection = MongoClient(MongodbAddrRemote)
+        # collection_hpo = connection.vcf_hpo.hpo
+        # collection_gtf = connection.vcf_hpo.gtf
+        collection_gff3 = connection.vcf_hpo.gff3
+        results = collection_gff3.find({"$text": {"$search": input}}, {"_id": 0}).sort("seqid", 1)
+        Allresults = []
+        for result in results:
+            Allresults.append(result)
+        return JsonResponse(Allresults, safe=False)
+
+
+
 #gene-disease search
 @csrf_exempt
 def doGeneDiseaseSearch(request):

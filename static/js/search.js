@@ -308,7 +308,7 @@ function CreatGeneInfoTable(tableID, data, IsRoot) {
                         "<a class='btn btn-success' role='button' href='http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr" + Chr + "%3A" + Start + "-" + End + "'>UCSC</a>" + "&nbsp" +
                         "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +
                         "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +
-                        "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTEX</a>"
+                        "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTExPortal" + "</a>"
                     // "<a class='btn btn btn-dark' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g="+ GeneID + "'>" +GeneName+"</a>";
                     return html;
                 }

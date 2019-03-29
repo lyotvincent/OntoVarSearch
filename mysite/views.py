@@ -49,8 +49,8 @@ class Transform(TransformV2J):
 #UploadFilePath = "C:/Project/vcf2json_file/"
 UploadFilePath = 'E:/project/GeneSearch/'
 MongodbAddrLocal = "mongodb://127.0.0.1:27017"
-MongodbAddrRemote = "mongodb://123.207.240.94:27017"
-MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
+MongodbAddrRemote = "mongodb://123.207.240.94:28019"
+MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO', 'SAMPLES', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
 
 
 def html_index(request):

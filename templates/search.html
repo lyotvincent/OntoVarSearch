@@ -61,10 +61,10 @@
             <ul class="nav1">
                 <li><a href="/index">Home</a></li>
 {#                <li><a href="/about">About Us</a></li>#}
-                <li><a href="/upload">Upload</a></li>
+{#                <li><a href="/upload">Upload</a></li>#}
 {#                <li><a href="/browse">Browse</a></li>#}
                 <li><a class="active" href="/search">Search</a></li>
-                <li><a href="/download">Download</a></li>
+                <li><a href="/download">File</a></li>
                 <li><a href="/contact">Contact</a></li>
 {#                <div class="clearfix"></div>#}
             </ul>
@@ -92,9 +92,11 @@
                     <div class="search d2 tabcontent">
                         <form onsubmit="return false;">
 {#                            <form onsubmit="return DoMainSearch();">#}
-                            <input id="search_disease_input" type="text" onkeypress="return onKeyPress(event)" placeholder="like: mkks, fever...">
+                            <input id="search_disease_input" type="text" onkeypress="return onKeyPress(event)" >
                             <button id="search_disease_button" type="button" onclick="DoMainSearch()"></button>
-                            <h1 class="instructions">Search for a gene, disease, variant</h1>
+                            <h4 class="instructions_left">For example: gene like: mkks</h4>
+                            <h4 class="instructions_left" style="margin-left: 103px">disease like: fever</h4>
+{#                            <h1 class="instructions">Search for a gene, disease, variant</h1>#}
                         </form>
                     </div>
                 </div>

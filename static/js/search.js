@@ -17,7 +17,7 @@ function onKeyPress(e) {
         DoMainSearch();
         return true;
     }
-    return false;
+    return true;
 }
 
 

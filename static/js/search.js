@@ -41,7 +41,7 @@ $(document).ready(function() {
 
     $('.tabsholder3').cardTabs({theme: 'graygreen'});
     var GetVCFFilelist = function() {
-        $.post('/download/showfiellist').done(function (data) {
+      $.post('/download/showfiellist').done(function (data) {
             $("#Search_sel_DATABASE option").remove();
             for (let i of data){
                 $("#Search_sel_DATABASE").append("<option value=" + i['collectionName'] + ">" + i['collectionName'] + "</option>");

@@ -38,7 +38,7 @@ function IsEmpty(str){
 }
 
 $(document).ready(function() {
-
+    $(".divInContainer").css({"background-color":'transparent'});
     $('.tabsholder3').cardTabs({theme: 'graygreen'});
     var GetVCFFilelist = function() {
       $.post('/download/showfiellist').done(function (data) {
@@ -93,7 +93,7 @@ function BindAutoconplete(element) {
     })
 }
 
-function DoMainSearchManual(input) {
+function  DoMainSearchManual(input) {
     $('#search_disease_input').val(input);
     DoMainSearch();
 }
@@ -101,7 +101,8 @@ function DoMainSearchManual(input) {
 function DoMainSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
     var input = $('#search_disease_input').val();
-    $.when(DoGFF3Search(input), DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
+    $.when(DoGeneInfoSearch(input)).then(function () {
+    //$.when(DoGFF3Search(input), DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
         $.busyLoadFull("hide")
     });
 }
@@ -113,7 +114,8 @@ function DoGeneInfoSearch(inputgene) {
     var Gene = {"json_data": inputgene};
     $.post('/search/doGeneInfoSearch/', Gene, null, 'json')
         .done(function (data) {
-            CreatGeneInfoTable('#GeneInfoTable', data, true);
+            $("#GeneInfoTable").parent('div').css({"background-color":'white'});
+            CreatGeneInfoTable2('#GeneInfoTable', data);
             return deferred.resolve();
         })
         .fail(function () {
@@ -122,8 +124,10 @@ function DoGeneInfoSearch(inputgene) {
     return deferred.promise();
 }
 
-function DoGeneDiseaseSearch() {
-    var inputgene = $('#search_disease_input').val();
+function DoGeneDiseaseSearch(GeneName) {
+    $.busyLoadFull("show", { spinner: "accordion"});
+    //var inputgene = $('#search_disease_input').val();
+    var inputgene = GeneName;
     var database = $('#Search_sel_DATABASE option:selected').val();
     if(IsEmpty(inputgene) || IsEmpty(database))   return;
     var deferred = $.Deferred();
@@ -131,9 +135,12 @@ function DoGeneDiseaseSearch() {
     $.post('/search/doGeneDiseaseSearch/', Gene, null, 'json')
         .done(function (data) {
             CreatGeneDiseaseTable('#GeneDiseaseTable', data, true);
+            $("#GeneDiseaseTable").parents('.divInContainer').css({"background-color":'white'});
+            $.busyLoadFull("hide");
             return deferred.resolve();
         })
         .fail(function () {
+            $.busyLoadFull("hide");
             return deferred.reject();
         });
     return deferred.promise();
@@ -158,6 +165,7 @@ function DoDiseaseSearch(DiseaseName) {
 }
 
 function DoGFF3Search(input) {
+    $.busyLoadFull("show", { spinner: "accordion"});
     //var database = $('#Search_sel_DATABASE option:selected').val();
     if(IsEmpty(input))   return;
     var deferred = $.Deferred();
@@ -166,9 +174,12 @@ function DoGFF3Search(input) {
     $.post('/search/doGFF3Search/', key, null, 'json')
         .done(function (data) {
             CreatGFF3Table('#GFF3Table', data, true);
+            $("#GFF3Table").parents('.divInContainer').css({"background-color":'white'});
+            $.busyLoadFull("hide");
             return deferred.resolve();
         })
         .fail(function () {
+            $.busyLoadFull("hide");
             return deferred.reject();
         });
 
@@ -177,6 +188,7 @@ function DoGFF3Search(input) {
 
 
 function DoVCFSearch(GeneName) {
+    $.busyLoadFull("show", { spinner: "accordion"});
     var database = $('#Search_sel_DATABASE option:selected').val();
     if(IsEmpty(GeneName) || IsEmpty(database))   return;
     var deferred = $.Deferred();
@@ -185,9 +197,12 @@ function DoVCFSearch(GeneName) {
     $.post('/search/doVCFSearch/', geneName, null, 'json')
         .done(function (data) {
             CreatVCFTable('#DataTable', data, true);
+            $("#DataTable").parents('.divInContainer').css({"background-color":'white'});
+            $.busyLoadFull("hide");
             return deferred.resolve();
         })
         .fail(function () {
+            $.busyLoadFull("hide");
             return deferred.reject();
         });
 
@@ -212,7 +227,7 @@ function CreatGeneInfoColums(data) {
                 return 0;
             case "GeneID":
                 return 1;
-            case "Chromosome":
+            case "Chr":
                 return 2;
             case "Start":
                 return 3;
@@ -221,6 +236,8 @@ function CreatGeneInfoColums(data) {
             case "Strand":
                 return 5;
             case "External":
+                return 7;
+            case "Internal":
                 return 6;
             default:
                 return 100;
@@ -241,8 +258,8 @@ function CreatGeneInfoColums(data) {
     }
     {
         var column = {};
-        column.data = "External";
-        column.title = "External";
+        column.data = "Internal";
+        column.title = "Internal";
         column.className = 'gridtitle';
         column.targets = 6;
         // column.createdCell = function (td, cellData, rowData, row, col) {
@@ -250,8 +267,35 @@ function CreatGeneInfoColums(data) {
         // };
         columns.push(column);
     }
+    {
+        var column = {};
+        column.data = "External";
+        column.title = "External";
+        column.className = 'gridtitle';
+        column.targets = 7;
+        // column.createdCell = function (td, cellData, rowData, row, col) {
+        //     $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+        // };
+        columns.push(column);
+    }
     columns.sort(sort_up);
     return columns;
+}
+
+function CreatGeneInfoTable2(tableID, data) {
+    var content = "<tbody><tr><td style='color: #f07b05;'>Gene Name</td><td style='color: dodgerblue;'>"+ data[0]["GeneName"] +"</td></tr><tr>" +
+        "<td style='color: #f07b05;'>Gene ID</td><td style='color: violet'>"+ data[0]["GeneID"] +"</td></tr>" +
+        "<tr><td style='color: #f07b05;'>Chromosomes</td><td style='color: lightseagreen'>"+ data[0]["Chr"] +"</td></tr>" +
+        "<tr><td style='color: #f07b05;'>Start</td><td style='color: lightseagreen;'>"+ data[0]['Start'] +"</td></tr>" +
+        "<tr><td style='color: #f07b05;'>End</td><td style='color: lightseagreen;'>"+ data[0]['End'] +"</td></tr>" +
+        "<tr><td style='color: #f07b05;'>Strand</td><td>"+ data[0]['Strand'] +"</td></tr>" +
+        "<tr><td style='color: #f07b05;'>Internal</td><td><a class='button button-border button-rounded button-royal button' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Diseases</a></td>" +
+        "<td><a class='button button-border button-rounded button-caution button' type='button' onclick='DoVCFSearch(\"" + data[0]["GeneName"] + "\")'>Variants</a></td>" +
+        "<td><a class='button button-border button-rounded button-highlight button' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Associations</a></td></tr>"+
+        "<tr><td style='color: #f07b05;'>External</td><td><a class='btn btn-primary' role='button' href='#'>link</a></td></tr>" +
+        "</tbody>";
+    $(tableID).html(content);
+    $(tableID).parents('div').show();
 }
 
 function CreatGeneInfoTable(tableID, data, IsRoot) {
@@ -270,10 +314,11 @@ function CreatGeneInfoTable(tableID, data, IsRoot) {
             columns:[
                 {"title":"GeneName"},
                 {"title":"Gene ID"},
-                {"title":"Chromosome"},
+                {"title":"Chr"},
                 {"title":"Start"},
                 {"title":"End"},
                 {"title":"Strand"},
+                {"title":"Internal"},
                 {"title":"External"}
             ]
         });
@@ -296,7 +341,7 @@ function CreatGeneInfoTable(tableID, data, IsRoot) {
         ordering: true,
         "columnDefs": [// 定义操作列,######以下是重点########
             {
-                "targets": 6,//操作按钮目标列
+                "targets": 7,//操作按钮目标列
                 "width": "35%",
                 "render": function (data, type, row) {
                     var GeneName = row.GeneName;
@@ -309,6 +354,26 @@ function CreatGeneInfoTable(tableID, data, IsRoot) {
                         "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +
                         "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +
                         "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTExPortal" + "</a>"
+                    // "<a class='btn btn btn-dark' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g="+ GeneID + "'>" +GeneName+"</a>";
+                    return html;
+                }
+            },
+            {
+                "targets": 6,//操作按钮目标列
+                "width": "25%",
+                "render": function (data, type, row) {
+                    var GeneName = row.GeneName;
+                    var GeneID = row.GeneID;
+                    var Chr = row.Chromosome;
+                    var Start = row.Start;
+                    var End = row.End;
+                    var html = "<div class='button-group'>"+
+                        "<a class='button button-glow button-border button-rounded button-primary button-small' type='button'>Diseases</a>" + "&nbsp" +
+                        "<a class='button button-glow button-rounded button-caution button-small' role='button' href='#'>Associations</a>" + "&nbsp" +
+                        "<a class='button button-glow button-rounded button-royal button-small' role='button' href='#'>Variants</a>" + "</div>";
+
+                    //"<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +
+                        //"<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTExPortal" + "</a>"
                     // "<a class='btn btn btn-dark' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g="+ GeneID + "'>" +GeneName+"</a>";
                     return html;
                 }
@@ -390,7 +455,7 @@ function CreatGeneDiseaseTable(tableID, data, IsRoot) {
     var table = $(tableID).DataTable({
         destroy: true,
         bSort: true,
-        searching: false,
+        searching: true,
         bLengthChange:bLengthChange,//去掉每页多少条框体
         bPaginate: true, //翻页功能
         bAutoWidth: true,//自动宽度

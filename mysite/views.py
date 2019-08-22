@@ -47,8 +47,10 @@ class Transform(TransformV2J):
         return TransformV2J.preview(self, filepath_vcf, mode)
 
 #UploadFilePath = "C:/Project/vcf2json_file/"
+#UploadFilePath = '/home/qz/project/GeneSearch/'
 UploadFilePath = 'E:/project/GeneSearch/'
 MongodbAddrLocal = "mongodb://127.0.0.1:28019"
+#MongodbAddrRemote = "mongodb://127.0.0.1:27017"
 MongodbAddrRemote = "mongodb://123.207.240.94:28019"
 MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO', 'SAMPLES', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
 
@@ -207,8 +209,10 @@ def doGeneInfoSearch(request):
         collection_hpo = connection.vcf_hpo.hpo
         collection_gtf = connection.vcf_hpo.gtf
         Allresults =[]
-        regx = re.compile(".*" + GeneName + ".*", re.IGNORECASE)
-        results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": regx})
+        results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": GeneName.upper()})
+        if results_gene.count() == 0:
+            regx = re.compile(".*" + GeneName + ".*", re.IGNORECASE)
+            results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": regx})
         for result_gene in results_gene:
             seqname = result_gene["seqname"]
             chrom_start = result_gene["start"]
@@ -218,7 +222,7 @@ def doGeneInfoSearch(request):
             result = {
                 "GeneName": result_gene["attribute"]["gene_name"],
                 "GeneID": gene_id,
-                "Chromosome": seqname,
+                "Chr": seqname,
                 "Start": chrom_start,
                 "End": chrom_end,
                 "Strand": strand
@@ -309,8 +313,11 @@ def doVCFSearch(request):
             collection_vcf = connection.vcf_hpo[database]
         #collection_vcf = connection.vcf_hpo.autosomes
         Allresults =[]
-        regx = re.compile('^'+GeneName+'$', re.IGNORECASE)
-        results_gene = collection_gtf.find({"feature" : "gene", "attribute.gene_name": regx})
+        results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": GeneName.upper()})
+        if results_gene.count() == 0:
+            regx = re.compile('^'+GeneName+'$', re.IGNORECASE)
+            results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": regx})
+
         for result_gene in results_gene:
             seqname = result_gene["seqname"]
             chrom_start = result_gene["start"]

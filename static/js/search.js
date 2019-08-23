@@ -5,6 +5,8 @@ var Search_rownum = 1;
 var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
+var IsResultsFound = false;
+
 
 function onKeyPress(e) {
     var keyCode = null;
@@ -100,10 +102,22 @@ function  DoMainSearchManual(input) {
 
 function DoMainSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
+    //clear old tables
+    ClearOldData()
     var input = $('#search_disease_input').val();
-    $.when(DoGeneInfoSearch(input)).then(function () {
+    IsResultsFound = false;
+    $.when(DoGeneInfoSearch(input),DoDiseaseSearch(input)).then(function () {
     //$.when(DoGFF3Search(input), DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
         $.busyLoadFull("hide")
+        if (IsResultsFound == false) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+
+                layer.msg('no results have been found for: ' + $('#search_disease_input').val());
+            });
+            $(".divInContainer").css({"background-color": 'transparent'});
+            return;
+        }
     });
 }
 
@@ -114,8 +128,13 @@ function DoGeneInfoSearch(inputgene) {
     var Gene = {"json_data": inputgene};
     $.post('/search/doGeneInfoSearch/', Gene, null, 'json')
         .done(function (data) {
-            $("#GeneInfoTable").parent('div').css({"background-color":'white'});
-            CreatGeneInfoTable2('#GeneInfoTable', data);
+            if (data.length === 0){
+            }else{
+                $("#GeneInfoTable").parent('div').css({"background-color":'white'});
+                IsResultsFound = true;
+                CreatGeneInfoTable2('#GeneInfoTable', data);
+            }
+
             return deferred.resolve();
         })
         .fail(function () {
@@ -134,8 +153,15 @@ function DoGeneDiseaseSearch(GeneName) {
     var Gene = {"json_data": inputgene, "database":database};
     $.post('/search/doGeneDiseaseSearch/', Gene, null, 'json')
         .done(function (data) {
+            if (data.length === 0) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('no related diseases have been found for: ' + $('#search_disease_input').val());
+                });
+                return deferred.resolve();
+            }
+            $("#GeneDiseaseTable").parents('.divInContainer').css({"background-color": 'white'});
             CreatGeneDiseaseTable('#GeneDiseaseTable', data, true);
-            $("#GeneDiseaseTable").parents('.divInContainer').css({"background-color":'white'});
             $.busyLoadFull("hide");
             return deferred.resolve();
         })
@@ -155,7 +181,13 @@ function DoDiseaseSearch(DiseaseName) {
     //$.busyLoadFull("show", { spinner: "accordion"});
     $.post('/search/doDiseaseSearch', disease, null, 'json')
         .done(function (data) {
-            CreatDiseaseTable('#DiseaseDataTable', data, true);
+            if (data.length === 0) {
+            } else {
+                $("#DiseaseDataTable").parents('.divInContainer').css({"background-color": 'white'});
+                IsResultsFound = true;
+                CreatDiseaseTable('#DiseaseDataTable', data, true);
+            }
+            //CreatDiseaseTable('#DiseaseDataTable', data, true);
             return deferred.resolve();
         })
         .fail(function () {
@@ -173,7 +205,15 @@ function DoGFF3Search(input) {
     var key = {"key": input};
     $.post('/search/doGFF3Search/', key, null, 'json')
         .done(function (data) {
+            if (data.length === 0) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('no related results have been found for: ' + $('#search_disease_input').val());
+                });
+                return deferred.resolve();
+            }
             CreatGFF3Table('#GFF3Table', data, true);
+            //CreatGFF3Table('#GFF3Table', data, true);
             $("#GFF3Table").parents('.divInContainer').css({"background-color":'white'});
             $.busyLoadFull("hide");
             return deferred.resolve();
@@ -196,6 +236,13 @@ function DoVCFSearch(GeneName) {
     var geneName = {"GeneName": GeneName, "database":database};
     $.post('/search/doVCFSearch/', geneName, null, 'json')
         .done(function (data) {
+            if (data.length === 0) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('no related variants have been found for: ' + $('#search_disease_input').val());
+                });
+                return deferred.resolve();
+            }
             CreatVCFTable('#DataTable', data, true);
             $("#DataTable").parents('.divInContainer').css({"background-color":'white'});
             $.busyLoadFull("hide");
@@ -283,16 +330,25 @@ function CreatGeneInfoColums(data) {
 }
 
 function CreatGeneInfoTable2(tableID, data) {
+    var GeneName = data[0]["GeneName"];
+    var GeneID = data[0]["GeneID"];
+    var Chr = data[0]["Chr"];
+    var Start = data[0]['Start'];
+    var End = data[0]['End'];
     var content = "<tbody><tr><td style='color: #f07b05;'>Gene Name</td><td style='color: dodgerblue;'>"+ data[0]["GeneName"] +"</td></tr><tr>" +
         "<td style='color: #f07b05;'>Gene ID</td><td style='color: violet'>"+ data[0]["GeneID"] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Chromosomes</td><td style='color: lightseagreen'>"+ data[0]["Chr"] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Start</td><td style='color: lightseagreen;'>"+ data[0]['Start'] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>End</td><td style='color: lightseagreen;'>"+ data[0]['End'] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Strand</td><td>"+ data[0]['Strand'] +"</td></tr>" +
-        "<tr><td style='color: #f07b05;'>Internal</td><td><a class='button button-border button-rounded button-royal button' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Diseases</a></td>" +
-        "<td><a class='button button-border button-rounded button-caution button' type='button' onclick='DoVCFSearch(\"" + data[0]["GeneName"] + "\")'>Variants</a></td>" +
-        "<td><a class='button button-border button-rounded button-highlight button' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Associations</a></td></tr>"+
-        "<tr><td style='color: #f07b05;'>External</td><td><a class='btn btn-primary' role='button' href='#'>link</a></td></tr>" +
+        "<tr><td style='color: #f07b05;'>Internal</td><td><a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Diseases</a>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearch(\"" + data[0]["GeneName"] + "\")'>Variants</a>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Associations</a></td></tr>" + "&nbsp" +
+        "<tr><td style='color: #f07b05;'>External</td><td><a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g=" + GeneID + "'>Ensembl</a>" + "&nbsp" +
+        "<a class='btn btn-success' role='button' href='http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr" + Chr + "%3A" + Start + "-" + End + "'>UCSC</a>" + "&nbsp" +
+        "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +
+        "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +
+        "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTExPortal" + "</a></td></tr>" +
         "</tbody>";
     $(tableID).html(content);
     $(tableID).parents('div').show();
@@ -528,7 +584,7 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
         $(tableID).DataTable({
             destroy: true,
             bSort: false,
-            searching: false,
+            searching: true,
             bLengthChange: false,//去掉每页多少条框体
             bPaginate: false, //翻页功能
             bAutoWidth: false,//自动宽度
@@ -553,7 +609,7 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
     var table = $(tableID).DataTable({
         destroy: true,
         bSort: true,
-        searching: false,
+        searching: true,
         bLengthChange:bLengthChange,//去掉每页多少条框体
         bPaginate: true, //翻页功能
         bAutoWidth: true,//自动宽度
@@ -782,6 +838,56 @@ function CreatGFF3Colums(data) {
     columns.sort(sort_up);
     return columns;
 }
+
+function CreatGFF3Table2(tableID, data) {
+    if (data.length === 0){
+        if ($.fn.DataTable.isDataTable(tableID)) {
+            $(tableID).DataTable().clear();
+            $(tableID).DataTable().destroy();
+        }
+
+        //如果没有得到数据 就自己初始化一个空表格
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: false, //翻页功能
+            bAutoWidth: false,//自动宽度
+            paging: false, // 分页
+            bInfo: true, //Showing x to x of x entries
+            data:data,
+            columns:[
+                {"title":"seqid"},
+                {"title":"source"},
+                {"title":"type"},
+                {"title":"start"},
+                {"title":"end"},
+                {"title":"strand"},
+                {"title":"phase"},
+                {"title":"attributes"}
+            ]
+        });
+        return;
+    }
+    else{
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: true,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: false, //翻页功能
+            bAutoWidth: false,//自动宽度
+            paging: false, // 分页
+            bInfo: true, //Showing x to x of x entries
+            columns:[
+
+            ]
+
+        })
+    }
+}
+
 
 function CreatGFF3Table(tableID, data, IsRoot) {
     if (data.length === 0 && IsRoot){
@@ -1192,4 +1298,18 @@ function Search_bind_autocomplete(node,isbind) {
             disabled:true
         });
     }
+}
+
+//clear old data
+function ClearOldData() {
+    $(".divInContainer").css({"background-color":'transparent'});
+    var htmlcontent = "<table id=\"GeneInfoTable\" class=\"info_table\" style=\"width:initial\">"
+    $('#GeneInfoTable').parents('.divInContainer').html(htmlcontent);
+
+    var list = new Array("GeneDiseaseTable", "GFF3Table", "DataTable", "DiseaseDataTable")
+    list.forEach(function (value) {
+        var htmlcontent = "<table id= " + value + " class= 'table table-striped table-bordered table-hover' style= 'table-layout:fixed;width: inherit'></table>"
+        $('#' + value).parents('.divInContainer').html(htmlcontent);
+    });
+
 }

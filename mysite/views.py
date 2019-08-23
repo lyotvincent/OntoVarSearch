@@ -210,9 +210,9 @@ def doGeneInfoSearch(request):
         collection_gtf = connection.vcf_hpo.gtf
         Allresults =[]
         results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": GeneName.upper()})
-        if results_gene.count() == 0:
-            regx = re.compile(".*" + GeneName + ".*", re.IGNORECASE)
-            results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": regx})
+        # if results_gene.count() == 0:
+        #     regx = re.compile(".*" + GeneName + ".*", re.IGNORECASE)
+        #     results_gene = collection_gtf.find({"feature": "gene", "attribute.gene_name": regx})
         for result_gene in results_gene:
             seqname = result_gene["seqname"]
             chrom_start = result_gene["start"]

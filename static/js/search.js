@@ -724,7 +724,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
     var table = $(tableID).DataTable({
         destroy: true,
         bSort: true,
-        searching: false,
+        searching: true,
         bLengthChange:bLengthChange,//去掉每页多少条框体
         bPaginate: true, //翻页功能
         bAutoWidth: true,//自动宽度
@@ -743,7 +743,8 @@ function CreatVCFTable(tableID, data, IsRoot) {
             for (var k in aData){
                 var isobject = $('td:eq('+i+')', nRow).hasClass("details-control");
                 if (isobject){
-                    $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
+                    //$('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
+                    $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'></span>");
                 }
                 ++i;
             }
@@ -839,55 +840,6 @@ function CreatGFF3Colums(data) {
     return columns;
 }
 
-function CreatGFF3Table2(tableID, data) {
-    if (data.length === 0){
-        if ($.fn.DataTable.isDataTable(tableID)) {
-            $(tableID).DataTable().clear();
-            $(tableID).DataTable().destroy();
-        }
-
-        //如果没有得到数据 就自己初始化一个空表格
-        $(tableID).DataTable({
-            destroy: true,
-            bSort: false,
-            searching: false,
-            bLengthChange: false,//去掉每页多少条框体
-            bPaginate: false, //翻页功能
-            bAutoWidth: false,//自动宽度
-            paging: false, // 分页
-            bInfo: true, //Showing x to x of x entries
-            data:data,
-            columns:[
-                {"title":"seqid"},
-                {"title":"source"},
-                {"title":"type"},
-                {"title":"start"},
-                {"title":"end"},
-                {"title":"strand"},
-                {"title":"phase"},
-                {"title":"attributes"}
-            ]
-        });
-        return;
-    }
-    else{
-        $(tableID).DataTable({
-            destroy: true,
-            bSort: false,
-            searching: true,
-            bLengthChange: false,//去掉每页多少条框体
-            bPaginate: false, //翻页功能
-            bAutoWidth: false,//自动宽度
-            paging: false, // 分页
-            bInfo: true, //Showing x to x of x entries
-            columns:[
-
-            ]
-
-        })
-    }
-}
-
 
 function CreatGFF3Table(tableID, data, IsRoot) {
     if (data.length === 0 && IsRoot){
@@ -928,7 +880,7 @@ function CreatGFF3Table(tableID, data, IsRoot) {
     var table = $(tableID).DataTable({
         destroy: true,
         bSort: true,
-        searching: false,
+        searching: true,
         bLengthChange:bLengthChange,//去掉每页多少条框体
         bPaginate: true, //翻页功能
         bAutoWidth: true,//自动宽度
@@ -947,7 +899,8 @@ function CreatGFF3Table(tableID, data, IsRoot) {
             for (var k in aData){
                 var isobject = $('td:eq('+i+')', nRow).hasClass("details-control");
                 if (isobject){
-                    $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
+                    //$('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
+                    $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + "</span>");
                 }
                 ++i;
             }

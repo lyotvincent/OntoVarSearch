@@ -158,6 +158,7 @@ function DoGeneDiseaseSearch(GeneName) {
                     var layer = layui.layer;
                     layer.msg('no related diseases have been found for: ' + $('#search_disease_input').val());
                 });
+                $.busyLoadFull("hide");
                 return deferred.resolve();
             }
             $("#GeneDiseaseTable").parents('.divInContainer').css({"background-color": 'white'});
@@ -210,6 +211,7 @@ function DoGFF3Search(input) {
                     var layer = layui.layer;
                     layer.msg('no related results have been found for: ' + $('#search_disease_input').val());
                 });
+                $.busyLoadFull("hide");
                 return deferred.resolve();
             }
             CreatGFF3Table('#GFF3Table', data, true);
@@ -241,6 +243,7 @@ function DoVCFSearch(GeneName) {
                     var layer = layui.layer;
                     layer.msg('no related variants have been found for: ' + $('#search_disease_input').val());
                 });
+                $.busyLoadFull("hide");
                 return deferred.resolve();
             }
             CreatVCFTable('#DataTable', data, true);

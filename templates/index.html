@@ -64,40 +64,62 @@
 
     <div id="wrapper">
         <div id="banner" class="container">
-            <h2>Welcome to OntoVarsMiner</h2>
-{#            <h4>A web server for ontology-variants integrated analysis</h4>#}
-{#            <br/>#}
-            <h4 style="text-align:justify;" class="normallinehight">
-                OntoVarsMiner is a web server for ontology-variants integrated analysis. It could help researchers identify somatic variants by uploading their own VCF files as database. Meanwhile,
-                it is not limited to somatic variants, but can also be extended to include ontology like human phenotype ontology (HPO).
-                Currently, OntoVarsMiner contains 130,000 records of ontology annotations, about 2,700,000 records
-                of genes and more than 79 million variants data.
-			</h4>
-{#            <br/>#}
-            <ul>
-                <li>Upload: OntoVarsMiner accepts uncompressed or gzip-compatible compressed (*.gz) VCF files at this section</li>
-                <li>Download: Compressed (*.json) files which are derived from VCF files are available downloading at this section</li>
-                <li style="text-align:justify;" class="normallinehight">
-                    Search: There are two types of search function in “search” section,
-                    one is gene and disease search in which human disease and gene name are mandatory.
-                    After input a disease word or gene name, the result table will show diseases name, gene name, etc.
-                    When choosing a database (VCF files) and clicking the gene name at result table,
-                    the corresponding variations are shown in below. Another is custom search for variants, flexible query is support for filtering variants.</li>
+            <div class="row">
+                <section class="col-sm-8 maincontent">
+                    <h2>Welcome to OntoVarsMiner</h2>
+                    {#            <h4>A web server for ontology-variants integrated analysis</h4>#}
+                    {#            <br/>#}
+                    <h4 style="text-align:justify;" class="normallinehight">
+                        OntoVarsMiner is a web server for ontology-variants integrated analysis. It could help
+                        researchers identify somatic variants by uploading their own VCF files as database. Meanwhile,
+                        it is not limited to somatic variants, but can also be extended to include ontology like human
+                        phenotype ontology (HPO).
+                        Currently, OntoVarsMiner contains 130,000 records of ontology annotations, about 2,700,000
+                        records
+                        of genes and more than 79 million variants data.
+                    </h4>
+                    {#            <br/>#}
+                    <ul>
+                        <li>Upload: OntoVarsMiner accepts uncompressed or gzip-compatible compressed (*.gz) VCF files at
+                            this section
+                        </li>
+                        <li>Download: Compressed (*.json) files which are derived from VCF files are available
+                            downloading at this section
+                        </li>
+                        <li style="text-align:justify;" class="normallinehight">
+                            Search: There are two types of search function in “search” section,
+                            one is gene and disease search in which human disease and gene name are mandatory.
+                            After input a disease word or gene name, the result table will show diseases name, gene
+                            name, etc.
+                            When choosing a database (VCF files) and clicking the gene name at result table,
+                            the corresponding variations are shown in below. Another is custom search for variants,
+                            flexible query is support for filtering variants.
+                        </li>
+                    </ul>
+                    <h4 style="text-align:justify;" class="normallinehight">
+                        OntoVarsMiner is available at <a href="https://github.com/lyotvincent/GeneMiner">GitHub</a>, at
+                        where you could install a local copy, source code and installation instruction. The software is
+                        implemented
+                        using Python, MongoDB, Javascript and so on.
+                    </h4>
+                </section>
 
-            </ul>
-{#            <h3>A web server for ontology-variants integrated analysis</h3>#}
-{#            <h3>GeneMiner could help researchers identify somatic variants by uploading their own VCF files as database. Meanwhile, it is not limited to somatic variants, but can also be extended to include ontology like human phenotype ontology (HPO). Currently, GeneMiner contains 130,000 records of ontology annotations, about 2,700,000 records of genes and more than 79 million variants data. By providing a user-friendly graphical user interface (GUI), researchers could directly deploy this in their personal computers or servers and perform the fast filtering by directly running a browser. </h3>#}
-{#            <ul>#}
-{#                <li>Donec dictum metus in sapien</li>#}
-{#                <li>Integer gravida nibh quis urna</li>#}
-{#                <li>Etiam posuere augue sit amet nisl</li>#}
-{#                <li>Mauris vulputate dolor sit amet nibh</li>#}
-{#                <li>Nulla luctus eleifend purus</li>#}
-{#                <li>Praesent scelerisque scelerisque erat</li>#}
-{#                <li>Etiam posuere augue sit amet nisl</li>#}
-{#                <li>Mauris vulputate dolor sit amet nibh</li>#}
-{#                <li>Nulla luctus eleifend purus</li>#}
-{#            </ul>#}
+
+                <aside class="col-sm-4 sidebar sidebar-right">
+                    <div class="panel">
+                        <h4>Latest News</h4>
+                        <ul class="list-unstyled list-spaces">
+                            <li><span class="small text-muted">OntoVarsMiner is now officially online in June 2019! More details see
+                                <a class="news_a" href="https://github.com/lyotvincent/GeneMiner"> GitHub </a></span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+
+
+
         </div>
     </div>
 

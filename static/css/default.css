@@ -682,4 +682,19 @@ div.tabcontent{
 .info_table tbody tr td{border-top: none;}
 .info_table tbody tr td{vertical-align: inherit}
 
+
+.sidebar {
+	padding-top: 36px;
+	padding-bottom: 30px;
+}
+.sidebar .panel {
+	margin-bottom: 20px;
+	padding: 20px;
+    background-color: #DDDDEE;
+}
+
+.sidebar h1, .sidebar .h1, .sidebar h2, .sidebar .h2, .sidebar h3, .sidebar .h3 {
+	margin-top: 20px;
+}
+
 /*search.css end*/

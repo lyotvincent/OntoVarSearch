@@ -628,7 +628,7 @@ function CreatDiseaseTable(tableID, data, IsRoot) {
                 "targets": 1,//操作按钮目标列
                 "render": function (data, type, row) {
                     var GeneName = row.GeneName;
-                    var html ="<a href='#' onclick='DoVCFSearch(\""+ GeneName + "\")';>"+GeneName+"</a>"
+                    var html ="<a href='#' onclick='DoMainSearchManual(\""+ GeneName + "\")';>"+GeneName+"</a>"
                     return html;
                 }
             }]
@@ -727,7 +727,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
     var table = $(tableID).DataTable({
         destroy: true,
         bSort: true,
-        searching: true,
+        searching: IsRoot,
         bLengthChange:bLengthChange,//去掉每页多少条框体
         bPaginate: true, //翻页功能
         bAutoWidth: true,//自动宽度
@@ -1209,7 +1209,7 @@ function Search_exactSearch(){
     var condition = {'condition': JSON.stringify(sqljson), 'database':database};
     $.post('/search/doexactSearch/', condition, null, 'json')
         .done(function (data) {
-            CreatVCFTable('#DataTable', data, true);
+            CreatVCFTable('#DataTable', data);
             $.busyLoadFull("hide");
         })
         .fail(function () {

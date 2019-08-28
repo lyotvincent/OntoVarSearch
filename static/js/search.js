@@ -103,10 +103,10 @@ function  DoMainSearchManual(input) {
 function DoMainSearch() {
     $.busyLoadFull("show", { spinner: "accordion"});
     //clear old tables
-    ClearOldData()
+    ClearOldData();
     var input = $('#search_disease_input').val();
     IsResultsFound = false;
-    $.when(DoGeneInfoSearch(input),DoDiseaseSearch(input)).then(function () {
+    $.when(DoGeneInfoSearch(input),DoDiseaseSearch(input),DoSOInfoSearch(input)).then(function () {
     //$.when(DoGFF3Search(input), DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
         $.busyLoadFull("hide")
         if (IsResultsFound == false) {
@@ -142,6 +142,37 @@ function DoGeneInfoSearch(inputgene) {
         });
     return deferred.promise();
 }
+
+function DoSOInfoSearch(so) {
+    //var inputgene = $('#search_disease_input').val();
+    if(IsEmpty(so))   return;
+    var deferred = $.Deferred();
+    var SoInfo = {"json_data": so};
+    $.post('/search/doSOInfoSearch/', SoInfo, null, 'json')
+        .done(function (data) {
+            if (data === null || data.length === 0){
+            }else{
+                $("#SOTable").parent('div').css({"background-color":'white'});
+                IsResultsFound = true;
+                var editor = new JsonEditor('#SOTable', data, {'defaultCollapsed':false,'editable':false})
+                editor.load(data);
+                try {
+                    editor.get();
+                } catch (ex) {
+                    // Trigger an Error when JSON invalid
+                    alert(ex);
+                }
+                //CreatGeneInfoTable2('#GeneInfoTable', data);
+            }
+
+            return deferred.resolve();
+        })
+        .fail(function () {
+            return deferred.reject();
+        });
+    return deferred.promise();
+}
+
 
 function DoGeneDiseaseSearch(GeneName) {
     $.busyLoadFull("show", { spinner: "accordion"});
@@ -1072,6 +1103,8 @@ function Search_reset() {
 }
 
 function Search_exactSearch(){
+    //clear old tables
+    ClearOldData();
     var data = new Array();
     var row=0,column=0;
     var GetDataFunc = function(){
@@ -1209,7 +1242,15 @@ function Search_exactSearch(){
     var condition = {'condition': JSON.stringify(sqljson), 'database':database};
     $.post('/search/doexactSearch/', condition, null, 'json')
         .done(function (data) {
-            CreatVCFTable('#DataTable', data);
+            if (data === null || data.length === 0) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('no related results have been found');
+                });
+                $.busyLoadFull("hide");
+            }
+            $("#DataTable").parents('.divInContainer').css({"background-color": 'white'});
+            CreatVCFTable('#DataTable', data, true);
             $.busyLoadFull("hide");
         })
         .fail(function () {
@@ -1259,8 +1300,11 @@ function Search_bind_autocomplete(node,isbind) {
 //clear old data
 function ClearOldData() {
     $(".divInContainer").css({"background-color":'transparent'});
-    var htmlcontent = "<table id=\"GeneInfoTable\" class=\"info_table\" style=\"width:initial\">"
+    var htmlcontent = "<table id=\"GeneInfoTable\" class=\"info_table\" style=\"width:initial\">";
     $('#GeneInfoTable').parents('.divInContainer').html(htmlcontent);
+
+    var SOTablecontent = "<div id='SOTable'></div>";
+    $('#SOTable').parents('.divInContainer').html(SOTablecontent);
 
     var list = new Array("GeneDiseaseTable", "GFF3Table", "DataTable", "DiseaseDataTable")
     list.forEach(function (value) {

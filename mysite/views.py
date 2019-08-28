@@ -588,3 +588,18 @@ def RenameJsonKey(strJson):
     pattern = re.compile(r"\"([\w.$:]+)\":")
     strJson = pattern.sub(lambda m: m.group(0).replace('.', "_").replace('$', "^"), strJson)
     return strJson
+
+
+@csrf_exempt
+def doSOInfoSearch(request):
+    if request.method == 'POST':
+        soinfo = request.POST.get("json_data")
+        connection = MongoClient(MongodbAddrRemote)
+        collection_so = connection.vcf_hpo.so
+        result_SO=[]
+        if 'SO:' in soinfo:
+            SOstr = soinfo.split(':')[0] + '_' + soinfo.split(':')[1]
+            result_SO = collection_so.find_one({"url": "http://purl.obolibrary.org/obo/" + SOstr}, {"_id":0})
+
+        return JsonResponse(result_SO, safe=False)
+

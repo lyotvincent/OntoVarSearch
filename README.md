@@ -1,4 +1,4 @@
-# GENEMINER
+# OntoVarsMiner
 **A web server for ontology-variants integrated analysis**  
 
 OntoVarsMiner is a web server for ontology-variants integrated analysis. It could help researchers identify somatic variants by uploading their own VCF files as database. Meanwhile, it is not limited to somatic variants, but can also be extended to include ontology like human phenotype ontology (HPO). Currently, OntoVarsMiner contains 130,000 records of ontology annotations, about 2,700,000 records of genes and more than 79 million variants data.

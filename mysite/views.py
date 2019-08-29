@@ -276,9 +276,9 @@ def DiseaseSearch(request):
         collection_hpo = connection.vcf_hpo.hpo
         collection_gtf = connection.vcf_hpo.gtf
         #collection_vcf = connection.vcf_hpo.autosomes
-
+        #results_disease = collection_hpo.find({"$or":[{"HPO_Term_Name": 'Fever'},{"HPO_Term_Name": 'Episodic fever'},{"HPO_Term_Name": 'Unexplained fevers'}]})
         regx = re.compile(".*"+ disease +".*", re.IGNORECASE)
-        results_disease = collection_hpo.find({"HPO_Term_Name": regx}).sort("HPO_Term_Name",1)
+        results_disease = collection_hpo.find({"HPO_Term_Name": regx}).sort("HPO_Term_Name", 1)
         Allresults = []
         for result_disease in results_disease:
             #result = {}

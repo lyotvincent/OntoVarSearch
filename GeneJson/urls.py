@@ -41,5 +41,5 @@ urlpatterns = [
     path('download/showfiellist', views.GetDownloadfileList),
     path('download/dodownload/', views.DownloadFile),
     path('search/getkeyfield', views.GetKeyField),
-
+    path('search/doSOInfoSearch/', views.doSOInfoSearch)
 ]

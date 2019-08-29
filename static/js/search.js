@@ -377,7 +377,7 @@ function CreatGeneInfoTable2(tableID, data) {
         "<tr><td style='color: #f07b05;'>Strand</td><td>"+ data[0]['Strand'] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Internal</td><td><a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Diseases</a>" + "&nbsp" +
         "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearch(\"" + data[0]["GeneName"] + "\")'>Variants</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Associations</a></td></tr>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Transcription</a></td></tr>" + "&nbsp" +
         "<tr><td style='color: #f07b05;'>External</td><td><a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g=" + GeneID + "'>Ensembl</a>" + "&nbsp" +
         "<a class='btn btn-success' role='button' href='http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr" + Chr + "%3A" + Start + "-" + End + "'>UCSC</a>" + "&nbsp" +
         "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +

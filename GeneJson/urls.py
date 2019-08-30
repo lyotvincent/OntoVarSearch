@@ -20,9 +20,9 @@ from mysite import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index', views.html_index),
-    path('upload', views.html_upload),
-    path('about', views.html_about),
-    path('browse', views.html_browse),
+    # path('upload', views.html_upload),
+    # path('about', views.html_about),
+    # path('browse', views.html_browse),
     path('contact', views.html_contact),
     path('download', views.html_download),
     path('upload/doupload', views.doupload),

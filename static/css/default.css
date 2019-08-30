@@ -697,4 +697,30 @@ div.tabcontent{
 	margin-top: 20px;
 }
 
+.webuploader-pick {
+    background-color: #fff !important;
+    color: #97A1A8 !important;
+}
+.webuploader-pick-hover{
+    background-color: #fff !important;
+    color: #97A1A8 !important;
+}
+.webuploader-clickbox{
+    display: block;
+    width: 343px;
+    margin: 0 auto 25px auto;
+    padding: 25px;
+    color: #8d9499;
+    color: #97A1A8;
+    background: #fff;
+    border: 2px dashed #C8CBCE;
+    text-align: center;
+    -webkit-transition: box-shadow 0.3s, border-color 0.3s;
+    -moz-transition: box-shadow 0.3s, border-color 0.3s;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.specialli{
+    padding: 1.3em 3.8em 1.35em !important;
+}
 /*search.css end*/

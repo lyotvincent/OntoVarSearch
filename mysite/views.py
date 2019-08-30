@@ -58,17 +58,8 @@ MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO',
 def html_index(request):
     return render(request, "index.html")
 
-def html_upload(request):
-    return render(request, "upload.html")
-
 def html_search(request):
     return render(request, "search.html")
-
-def html_about(request):
-    return render(request, "about.html")
-
-def html_browse(request):
-    return render(request, "browse.html")
 
 def html_contact(request):
     return render(request, "contact.html")

@@ -78,7 +78,7 @@ $(function () {
         swf: '/static/plugins/webuploader/Uploader.swf', //swf位置，flash有关
         server: '/upload/doupload',                 //接收每一个分片的服务器地址
         pick: {
-            'id':'#picker',
+            'id':'#picker2',
             'multiple': false
         },                          //填上传按钮的id选择器值
         auto: false,                               //选择文件后，是否自动上传
@@ -156,7 +156,7 @@ $(function () {
         $('#progress-bar-upload').removeClass('active progress-bar-striped');
     });
 
-    $("#ctlBtn").click(function () {
+    $("#ctlBtn2").click(function () {
         uploader.upload();
     });
 

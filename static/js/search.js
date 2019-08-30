@@ -106,19 +106,29 @@ function DoMainSearch() {
     ClearOldData();
     var input = $('#search_disease_input').val();
     IsResultsFound = false;
-    $.when(DoGeneInfoSearch(input),DoDiseaseSearch(input),DoSOInfoSearch(input)).then(function () {
-    //$.when(DoGFF3Search(input), DoGeneInfoSearch(input), DoGeneDiseaseSearch(), DoDiseaseSearch(input), DoVCFSearch(input)).then(function () {
-        $.busyLoadFull("hide")
+    if (input == "polyneuropathy"){
+        $.when(DoDiseaseSearch(input)).then(Done);
+    }
+    else if (input == "mkks"){
+        $.when(DoGeneInfoSearch(input)).then(Done);
+    }
+    else if (input == "SO:0000825"){
+        $.when(DoSOInfoSearch(input)).then(Done);
+    }
+    else{
+        $.when(DoGeneInfoSearch(input), DoDiseaseSearch(input), DoSOInfoSearch(input)).then(Done);
+    }
+    function Done() {
+        $.busyLoadFull("hide");
         if (IsResultsFound == false) {
             layui.use('layer', function () {
                 var layer = layui.layer;
-
                 layer.msg('no results have been found for: ' + $('#search_disease_input').val());
             });
             $(".divInContainer").css({"background-color": 'transparent'});
             return;
         }
-    });
+    }
 }
 
 function DoGeneInfoSearch(inputgene) {

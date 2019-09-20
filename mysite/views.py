@@ -320,6 +320,42 @@ def doVCFSearch(request):
             # Allresults.append(dict(result1, **result2))
         return JsonResponse(Allresults, safe=False)
 
+#search variant with ontology
+@csrf_exempt
+def doVCFSearchWithOntology(request):
+    if request.method == 'POST':
+        chr = request.POST.get("chr")
+        start = request.POST.get("start")
+        end = request.POST.get("end")
+        ontology = request.POST.get("ontology")
+        database = request.POST.get("database")
+        connection = MongoClient(MongodbAddrRemote)
+        if database in connection.mydb.collection_names():
+            collection_vcf = connection.mydb[database]
+        else:
+            collection_vcf = connection.vcf_hpo[database]
+        if ontology == "SO":
+            results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)},
+                                           '$or':[{"INFO.CLNVCSO": {'$exists': 'true'}},{"INFO.MC": {'$exists': 'true'}},{"INFO.SO": {'$exists': 'true'}},{"INFO.SOID": {'$exists': 'true'}}]},
+                                          {"_id": 0})
+        elif ontology == "GO":
+            results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)},
+                                           '$or':[{"INFO.GENEINFO": {'$exists': 'true'}},{"INFO.GO": {'$exists': 'true'}},{"INFO.GOID": {'$exists': 'true'}}]},
+                                          {"_id": 0})
+        elif ontology == "OMIM":
+            results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)},
+                                           '$or':[{"INFO.CLNDISDB": {'$exists': 'true'}},{"INFO.OMIM": {'$exists': 'true'}},{"INFO.OMIMID": {'$exists': 'true'}}]},
+                                          {"_id": 0})
+        elif ontology == "DO":
+            results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)},
+                                           '$or':[{"INFO.DO": {'$exists': 'true'}},{"INFO.DOID": {'$exists': 'true'}}]},
+                                          {"_id": 0})
+        else:
+            results_vcf=[]
+        Allresults=[]
+        for result_vcf in results_vcf:
+                Allresults.append(result_vcf)
+        return JsonResponse(Allresults, safe=False)
 
 #接收分片
 @csrf_exempt

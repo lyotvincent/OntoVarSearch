@@ -46,7 +46,13 @@ $(document).ready(function() {
       $.post('/download/showfiellist').done(function (data) {
             $("#Search_sel_DATABASE option").remove();
             for (let i of data){
-                $("#Search_sel_DATABASE").append("<option value=" + i['collectionName'] + ">" + i['collectionName'] + "</option>");
+                //default database clinvar
+                if (i['collectionName'] == 'clinvar_20190520'){
+                    $("#Search_sel_DATABASE").prepend("<option value='clinvar_20190520'>clinvar_20190520</option>");
+                    $("#Search_sel_DATABASE").find("option[value='clinvar_20190520']").attr("selected",true);
+                }else {
+                    $("#Search_sel_DATABASE").append("<option value=" + i['collectionName'] + ">" + i['collectionName'] + "</option>");
+                }
             }
             Render();
         })
@@ -300,6 +306,37 @@ function DoVCFSearch(GeneName) {
     return deferred.promise();
 }
 
+//gene:PEX10
+function DoVCFSearchwithOntology(chr, start, end, ontology){
+    $.busyLoadFull("show", { spinner: "accordion"});
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(chr) || IsEmpty(start) || IsEmpty(end) || IsEmpty(ontology) || IsEmpty(database))   return;
+    var deferred = $.Deferred();
+    var jsondata = {"chr": chr, "start":start, "end":end, "ontology":ontology,"database":database};
+    $.post('/search/doVCFSearchWithOntology/', jsondata, null, 'json')
+        .done(function (data) {
+            if (data.length === 0) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('no related variants have been found for: ' + $('#search_disease_input').val());
+                });
+                $.busyLoadFull("hide");
+                return deferred.resolve();
+            }
+            CreatVCFTableWithOntology('#DataTableontology', data, true, ontology);
+            $("#DataTableontology").parents('.divInContainer').css({"background-color":'white'});
+            $.busyLoadFull("hide");
+            return deferred.resolve();
+        })
+        .fail(function () {
+            $.busyLoadFull("hide");
+            return deferred.reject();
+        });
+
+    return deferred.promise();
+}
+
+
 //二级table的模板
 function format2(table_id) {
     return '<table id="DataTable'+ table_id +'" class="table table-striped table-bordered table-hover" cellpadding="5" cellspacing="0" border="0"></table>';
@@ -393,6 +430,13 @@ function CreatGeneInfoTable2(tableID, data) {
         "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +
         "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +
         "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTExPortal" + "</a></td></tr>" +
+        "<tr><td style='color: #f07b05;'>Ontology</td><td>" +
+        //"<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>HPO</a>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"OMIM"+"\")'>OMIM</a>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"GO"+"\")'>GO</a>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"SO"+"\")'>SO</a></td></tr>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"DO"+"\")'>DO</a></td></tr>" + "&nbsp" +
+
         "</tbody>";
     $(tableID).html(content);
     $(tableID).parents('div').show();
@@ -830,6 +874,72 @@ function CreatVCFTable(tableID, data, IsRoot) {
 
     });
 }
+
+function CreatVCFTableWithOntology(tableID, data, IsRoot, ontology) {
+    //$.fn.dataTable.ext.errMode = 'none';       //屏蔽掉报错弹窗
+
+    if (data.length === 0 && IsRoot){
+        if ($.fn.DataTable.isDataTable(tableID)) {
+            $(tableID).DataTable().clear();
+            $(tableID).DataTable().destroy();
+        }
+        //如果没有得到数据 就自己初始化一个空表格
+        $(tableID).DataTable({
+            destroy: true,
+            bSort: false,
+            searching: false,
+            bLengthChange: false,//去掉每页多少条框体
+            bPaginate: false, //翻页功能
+            bAutoWidth: false,//自动宽度
+            paging: false, // 分页
+            bInfo: true, //Showing x to x of x entries
+            data:data,
+            columns:[
+                {"title":"CHROM"},
+                {"title":"POS"},
+                {"title":"ID"},
+                {"title":"REF"},
+                {"title":"ALT"},
+                {"title":"QUAL"},
+                {"title":"FILTER"},
+                {"title":"Info"}
+                // {"title":"Samples"}
+            ]
+        });
+        return;
+    }
+    bLengthChange = IsRoot;
+    bPaginate = IsRoot;
+    paging = IsRoot;
+    bInfo = IsRoot;
+    var table = $(tableID).DataTable({
+        destroy: true,
+        bSort: true,
+        searching: IsRoot,
+        bLengthChange:bLengthChange,//去掉每页多少条框体
+        bPaginate: true, //翻页功能
+        bAutoWidth: true,//自动宽度
+        "autoWidth": true,
+        paging: paging, // 禁止分页
+        bInfo : bInfo, //Showing x to x of x entries
+        scrollX: true,  //水平滚动条
+        columns:[
+                {"data":"CHROM","title":"CHROM"},
+                {"data":"POS","title":"POS"},
+                {"data":"ID","title":"ID"},
+                {"data":"REF","title":"REF"},
+                {"data":"ALT","title":"ALT"},
+                {"data":"INFO.GENEINFO","title":"GENEINFO"},
+                {"data":"INFO.CLNVCSO","title":"CLNVCSO"},
+                {"data":"INFO.CLNDISDB","title":"CLNDISDB"}
+                // {"data":"INFO.MC"}
+            ],
+        data: data,
+        ordering: true,
+        colReorder: {order: [0]}
+    });
+}
+
 
 //GFF3
 function CreatGFF3Colums(data) {
@@ -1315,6 +1425,10 @@ function ClearOldData() {
 
     var SOTablecontent = "<div id='SOTable'></div>";
     $('#SOTable').parents('.divInContainer').html(SOTablecontent);
+
+
+    var OntologyTablecontent = "<table id=\"DataTableontology\" class=\"table table-striped table-bordered table-hover\">";
+    $('#DataTableontology').parents('.divInContainer').html(OntologyTablecontent);
 
     var list = new Array("GeneDiseaseTable", "GFF3Table", "DataTable", "DiseaseDataTable")
     list.forEach(function (value) {

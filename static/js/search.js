@@ -433,9 +433,9 @@ function CreatGeneInfoTable2(tableID, data) {
         "<tr><td style='color: #f07b05;'>Ontology</td><td>" +
         //"<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>HPO</a>" + "&nbsp" +
         "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"OMIM"+"\")'>OMIM</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"GO"+"\")'>GO</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"SO"+"\")'>SO</a></td></tr>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"DO"+"\")'>DO</a></td></tr>" + "&nbsp" +
+        "<a class='button button-border button-rounded btn-success button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"GO"+"\")'>GO</a>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"SO"+"\")'>SO</a>" + "&nbsp" +
+        "<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"DO"+"\")'>DO</a></td></tr>" + "&nbsp" +
 
         "</tbody>";
     $(tableID).html(content);

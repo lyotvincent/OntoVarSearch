@@ -115,7 +115,7 @@ function DoMainSearch() {
     if (input == "polyneuropathy"){
         $.when(DoDiseaseSearch(input)).then(Done);
     }
-    else if (input == "mkks"){
+    else if (input == "PEX10"){
         $.when(DoGeneInfoSearch(input)).then(Done);
     }
     else if (input == "SO:0000825"){

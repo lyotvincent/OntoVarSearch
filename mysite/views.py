@@ -620,13 +620,21 @@ def RenameJsonKey(strJson):
 @csrf_exempt
 def doSOInfoSearch(request):
     if request.method == 'POST':
-        soinfo = request.POST.get("json_data")
+        soinfo = request.POST.get("json_data").upper()
         connection = MongoClient(MongodbAddrRemote)
-        collection_so = connection.vcf_hpo.so
-        result_SO=[]
-        if 'SO:' in soinfo:
-            SOstr = soinfo.split(':')[0] + '_' + soinfo.split(':')[1]
-            result_SO = collection_so.find_one({"url": "http://purl.obolibrary.org/obo/" + SOstr}, {"_id":0})
-
-        return JsonResponse(result_SO, safe=False)
+        collection_so = connection.vcf_hpo.obo
+        result_ontology=[]
+        if 'SO:' in soinfo or 'SOID' in soinfo:
+            SOstr = 'SO_' + soinfo.split(':')[1]
+            result_ontology = collection_so.find_one({"url": "http://purl.obolibrary.org/obo/" + SOstr}, {"_id":0})
+        elif 'DO:' in soinfo or 'DOID' in soinfo:
+            DOstr = 'DOID_' + soinfo.split(':')[1]
+            result_ontology = collection_so.find_one({"url": "http://purl.obolibrary.org/obo/" + DOstr}, {"_id":0})
+        elif 'HPO:' in soinfo or 'HP' in soinfo:
+            HPstr = 'HP_' + soinfo.split(':')[1]
+            result_ontology = collection_so.find_one({"url": "http://purl.obolibrary.org/obo/" + HPstr}, {"_id":0})
+        elif 'GO:' in soinfo or 'GOID' in soinfo:
+            GOstr = 'GO_' + soinfo.split(':')[1]
+            result_ontology = collection_so.find_one({"url": "http://purl.obolibrary.org/obo/" + GOstr}, {"_id":0})
+        return JsonResponse(result_ontology, safe=False)
 

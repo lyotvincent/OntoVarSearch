@@ -111,6 +111,7 @@ function DoMainSearch() {
     //clear old tables
     ClearOldData();
     var input = $('#search_disease_input').val();
+    input = input.replace(/^\s*|\s*$/g,"");
     IsResultsFound = false;
     if (input == "polyneuropathy"){
         $.when(DoDiseaseSearch(input)).then(Done);

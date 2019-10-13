@@ -27,6 +27,13 @@ function Render() {
     layui.use('form', function () {
         var layer = layui.layer, form = layui.form;
         form.render();
+        form.on('checkbox(filter)', function (data) {
+            console.log(data.elem); //得到checkbox原始DOM对象
+            console.log(data.elem.checked); //是否被选中，true或者false
+            console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+            console.log(data.othis); //得到美化后的DOM对象
+        });
+
     });
     layui.use(['layer','element'], function () {
         var element = layui.element;
@@ -58,6 +65,11 @@ $(document).ready(function() {
         })
     };
     GetVCFFilelist();
+
+
+
+
+
 });
 
 
@@ -116,7 +128,7 @@ function DoMainSearch() {
     if (input == "polyneuropathy"){
         $.when(DoDiseaseSearch(input)).then(Done);
     }
-    else if (input == "PEX10"){
+    else if (input == "PEX10"){ //MYPN
         $.when(DoGeneInfoSearch(input)).then(Done);
     }
     else if (input == "SO:0000825"){
@@ -313,7 +325,7 @@ function DoVCFSearchwithOntology(chr, start, end, ontology){
     var database = $('#Search_sel_DATABASE option:selected').val();
     if(IsEmpty(chr) || IsEmpty(start) || IsEmpty(end) || IsEmpty(ontology) || IsEmpty(database))   return;
     var deferred = $.Deferred();
-    var jsondata = {"chr": chr, "start":start, "end":end, "ontology":ontology,"database":database};
+    var jsondata = {"chr": chr, "start":start, "end":end, "ontology":"ALL","database":database};
     $.post('/search/doVCFSearchWithOntology/', jsondata, null, 'json')
         .done(function (data) {
             if (data.length === 0) {
@@ -433,14 +445,30 @@ function CreatGeneInfoTable2(tableID, data) {
         "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTExPortal" + "</a></td></tr>" +
         "<tr><td style='color: #f07b05;'>Ontology</td><td>" +
         //"<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>HPO</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"OMIM"+"\")'>OMIM</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded btn-success button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"GO"+"\")'>GO</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"SO"+"\")'>SO</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"DO"+"\")'>DO</a></td></tr>" + "&nbsp" +
-
+        "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"ALL"+"\")'>Ontology</a>" + "&nbsp&nbsp&nbsp" +
+        // "<a class='button button-border button-rounded btn-success button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"GO"+"\")'>GO</a>" + "&nbsp" +
+        // "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"SO"+"\")'>SO</a>" + "&nbsp" +
+        // "<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"DO"+"\")'>DO</a></td></tr>" + "&nbsp" +
+        "<label class=\"checkbox-inline\">" +
+        "  <input type=\"checkbox\" id=\"inlineCheckbox1\" value=\"GO\" checked> GO" +
+        "</label>" +
+        "<label class=\"checkbox-inline\">" +
+        "  <input type=\"checkbox\" id=\"inlineCheckbox2\" value=\"SO\" checked> SO" +
+        "</label>" +
+        "<label class=\"checkbox-inline\">" +
+        "  <input type=\"checkbox\" id=\"inlineCheckbox3\" value=\"DO\" checked> DO" +
+        "</label>" +
+        "<label class=\"checkbox-inline\">" +
+        "  <input type=\"checkbox\" id=\"inlineCheckbox3\" value=\"HPO\" checked> HPO" +
+        "</label>" +
+        "</td></tr>"+
         "</tbody>";
     $(tableID).html(content);
     $(tableID).parents('div').show();
+    $('input[type="checkbox"]').change(function () {
+        ShowColumn($(this).val());
+    });
+
 }
 
 function CreatGeneInfoTable(tableID, data, IsRoot) {
@@ -924,16 +952,19 @@ function CreatVCFTableWithOntology(tableID, data, IsRoot, ontology) {
         paging: paging, // 禁止分页
         bInfo : bInfo, //Showing x to x of x entries
         scrollX: true,  //水平滚动条
+        columnDefs: [{"defaultContent": "", "targets": "_all"}],
         columns:[
                 {"data":"CHROM","title":"CHROM"},
                 {"data":"POS","title":"POS"},
                 {"data":"ID","title":"ID"},
                 {"data":"REF","title":"REF"},
-                {"data":"ALT","title":"ALT"},
-                {"data":"INFO.GENEINFO","title":"GENEINFO"},
-                {"data":"INFO.CLNVCSO","title":"CLNVCSO"},
-                {"data":"INFO.CLNDISDB","title":"CLNDISDB"}
-                // {"data":"INFO.MC"}
+                {"data":"ALT","title":"ALT","name":"ALT"},
+                {"data":"INFO.GENEINFO","title":"GENEINFO", "name":"GO"},
+                {"data":"INFO.CLNVCSO","title":"CLNVCSO", "name":"SO"},
+                {"data":"INFO.MC", "title":"MC", "name":"SO"},
+                {"data":"DO", "title":"DO", "name":"DO"},
+                {"data":"HP", "title":"HP", "name":"HPO"},
+                {"data":"INFO.CLNDISDB","title":"CLNDISDB"},
             ],
         data: data,
         ordering: true,
@@ -1427,7 +1458,6 @@ function ClearOldData() {
     var SOTablecontent = "<div id='SOTable'></div>";
     $('#SOTable').parents('.divInContainer').html(SOTablecontent);
 
-
     var OntologyTablecontent = "<table id=\"DataTableontology\" class=\"table table-striped table-bordered table-hover\">";
     $('#DataTableontology').parents('.divInContainer').html(OntologyTablecontent);
 
@@ -1436,5 +1466,10 @@ function ClearOldData() {
         var htmlcontent = "<table id= " + value + " class= 'table table-striped table-bordered table-hover' style= 'table-layout:fixed;width: inherit'></table>"
         $('#' + value).parents('.divInContainer').html(htmlcontent);
     });
+}
 
+function ShowColumn(key) {
+    var table = $("#DataTableontology").DataTable();
+    var column = table.column(key + ":name");
+    column.visible( ! column.visible() );
 }

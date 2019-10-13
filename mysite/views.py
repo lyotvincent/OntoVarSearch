@@ -323,6 +323,38 @@ def doVCFSearch(request):
 #search variant with ontology
 @csrf_exempt
 def doVCFSearchWithOntology(request):
+    def AddHPOandDO(results_vcf):
+        Allresults = []
+        connection = MongoClient(MongodbAddrRemote)
+        for result_vcf in results_vcf:
+            if "CLNDISDB" in result_vcf['INFO']:
+                CLNISDB = result_vcf['INFO']["CLNDISDB"]
+                if CLNISDB:
+                    if '|' in CLNISDB:
+                        CLNISDBList = CLNISDB.split('|')[0].split(',')
+                    else:
+                        CLNISDBList = CLNISDB.split(',')
+                    for ele in CLNISDBList:
+                        if ele.split(':')[0] == "Human_Phenotype_Ontology":
+                            result_vcf["HP"] = ele.split(':')[2]
+                            break
+                        elif ele.split(':')[0].upper() == "OMIM":
+                            results_DO = connection.vcf_hpo.DO_OMIM.find({"OMIM":ele.split(':')[1]})
+                            tmplist=[]
+                            for result_DO in results_DO:
+                                tmplist.append(result_DO["DO"])
+                            result_vcf["DO"] = ','.join(tmplist)
+
+                            results_HPO = connection.vcf_hpo.HP_OMIM.find({"OMIM": ele.split(':')[1]})
+                            tmplist = []
+                            for result_HPO in results_HPO:
+                                tmplist.append(result_HPO["HP"])
+                            result_vcf["HP"] = ','.join(tmplist)
+                            break
+
+            Allresults.append(result_vcf)
+        return Allresults
+
     if request.method == 'POST':
         chr = request.POST.get("chr")
         start = request.POST.get("start")
@@ -350,11 +382,13 @@ def doVCFSearchWithOntology(request):
             results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)},
                                            '$or':[{"INFO.DO": {'$exists': 'true'}},{"INFO.DOID": {'$exists': 'true'}}]},
                                           {"_id": 0})
+        elif ontology == "ALL":
+            results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)}}, {"_id": 0})
         else:
             results_vcf=[]
-        Allresults=[]
-        for result_vcf in results_vcf:
-                Allresults.append(result_vcf)
+        Allresults = AddHPOandDO(results_vcf)
+        # for result_vcf in results_vcf:
+        #     Allresults.append(result_vcf)
         return JsonResponse(Allresults, safe=False)
 
 #接收分片

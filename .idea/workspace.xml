@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. add GO to antology function&#10;2. add code for process goa data&#10;3.">
+      <change afterPath="$PROJECT_DIR$/othercode/process_goa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GeneJson.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OntoVarsMiner.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GeneJson/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeneJson/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/wsgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
     </list>
-    <ignored path="GeneJson.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/GeneJson$transformGFF3.coverage" NAME="transformGFF3 Coverage Results" MODIFIED="1553069333162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/othercode" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -41,279 +45,25 @@
   <component name="FavoritesManager">
     <favorites_list name="GeneJson" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="832">
-              <caret line="299" column="12" lean-forward="true" selection-start-line="299" selection-start-column="12" selection-end-line="299" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GeneJson/wsgi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-              <folding>
-                <element signature="e#225#234#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/search.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="729">
-              <caret line="78" column="71" selection-start-line="78" selection-start-column="71" selection-end-line="78" selection-end-column="71" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#46#52#1" expanded="true" />
-                <marker date="1533382877423" expanded="true" signature="2479:2564" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/GeneJson/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jquery.jsoneditor.min.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/plugins/FlexiJsonEditor/jquery.jsoneditor.min.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="13" column="194" selection-start-line="13" selection-start-column="194" selection-end-line="13" selection-end-column="194" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jsoneditor.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/plugins/FlexiJsonEditor/jsoneditor.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-594" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="collection.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/pymongo/collection.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53196">
-              <caret line="2454" column="61" selection-start-line="2454" selection-start-column="61" selection-end-line="2454" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="contact.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/contact.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1848">
-              <caret line="84" column="6" selection-start-line="84" selection-start-column="6" selection-end-line="84" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="default.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/default.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13662">
-              <caret line="621" column="22" selection-start-line="621" selection-start-column="22" selection-end-line="621" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/search.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="132" column="58" lean-forward="true" selection-start-line="132" selection-start-column="58" selection-end-line="132" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>isconvertcomplete</find>
-      <find>stringify</find>
-      <find>length</find>
-      <find>DoSearch</find>
-      <find>dosearch</find>
-      <find>HttpResponse</find>
-      <find>DoProcess</find>
-      <find>k_sample</find>
-      <find>encoder</find>
-      <find>data</find>
-      <find>alertSelectedUids</find>
-      <find>MyEncoder</find>
-      <find>row-details-close</find>
-      <find>table</find>
-      <find>IconMinus</find>
-      <find>IconPlus</find>
-      <find>plus</find>
-      <find>MyEncoder_ALL</find>
-      <find>mine</find>
-      <find>jsondata</find>
-      <find>wrapper</find>
-      <find>FileWrapper</find>
-      <find>&quot;item-file</find>
-      <find>DEBUG</find>
-      <find>INSTALLED_APPS</find>
-      <find>JsonGene</find>
-      <find>vcf2Json</find>
-      <find>_id</find>
-      <find>push</find>
-      <find>F:/</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>vcf2Json</replace>
-      <replace>VCFtoJson</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>C:\Users\quz\PycharmProjects\GeneJson\static</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/static/module/webuploader/webuploader.js" />
-        <option value="$PROJECT_DIR$/static/plugins/buttons.css" />
-        <option value="$PROJECT_DIR$/static/js/upload.js" />
-        <option value="$PROJECT_DIR$/static/js/download.js" />
-        <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/templates/about.html" />
-        <option value="$PROJECT_DIR$/templates/browse.html" />
-        <option value="$PROJECT_DIR$/templates/contact.html" />
-        <option value="$PROJECT_DIR$/templates/download.html" />
-        <option value="$PROJECT_DIR$/templates/upload.html" />
-        <option value="$PROJECT_DIR$/GeneJson/urls.py" />
-        <option value="$PROJECT_DIR$/templates/search.html" />
-        <option value="$PROJECT_DIR$/static/css/default.css" />
-        <option value="$PROJECT_DIR$/static/js/search.js" />
-        <option value="$PROJECT_DIR$/GeneJson/wsgi.py" />
-        <option value="$PROJECT_DIR$/GeneJson/settings.py" />
-        <option value="$PROJECT_DIR$/mysite/views.py" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-4" />
-    <option name="width" value="1932" />
-    <option name="height" value="1047" />
-  </component>
+  <component name="ProjectId" id="1PzMkcsmY3lh8Bc8N1FkgQmQKHo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="doc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="mysite" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
-              <item name="FlexiJsonEditor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GeneJson" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GeneJson" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="FullScreen" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/othercode" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -322,15 +72,18 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/js" />
+      <recent name="$PROJECT_DIR$/doc" />
+      <recent name="$PROJECT_DIR$/othercode/Annovar" />
+      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module\webuploader" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/othercode" />
+      <recent name="$PROJECT_DIR$/static/js" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\templates" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\plugins\FlexiJsonEditor" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\plugins" />
-      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module\webuploader" />
-      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module\webuploader" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -345,53 +98,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="GeneJson" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="GeneJson" type="Python.DjangoServer" factoryName="Django server">
-      <module name="GeneJson" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="GeneJson.settings" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-    </configuration>
+  <component name="RunManager" selected="Django server.GeneJson">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -412,14 +119,186 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+    <configuration name="Owldemo_real (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OntoVarsMiner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othercode/Owldemo_real.py" />
+      <option name="PARAMETERS" value="$USER_HOME$/Desktop/so" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="XMLParser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OntoVarsMiner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/XMLdata" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/XMLdata/XMLParser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="OntoVarsMiner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="createAnnovarDatabase" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OntoVarsMiner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othercode/Annovar/createAnnovarDatabase.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="process_hpoteam" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OntoVarsMiner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othercode/process_hpoteam.py" />
+      <option name="PARAMETERS" value="$USER_HOME$/Desktop/data/phenotype_annotation_hpoteam.tab" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="transformGFF3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OntoVarsMiner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othercode/transformGFF3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GeneJson" type="Python.DjangoServer" factoryName="Django server">
+      <module name="OntoVarsMiner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="GeneJson.settings" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.5" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="http://127.0.0.1:8000/index" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
+      <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Django server.GeneJson" />
+      <item itemvalue="Python.XMLParser" />
+      <item itemvalue="Python.transformGFF3" />
+      <item itemvalue="Python.Owldemo_real (1)" />
+      <item itemvalue="Python.createAnnovarDatabase" />
+      <item itemvalue="Python.process_hpoteam" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.process_hpoteam" />
+        <item itemvalue="Python.createAnnovarDatabase" />
+        <item itemvalue="Python.Owldemo_real (1)" />
+        <item itemvalue="Python.transformGFF3" />
+        <item itemvalue="Python.XMLParser" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -431,6 +310,33 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1531121732508</updated>
+      <workItem from="1547811168333" duration="279000" />
+      <workItem from="1547811457481" duration="187000" />
+      <workItem from="1547811655171" duration="1207000" />
+      <workItem from="1547816223870" duration="3000" />
+      <workItem from="1547865897636" duration="7000" />
+      <workItem from="1547879094534" duration="683000" />
+      <workItem from="1548315344758" duration="703000" />
+      <workItem from="1550283938447" duration="44489000" />
+      <workItem from="1551237004686" duration="9665000" />
+      <workItem from="1551343516802" duration="7087000" />
+      <workItem from="1552636035107" duration="47718000" />
+      <workItem from="1553175535425" duration="69000" />
+      <workItem from="1553232738902" duration="11591000" />
+      <workItem from="1553746252110" duration="7022000" />
+      <workItem from="1556371010731" duration="9775000" />
+      <workItem from="1558506149391" duration="9980000" />
+      <workItem from="1559008602626" duration="6928000" />
+      <workItem from="1559112440317" duration="21610000" />
+      <workItem from="1559465365668" duration="68115000" />
+      <workItem from="1566872429311" duration="61000" />
+      <workItem from="1566872626687" duration="28567000" />
+      <workItem from="1568595118897" duration="37000" />
+      <workItem from="1568722226745" duration="1294000" />
+      <workItem from="1568773131627" duration="32292000" />
+      <workItem from="1569050956180" duration="80000" />
+      <workItem from="1569247039958" duration="1371000" />
+      <workItem from="1569322581542" duration="68340000" />
     </task>
     <task id="LOCAL-00001" summary="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json">
       <created>1532506113114</created>
@@ -474,105 +380,282 @@
       <option name="project" value="LOCAL" />
       <updated>1533383663065</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1. add gene search">
+      <created>1550566211345</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1550566211345</updated>
+    </task>
+    <task id="LOCAL-00008" summary="1. add gene search in custom tab">
+      <created>1550646959449</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1550646959449</updated>
+    </task>
+    <task id="LOCAL-00009" summary="1. modify ui&#10;2. if value is number in search page web server, convert it to number&#10;3. uppercase the key in json file">
+      <created>1552810385349</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1552810385349</updated>
+    </task>
+    <task id="LOCAL-00010" summary="1. add gene information (position and external)">
+      <created>1552831483917</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1552831483917</updated>
+    </task>
+    <task id="LOCAL-00011" summary="1. modify function name&#10;2. add keyboard respond of enter&#10;3. delete useless code&#10;4. debug function doGeneInfoSearch">
+      <created>1552889463959</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1552889463959</updated>
+    </task>
+    <task id="LOCAL-00012" summary="1. add function transform gff3 to json">
+      <created>1553000593819</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1553000593819</updated>
+    </task>
+    <task id="LOCAL-00013" summary="1. add gff3 search">
+      <created>1553087427017</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1553087427017</updated>
+    </task>
+    <task id="LOCAL-00014" summary="1. add readme&#10;2. use correct external link name GTExPortal">
+      <created>1553782543648</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1553782543648</updated>
+    </task>
+    <task id="LOCAL-00015" summary="1. index all field on VCF">
+      <created>1553828818746</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1553828818746</updated>
+    </task>
+    <task id="LOCAL-00016" summary="ui change&#10;1. Combine upload page and download page, and the new page named File&#10;2. delete upload page&#10;3. change example words bellow the input at search page">
+      <created>1556374208494</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1556374208494</updated>
+    </task>
+    <task id="LOCAL-00017" summary="1. modify website name">
+      <created>1556690796205</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1556690796205</updated>
+    </task>
+    <task id="LOCAL-00018" summary="1. optimize search in mongodb&#10;2. simplify web ui">
+      <created>1566460704269</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1566460704269</updated>
+    </task>
+    <task id="LOCAL-00019" summary="1. delete fuzzy search by gene name&#10;2. add no results found message popup">
+      <created>1566558557499</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1566558557499</updated>
+    </task>
+    <task id="LOCAL-00020" summary="1. modify home page word&#10;2. delete [object object] in nest table">
+      <created>1566806669301</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1566806669301</updated>
+    </task>
+    <task id="LOCAL-00021" summary="1. add news on home page&#10;2. remove bug: if have no results find, the busyload don't hide&#10;3. delete useless code">
+      <created>1566872978251</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1566872978252</updated>
+    </task>
+    <task id="LOCAL-00022" summary="1. delete  search bar at child table&#10;2. instead of using DoVCFSearch, we use DoMianSearch for processing gene">
+      <created>1566893450012</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1566893450012</updated>
+    </task>
+    <task id="LOCAL-00023" summary="1. add SO search">
+      <created>1566992448835</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1566992448835</updated>
+    </task>
+    <task id="LOCAL-00024" summary="1. add file that lost in last commit&#10;2. UI: association --&gt; transcript">
+      <created>1567046540583</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1567046540583</updated>
+    </task>
+    <task id="LOCAL-00025" summary="1. add readme">
+      <created>1567064058726</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1567064058726</updated>
+    </task>
+    <task id="LOCAL-00026" summary="1. modify readme">
+      <created>1567065643983</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1567065643983</updated>
+    </task>
+    <task id="LOCAL-00027" summary="1. delete useless page&#10;2. redesign webuploader UI &#10;3. optimize example search&#10;4.">
+      <created>1567156095436</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1567156095436</updated>
+    </task>
+    <task id="LOCAL-00028" summary="1. add ontology">
+      <created>1568991833081</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1568991833081</updated>
+    </task>
+    <task id="LOCAL-00029" summary="1. ui change">
+      <created>1569248945613</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1569248945613</updated>
+    </task>
+    <task id="LOCAL-00030" summary="1. add go do hpo in main search&#10;2. replace mkks with PEX10">
+      <created>1569326113592</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1569326113592</updated>
+    </task>
+    <task id="LOCAL-00031" summary="1. trim space of the key when searching at main page&#10;2. delete introduce content about upload and download in home page">
+      <created>1570789834760</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1570789834760</updated>
+    </task>
+    <task id="LOCAL-00032" summary="1. add ontology column select function">
+      <created>1570954265507</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1570954265507</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32824427" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50159913" side_tool="true" weight="0.5387132" />
-      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3293348" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32824427" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.25660792" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32819384" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.46346784" visible="true" weight="0.22867803" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
-      <window_info anchor="right" id="SciView" order="6" weight="0.32995737" />
-      <window_info id="Structure" order="0" sideWeight="0.5638889" side_tool="true" weight="0.19829424" />
-      <window_info id="Favorites" order="2" sideWeight="0.53594774" side_tool="true" weight="0.20895523" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49840087" visible="true" weight="0.42311886" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Application Servers" order="7" />
-      <window_info anchor="bottom" id="manage.py@GeneJson" order="9" weight="0.32897604" />
-      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="5" side_tool="true" weight="0.32675907" />
-      <window_info anchor="bottom" id="Messages" order="7" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49840087" weight="0.32824427" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="8" weight="0.32897604" />
-    </layout>
-    <layout-to-restore>
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.26252723" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.21568628" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.68786126" visible="true" weight="0.19616205" />
-      <window_info id="Structure" order="0" sideWeight="0.31213874" side_tool="true" visible="true" weight="0.19616205" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32897604" />
-      <window_info anchor="bottom" id="Changes" order="8" />
-      <window_info anchor="bottom" id="Application Servers" order="11" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="6" side_tool="true" weight="0.32675907" />
-      <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="15" weight="0.32897604" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" visible="true" weight="0.24618736" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.32897604" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="manage.py@GeneJson" order="16" weight="0.32897604" />
-      <window_info anchor="right" id="SciView" order="4" weight="0.32995737" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32897604" />
-      <window_info anchor="right" id="Coverage" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32897604" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="2">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
+              <option name="COLUMN_ORDER" />
             </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+        <option value="2" />
+      </set>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
           </value>
         </entry>
       </map>
@@ -586,30 +669,76 @@
       <collection />
     </option>
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json" />
-    <MESSAGE value="1. 完成下载功能" />
-    <MESSAGE value="1. 修改上传界面, 加入伪进度条&#10;2. 删除browse页面&#10;3. 修改重复提交文件,后台相关逻辑" />
-    <MESSAGE value="1. 修改后台: 之前逻辑python创建孙子进程, 测试发现孙子进程不执行,原因未知. 现在修改为创建子进程&#10;2. 修改后台: 改变samples, 现在改成array 方便前台数组显示&#10;3. 前台: 增加搜索等待画面&#10;4. 前台: 修改进度条bug&#10;5. 前台: 修改单元格数据过多 省略显示" />
-    <MESSAGE value="1. 修改表格显示bug&#10;2. 目前已经可以部署到apache服务器" />
-    <MESSAGE value="1. 修改ui界面&#10;2. 增加搜索界面的 key提示(jsoneditor控件有问题,需要换一个)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 修改ui界面&#10;2. 增加搜索界面的 key提示(jsoneditor控件有问题,需要换一个)" />
+    <MESSAGE value="1. add gene search in custom tab" />
+    <MESSAGE value="1. modify ui&#10;2. if value is number in search page web server, convert it to number&#10;3. uppercase the key in json file" />
+    <MESSAGE value="1. add gene information (position and external)" />
+    <MESSAGE value="1. modify function name&#10;2. add keyboard respond of enter&#10;3. delete useless code&#10;4. debug function doGeneInfoSearch" />
+    <MESSAGE value="1. add function transform gff3 to json" />
+    <MESSAGE value="1. add gff3 search" />
+    <MESSAGE value="1. add readme&#10;2. use correct external link name GTExPortal" />
+    <MESSAGE value="1. index all field on VCF" />
+    <MESSAGE value="ui change&#10;1. Combine upload page and download page, and the new page named File&#10;2. delete upload page&#10;3. change example words bellow the input at search page" />
+    <MESSAGE value="1. modify website name" />
+    <MESSAGE value="1. optimize search in mongodb&#10;2. simplify web ui" />
+    <MESSAGE value="1. delete fuzzy search by gene name&#10;2. add no results found message popup" />
+    <MESSAGE value="1. modify home page word&#10;2. delete [object object] in nest table" />
+    <MESSAGE value="1. add news on home page&#10;2. remove bug: if have no results find, the busyload don't hide&#10;3. delete useless code" />
+    <MESSAGE value="1. delete  search bar at child table&#10;2. instead of using DoVCFSearch, we use DoMianSearch for processing gene" />
+    <MESSAGE value="1. add SO search" />
+    <MESSAGE value="1. add file that lost in last commit&#10;2. UI: association --&gt; transcript" />
+    <MESSAGE value="1. add readme" />
+    <MESSAGE value="1. modify readme" />
+    <MESSAGE value="1. delete useless page&#10;2. redesign webuploader UI &#10;3. optimize example search&#10;4." />
+    <MESSAGE value="1. add ontology" />
+    <MESSAGE value="1. ui change" />
+    <MESSAGE value="1. add go do hpo in main search&#10;2. replace mkks with PEX10" />
+    <MESSAGE value="1. trim space of the key when searching at main page&#10;2. delete introduce content about upload and download in home page" />
+    <MESSAGE value="1. add ontology column select function" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. add ontology column select function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/templates/search.html</url>
-          <line>87</line>
-          <option name="timeStamp" value="158" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/static/js/download.js</url>
           <line>34</line>
           <option name="timeStamp" value="206" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/static/js/search.js</url>
+          <line>431</line>
+          <option name="timeStamp" value="219" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mysite/views.py</url>
+          <line>174</line>
+          <option name="timeStamp" value="208" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/Desktop/XMLdata/Owldemo.py</url>
+          <line>377</line>
+          <option name="timeStamp" value="211" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/Desktop/XMLdata/Owldemo.py</url>
+          <line>365</line>
+          <option name="timeStamp" value="212" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/othercode/transformGFF3.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="214" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/othercode/transformGFF3.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="216" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/othercode/Annovar/createAnnovarDatabase.py</url>
+          <line>42</line>
+          <option name="timeStamp" value="231" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -619,435 +748,26 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="248" />
     </breakpoint-manager>
     <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="semicolonstr[i].split('=')" language="Python" />
+        <watch expression="record1['end']" />
+        <watch expression="Fields[0]" language="Python" />
+        <watch expression="new_resource[key]['url']" />
+        <watch expression="new_resource[key]" />
+      </configuration>
       <configuration name="Python.DjangoServer">
-        <watch expression="datacolletion.find({'POS': {'$gt': 10400, '$lt': 11000})" language="Python" />
-        <watch expression="results.count()" language="Python" />
-        <watch expression="type(response_data)" language="Python" />
-        <watch expression="request.POST.get('size')" language="Python" />
-        <watch expression="results.count()" language="Python" />
-        <watch expression="result[&quot;value&quot;]" language="Python" />
+        <watch expression="result_vcf['INFO']['CLNDISDB']" language="Python" />
+        <watch expression="results_vcf.count()" language="Python" />
       </configuration>
     </watches-manager>
   </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="watch">
-      <expression>
-        <expression-string>result[&quot;value&quot;]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>result.value</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>results.count()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>request.POST.get('size')</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>request.POST.size</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>request.POST.get(size)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>type(response_data)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>result.count()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>result.size</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>datacolletion.find({'POS': {'$gt': 10400, '$lt': 11000})</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/plugins/buttons.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="204" column="18" lean-forward="true" selection-start-line="204" selection-start-column="18" selection-end-line="204" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/core/handlers/exception.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="861" selection-start-line="861" selection-end-line="861" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/utils/deprecation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="97" selection-start-line="97" selection-end-line="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/socketserver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="625" selection-start-line="625" selection-end-line="625" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/wsgiref/handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="137" selection-start-line="137" selection-end-line="137" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/contrib/staticfiles/handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/core/handlers/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="156" selection-start-line="156" selection-end-line="156" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/apps.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/json/encoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="178" selection-start-line="178" selection-end-line="178" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/json/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="182" column="24" selection-start-line="182" selection-start-column="24" selection-end-line="182" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/contrib/admin/static/admin/js/vendor/select2/select2.full.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="1292" column="4" selection-start-line="1292" selection-start-column="4" selection-end-line="1292" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/zipfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/wsgiref/simple_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/typing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37686">
-          <caret line="1720" column="8" selection-start-line="1720" selection-start-column="8" selection-end-line="1720" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/core/servers/basehttp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3190">
-          <caret line="153" selection-start-line="153" selection-end-line="153" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/utils/encoding.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/core/handlers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2552">
-          <caret line="125" selection-start-line="125" selection-end-line="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/wsgiref/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/http/response.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5830">
-          <caret line="281" column="8" selection-start-line="281" selection-start-column="8" selection-end-line="281" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/plugins/webuploader/webuploader.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret column="14672" selection-start-column="14672" selection-end-column="14672" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="656">
-          <caret line="15870" column="12" selection-start-line="15870" selection-start-column="12" selection-end-line="15870" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/contrib/admin/static/admin/js/vendor/jquery/jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="3344" column="18" selection-start-line="3344" selection-start-column="18" selection-end-line="3344" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_comm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="364" selection-start-line="364" selection-end-line="364" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/functools.pyi">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/allel/io/vcf_read.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="839" column="20" selection-start-line="839" selection-start-column="20" selection-end-line="839" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/1798730440/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7458">
-          <caret line="339" column="4" selection-start-line="339" selection-start-column="4" selection-end-line="339" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django.wsgi" />
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/core/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/download.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/upload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="234" lean-forward="true" selection-start-line="234" selection-end-line="234" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/about.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/browse.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/download.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="970" column="4" selection-start-line="970" selection-start-column="4" selection-end-line="970" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/upload.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1914">
-          <caret line="87" column="45" selection-start-line="87" selection-start-column="45" selection-end-line="87" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/django/views/decorators/csrf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="858">
-          <caret line="42" column="32" lean-forward="true" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GeneJson/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
-          <folding>
-            <element signature="e#632#664#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/virtual_3.5/Lib/site-packages/pymongo/collection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53196">
-          <caret line="2454" column="61" selection-start-line="2454" selection-start-column="61" selection-end-line="2454" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/contact.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1848">
-          <caret line="84" column="6" selection-start-line="84" selection-start-column="6" selection-end-line="84" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/default.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13662">
-          <caret line="621" column="22" selection-start-line="621" selection-start-column="22" selection-end-line="621" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/plugins/FlexiJsonEditor/jsoneditor.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-594" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="132" column="58" lean-forward="true" selection-start-line="132" selection-start-column="58" selection-end-line="132" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/plugins/FlexiJsonEditor/jquery.jsoneditor.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="194" selection-start-line="13" selection-start-column="194" selection-end-line="13" selection-end-column="194" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="78" column="71" selection-start-line="78" selection-start-column="71" selection-end-line="78" selection-end-column="71" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#46#52#1" expanded="true" />
-            <marker date="1533382877423" expanded="true" signature="2479:2564" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="832">
-          <caret line="299" column="12" lean-forward="true" selection-start-line="299" selection-start-column="12" selection-end-line="299" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GeneJson/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#225#234#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GeneJson/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/GeneJson$Owldemo.coverage" NAME="Owldemo Coverage Results" MODIFIED="1559010031579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop/XMLdata" />
+    <SUITE FILE_PATH="coverage/GeneJson$transformGFF3.coverage" NAME="transformGFF3 Coverage Results" MODIFIED="1566349299497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/othercode" />
+    <SUITE FILE_PATH="coverage/OntoVarsMiner$process_hpoteam.coverage" NAME="process_hpoteam Coverage Results" MODIFIED="1570877314385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/othercode" />
+    <SUITE FILE_PATH="coverage/GeneJson$Owldemo_real.coverage" NAME="Owldemo_real Coverage Results" MODIFIED="1559214713090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop/XMLdata" />
+    <SUITE FILE_PATH="coverage/OntoVarsMiner$createAnnovarDatabase.coverage" NAME="createAnnovarDatabase Coverage Results" MODIFIED="1570628688585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/othercode" />
   </component>
 </project>

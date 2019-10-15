@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/GeneJson.iml" filepath="$PROJECT_DIR$/.idea/GeneJson.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/OntoVarsMiner.iml" filepath="$PROJECT_DIR$/.idea/OntoVarsMiner.iml" />
     </modules>
   </component>
 </project>

@@ -435,7 +435,7 @@ function CreatGeneInfoTable2(tableID, data) {
         "<tr><td style='color: #f07b05;'>Start</td><td style='color: lightseagreen;'>"+ data[0]['Start'] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>End</td><td style='color: lightseagreen;'>"+ data[0]['End'] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Strand</td><td>"+ data[0]['Strand'] +"</td></tr>" +
-        "<tr><td style='color: #f07b05;'>Internal</td><td><a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Diseases</a>" + "&nbsp" +
+        "<tr><td style='color: #f07b05;'>Internal</td><td><a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Phenotype</a>" + "&nbsp" +
         "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearch(\"" + data[0]["GeneName"] + "\")'>Variants</a>" + "&nbsp" +
         "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Transcription</a></td></tr>" + "&nbsp" +
         "<tr><td style='color: #f07b05;'>External</td><td><a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g=" + GeneID + "'>Ensembl</a>" + "&nbsp" +
@@ -961,8 +961,8 @@ function CreatVCFTableWithOntology(tableID, data, IsRoot, ontology) {
                 {"data":"ALT","title":"ALT","name":"ALT"},
                 {"data":"INFO.GENEINFO","title":"GENEINFO"},
                 {"data":"GO","title":"GO","name":"GO"},
-                {"data":"INFO.CLNVCSO","title":"CLNVCSO", "name":"SO"},
-                {"data":"INFO.MC", "title":"MC", "name":"SO"},
+                {"data":"INFO.CLNVCSO","title":"SO (CLNVCSO)", "name":"SO"},
+                {"data":"INFO.MC", "title":"SO (MC)", "name":"SO"},
                 {"data":"DO", "title":"DO", "name":"DO"},
                 {"data":"HP", "title":"HP", "name":"HPO"},
                 {"data":"INFO.CLNDISDB","title":"CLNDISDB"},
@@ -1421,7 +1421,7 @@ function Search_bind_autocomplete(node,isbind) {
                 "ID",
                 "QUAL",
                 "REF",
-                "ALT.1",
+                "ALT",
                 "FILTER.FILTER_PASS"
             ];
         node.autocomplete({

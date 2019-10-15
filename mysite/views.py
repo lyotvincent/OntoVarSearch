@@ -323,11 +323,23 @@ def doVCFSearch(request):
 #search variant with ontology
 @csrf_exempt
 def doVCFSearchWithOntology(request):
-    def AddHPOandDO(results_vcf):
+    def AddOntology(results_vcf):
+        hasOntology = False
         Allresults = []
         connection = MongoClient(MongodbAddrRemote)
+        Goterm=[]
+        IsGetGo = False
         for result_vcf in results_vcf:
+            if IsGetGo== False and 'GENEINFO' in result_vcf['INFO']:
+                hasOntology = True
+                IsGetGo = True
+                genesymbal = result_vcf['INFO']['GENEINFO'].split(':')[0]
+                results_GO = connection.vcf_hpo.goa.find({"DB_Object_Symbol": genesymbal})
+                Goterm = []
+                for result_GO in results_GO:
+                    Goterm.append(result_GO["GO_ID"])
             if "CLNDISDB" in result_vcf['INFO']:
+                hasOntology = True
                 CLNISDB = result_vcf['INFO']["CLNDISDB"]
                 if CLNISDB:
                     if '|' in CLNISDB:
@@ -339,20 +351,24 @@ def doVCFSearchWithOntology(request):
                             result_vcf["HP"] = ele.split(':')[2]
                             break
                         elif ele.split(':')[0].upper() == "OMIM":
-                            results_DO = connection.vcf_hpo.DO_OMIM.find({"OMIM":ele.split(':')[1]})
+                            results_DO = connection.vcf_hpo.obo.find({"oboInOwlu003AhasDbXref.value": ele})
                             tmplist=[]
                             for result_DO in results_DO:
-                                tmplist.append(result_DO["DO"])
+                                tmplist.append(result_DO["oboInOwlu003Aid"]["value"])
                             result_vcf["DO"] = ','.join(tmplist)
 
-                            results_HPO = connection.vcf_hpo.HP_OMIM.find({"OMIM": ele.split(':')[1]})
+                            results_HPO = connection.vcf_hpo.hpoteam.find({"DB": "OMIM", "DB_Object_ID": ele.split(':')[1]})
                             tmplist = []
                             for result_HPO in results_HPO:
-                                tmplist.append(result_HPO["HP"])
+                                tmplist.append(result_HPO["HPO_ID"])
                             result_vcf["HP"] = ','.join(tmplist)
                             break
+            if IsGetGo == True and Goterm:
+                result_vcf["GO"] = ','.join(Goterm)
 
             Allresults.append(result_vcf)
+        if hasOntology == False:
+            return []
         return Allresults
 
     if request.method == 'POST':
@@ -361,6 +377,8 @@ def doVCFSearchWithOntology(request):
         end = request.POST.get("end")
         ontology = request.POST.get("ontology")
         database = request.POST.get("database")
+        if database == "autosomes_phase3":
+            return JsonResponse([], safe=False)
         connection = MongoClient(MongodbAddrRemote)
         if database in connection.mydb.collection_names():
             collection_vcf = connection.mydb[database]
@@ -386,7 +404,7 @@ def doVCFSearchWithOntology(request):
             results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)}}, {"_id": 0})
         else:
             results_vcf=[]
-        Allresults = AddHPOandDO(results_vcf)
+        Allresults = AddOntology(results_vcf)
         # for result_vcf in results_vcf:
         #     Allresults.append(result_vcf)
         return JsonResponse(Allresults, safe=False)

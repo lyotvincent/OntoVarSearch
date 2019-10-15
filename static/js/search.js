@@ -128,7 +128,7 @@ function DoMainSearch() {
     if (input == "polyneuropathy"){
         $.when(DoDiseaseSearch(input)).then(Done);
     }
-    else if (input == "PEX10"){ //MYPN
+    else if (input == "ESRRB"){ //MYPN
         $.when(DoGeneInfoSearch(input)).then(Done);
     }
     else if (input == "SO:0000825"){
@@ -959,7 +959,8 @@ function CreatVCFTableWithOntology(tableID, data, IsRoot, ontology) {
                 {"data":"ID","title":"ID"},
                 {"data":"REF","title":"REF"},
                 {"data":"ALT","title":"ALT","name":"ALT"},
-                {"data":"INFO.GENEINFO","title":"GENEINFO", "name":"GO"},
+                {"data":"INFO.GENEINFO","title":"GENEINFO"},
+                {"data":"GO","title":"GO","name":"GO"},
                 {"data":"INFO.CLNVCSO","title":"CLNVCSO", "name":"SO"},
                 {"data":"INFO.MC", "title":"MC", "name":"SO"},
                 {"data":"DO", "title":"DO", "name":"DO"},

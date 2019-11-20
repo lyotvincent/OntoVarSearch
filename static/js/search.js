@@ -430,15 +430,15 @@ function CreatGeneInfoTable2(tableID, data) {
     var Start = data[0]['Start'];
     var End = data[0]['End'];
     var content = "<tbody><tr><td style='color: #f07b05;'>Gene Name</td><td style='color: dodgerblue;'>"+ data[0]["GeneName"] +"</td></tr><tr>" +
-        "<td style='color: #f07b05;'>Gene ID</td><td style='color: violet'>"+ data[0]["GeneID"] +"</td></tr>" +
+        "<td style='color: #f07b05;'>Gene ID</td><td style='color: violet'>"+"Ensembl:"+data[0]["GeneID"]+"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Chromosomes</td><td style='color: lightseagreen'>"+ data[0]["Chr"] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Start</td><td style='color: lightseagreen;'>"+ data[0]['Start'] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>End</td><td style='color: lightseagreen;'>"+ data[0]['End'] +"</td></tr>" +
         "<tr><td style='color: #f07b05;'>Strand</td><td>"+ data[0]['Strand'] +"</td></tr>" +
-        "<tr><td style='color: #f07b05;'>Internal</td><td><a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Phenotypes</a>" + "&nbsp" +
+        "<tr><td style='color: #f07b05;'>Related Information</td><td><a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>Phenotypes</a>" + "&nbsp" +
         "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearch(\"" + data[0]["GeneName"] + "\")'>Variants</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Transcription</a></td></tr>" + "&nbsp" +
-        "<tr><td style='color: #f07b05;'>External</td><td><a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g=" + GeneID + "'>Ensembl</a>" + "&nbsp" +
+        // "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoGFF3Search(\"" + data[0]["GeneName"] + "\")'>Transcription</a></td></tr>" + "&nbsp" +
+        "<tr><td style='color: #f07b05;'>External Links</td><td><a class='btn btn-primary' role='button' href='http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g=" + GeneID + "'>Ensembl</a>" + "&nbsp" +
         "<a class='btn btn-success' role='button' href='http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr" + Chr + "%3A" + Start + "-" + End + "'>UCSC</a>" + "&nbsp" +
         "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +
         "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +

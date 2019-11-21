@@ -3,7 +3,7 @@
 **A web platform to search ontology and genetic data**  
 
 
-Ontology and Genetic Search (OGS) is an open web platform to search ontology and genetic variation. It could help researchers identify genetic variants by uploading their own VCF files as database. Meanwhile, it is not limited to genetic variants, but could also be comprised ontology like human phenotype ontology (HPO). Currently, OGS contains 130,000 records of ontology annotations, about 2,700,000 records of genes and more than 79 million variants data.
+Ontology and Genetic data Search (OGS) is an open web platform to search ontology and genetic variation. It could help researchers identify genetic variants by uploading their own VCF files as database. Meanwhile, it is not limited to genetic variants, but could also be comprised ontology like human phenotype ontology (HPO). Currently, OGS contains 130,000 records of ontology annotations, about 2,700,000 records of genes and more than 79 million variants data.
 
 + Upload: OGS accepts uncompressed or gzip-compatible compressed (*.gz) VCF files at this section
 + Download: Compressed (*.json) files which are derived from VCF files are available downloading at this section

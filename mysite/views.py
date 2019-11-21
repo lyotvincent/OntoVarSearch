@@ -586,6 +586,8 @@ def CreatIndex(collection):
                 collection.create_index([(key['value'], 1)], background=True)
             except:
                 continue
+    #建立INFO字段的全文索引
+    collection.create_index({"INFO":'text'})
     return
 
 #获取表的key, 用于查询时的字段提示
@@ -690,3 +692,52 @@ def doSOInfoSearch(request):
             result_ontology = collection_so.find_one({"url": "http://purl.obolibrary.org/obo/" + GOstr}, {"_id":0})
         return JsonResponse(result_ontology, safe=False)
 
+
+@csrf_exempt
+def doVariantIDSearch(request):
+    if request.method == 'POST':
+        variantID = request.POST.get("json_data").upper()
+        database = request.POST.get("database")
+        connection = MongoClient(MongodbAddrRemote)
+        if database in connection.mydb.collection_names():
+            collection_vcf = connection.mydb[database]
+        else:
+            collection_vcf = connection.vcf_hpo[database]
+        results_vcf = collection_vcf.find_one({"ID": variantID },{"_id": 0})
+        return JsonResponse(results_vcf, safe=False)
+
+@csrf_exempt
+def doRegionSearch(request):
+    if request.method == 'POST':
+        chr = request.POST.get("chr")
+        start = request.POST.get("start")
+        end = request.POST.get("end")
+        database = request.POST.get("database")
+        connection = MongoClient(MongodbAddrRemote)
+        if database in connection.mydb.collection_names():
+            collection_vcf = connection.mydb[database]
+        else:
+            collection_vcf = connection.vcf_hpo[database]
+
+        results_vcf = collection_vcf.find({"CHROM": chr, "POS": {"$gte": int(start), "$lte": int(end)}}, {"_id":0})
+        Allresults=[]
+        for result_vcf in results_vcf:
+            Allresults.append(result_vcf)
+        return JsonResponse(Allresults, safe=False)
+
+@csrf_exempt
+def doOntologySearch(request):
+    if request.method == 'POST':
+        ontology = request.POST.get("json_data")
+        database = request.POST.get("database")
+        connection = MongoClient(MongodbAddrRemote)
+        if database in connection.mydb.collection_names():
+            collection_vcf = connection.mydb[database]
+        else:
+            collection_vcf = connection.vcf_hpo[database]
+
+        results_vcf = collection_vcf.find({"$text": {"$search": ontology}}, {"_id": 0}).sort("CHROM", 1)
+        Allresults=[]
+        for result_vcf in results_vcf:
+            Allresults.append(result_vcf)
+        return JsonResponse(Allresults, safe=False)

@@ -43,4 +43,8 @@ urlpatterns = [
     path('search/getkeyfield', views.GetKeyField),
     path('search/doSOInfoSearch/', views.doSOInfoSearch),
     path('search/doVCFSearchWithOntology/', views.doVCFSearchWithOntology),
+    path('search/DoVariantIDSearch/', views.doVariantIDSearch),
+    path('search/DoRegionSearch/', views.doRegionSearch),
+    path('search/DoOntologySearch/', views.doOntologySearch),
+
 ]

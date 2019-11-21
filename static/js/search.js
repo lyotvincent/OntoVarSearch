@@ -257,6 +257,97 @@ function DoDiseaseSearch(DiseaseName) {
     return deferred.promise();
 }
 
+function DoVariantIDSearch(VariantID) {
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(VariantID) || IsEmpty(database))   return;
+    var deferred = $.Deferred();
+    var disease = {"json_data": VariantID, "database":database};
+    //$.busyLoadFull("show", { spinner: "accordion"});
+
+    $.post('/search/DoVariantIDSearch/', disease, null, 'json')
+        .done(function (data) {
+            if (data.length === 0) {
+            } else {
+                $("#DataTable").parents('.divInContainer').css({"background-color": 'white'});
+                IsResultsFound = true;
+                CreatVCFTable('#DataTable', data, true);
+            }
+            return deferred.resolve();
+        })
+        .fail(function () {
+            return deferred.reject();
+        });
+    return deferred.promise();
+}
+
+function DoRegionSearch(region) {
+    var pattern = /(\d+|x|X|y|Y|chr\d+)(\:|\-)\d+\-\d+/;
+    if (!pattern.test(region))    return;
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(VariantID) || IsEmpty(database))   return;
+    var deferred = $.Deferred();
+    var datapatt = /\w+/;
+    var datalist = datapatt.exec(region);
+    if (datalist.length != 3) return;
+    var jsondata = {"chr": datalist[0], "start":datalist[1], "end":datalist[2],"database":database};
+    $.post('/search/DoRegionSearch/', disease, null, 'json')
+        .done(function (data) {
+            if (data.length === 0) {
+            } else {
+                $("#DataTable").parents('.divInContainer').css({"background-color": 'white'});
+                IsResultsFound = true;
+                CreatVCFTable('#DataTable', data, true);
+            }
+            return deferred.resolve();
+        })
+        .fail(function () {
+            return deferred.reject();
+        });
+    return deferred.promise();
+}
+
+function DoOntologySearch(Ontology) {
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    if(IsEmpty(VariantID) || IsEmpty(database))   return;
+    var deferred = $.Deferred();
+    var ontology = {"json_data": CorrectTerm(Ontology), "database":database};
+    //$.busyLoadFull("show", { spinner: "accordion"});
+
+    $.post('/search/DoOntologySearch/', ontology, null, 'json')
+        .done(function (data) {
+            if (data.length === 0) {
+            } else {
+                $("#DataTable").parents('.divInContainer').css({"background-color": 'white'});
+                IsResultsFound = true;
+                CreatVCFTable('#DataTable', data, true);
+            }
+            return deferred.resolve();
+        })
+        .fail(function () {
+            return deferred.reject();
+        });
+    return deferred.promise();
+    function CorrectTerm(term) {
+        tPos = term.indexOf(':');
+        if (tPos != -1){
+            type = term.slice(0,tPos)
+            ID = term.slice(tPos+1)
+            if (type.toUpperCase().indexOf('S')){
+                type='SO'
+            }else if (type.toUpperCase().indexOf('H')){
+                type='HP'
+            }else if (type.toUpperCase().indexOf('G')){
+                type='GO'
+            }else if (type.toUpperCase().indexOf('D')){
+                type='DOID'
+            }
+            return type+':'+ID;
+        }
+        else
+            return term
+    }
+}
+
 function DoGFF3Search(input) {
     $.busyLoadFull("show", { spinner: "accordion"});
     //var database = $('#Search_sel_DATABASE option:selected').val();

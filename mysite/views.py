@@ -586,8 +586,14 @@ def CreatIndex(collection):
                 collection.create_index([(key['value'], 1)], background=True)
             except:
                 continue
-    #建立INFO字段的全文索引
-    collection.create_index({"INFO":'text'})
+    #建立INFO字段的全文索引，暂时不用，内存消耗严重
+    # collection.create_index({"INFO":'text'})
+    #ontology字段创建索引
+    collection.create_index([('INFO.SO', 1)], background=True)
+    collection.create_index([('INFO.MC', 1)], background=True)
+    collection.create_index([('INFO.GO', 1)], background=True)
+    collection.create_index([('INFO.HPO', 1)], background=True)
+    collection.create_index([('INFO.DO', 1)], background=True)
     return
 
 #获取表的key, 用于查询时的字段提示
@@ -703,8 +709,12 @@ def doVariantIDSearch(request):
             collection_vcf = connection.mydb[database]
         else:
             collection_vcf = connection.vcf_hpo[database]
-        results_vcf = collection_vcf.find_one({"ID": variantID },{"_id": 0})
-        return JsonResponse(results_vcf, safe=False)
+        regx = re.compile(".*" + variantID + ".*", re.IGNORECASE)
+        results_vcf = collection_vcf.find({"ID": regx },{"_id": 0})
+        Allresults=[]
+        for result_vcf in results_vcf:
+            Allresults.append(result_vcf)
+        return JsonResponse(Allresults, safe=False)
 
 @csrf_exempt
 def doRegionSearch(request):
@@ -735,8 +745,9 @@ def doOntologySearch(request):
             collection_vcf = connection.mydb[database]
         else:
             collection_vcf = connection.vcf_hpo[database]
-
-        results_vcf = collection_vcf.find({"$text": {"$search": ontology}}, {"_id": 0}).sort("CHROM", 1)
+        regx = re.compile(".*" + ontology + ".*", re.IGNORECASE)
+        results_vcf = collection_vcf.find({'$or':[{"INFO.SO":regx},{"INFO.MC":regx},{"INFO.HPO":regx},{"INFO.DO":regx},{"INFO.GO":regx}]}, {"_id":0})
+        #results_vcf = collection_vcf.find({"$or":[{"INFO.SO":ontology},{"INFO.MC":ontology}]},{"_id": 0})
         Allresults=[]
         for result_vcf in results_vcf:
             Allresults.append(result_vcf)

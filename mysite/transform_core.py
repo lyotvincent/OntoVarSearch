@@ -181,6 +181,7 @@ class TransformV2J(object):
         return
 
     #useless function. just for test
+    #because of lib of scikit-allel has bug on clinvar data, regard this function as main transform
     def vcf2json_Single(self, filepath_vcf, filepath_json, mode):
         fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['*'], chunk_length=50)
 
@@ -195,7 +196,7 @@ class TransformV2J(object):
 
         return
 
-    def vcf2json_multi2(self, filepath_vcf, filepath_json, md5, mode, IsAddHead= True):
+    def  vcf2json_multi2(self, filepath_vcf, filepath_json, md5, mode, IsAddHead= True):
         fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['variants/*', 'calldata/*'],chunk_length=500)
 
         if os.path.exists(filepath_json):

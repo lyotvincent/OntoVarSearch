@@ -119,11 +119,22 @@ function  DoMainSearchManual(input) {
 }
 
 function DoMainSearch() {
+    //输入合法判断
+    var input = $('#search_disease_input').val();
+    patt=/\w[\w|\d|\:|\-|\s]*\w$/
+    if (!patt.test(input)){
+         layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('invalid input: ' + input);
+            });
+         return;
+    }
+
+    //去掉空格
+    input = input.replace(/^\s*|\s*$/g,"");
     $.busyLoadFull("show", { spinner: "accordion"});
     //clear old tables
     ClearOldData();
-    var input = $('#search_disease_input').val();
-    input = input.replace(/^\s*|\s*$/g,"");
     IsResultsFound = false;
     if (input == "polyneuropathy"){
         $.when(DoDiseaseSearch(input)).then(Done);
@@ -132,10 +143,10 @@ function DoMainSearch() {
         $.when(DoGeneInfoSearch(input)).then(Done);
     }
     else if (input == "SO:0000825"){
-        $.when(DoSOInfoSearch(input)).then(Done);
+        $.when(DoOntologySearch(input)).then(Done);
     }
     else{
-        $.when(DoGeneInfoSearch(input), DoDiseaseSearch(input), DoSOInfoSearch(input)).then(Done);
+        $.when(DoGeneInfoSearch(input), DoDiseaseSearch(input), DoOntologySearch(input),DoRegionSearch(input),DoVariantIDSearch(input)).then(Done);
     }
     function Done() {
         $.busyLoadFull("hide");
@@ -284,13 +295,13 @@ function DoRegionSearch(region) {
     var pattern = /(\d+|x|X|y|Y|chr\d+)(\:|\-)\d+\-\d+/;
     if (!pattern.test(region))    return;
     var database = $('#Search_sel_DATABASE option:selected').val();
-    if(IsEmpty(VariantID) || IsEmpty(database))   return;
+    if(IsEmpty(region) || IsEmpty(database))   return;
     var deferred = $.Deferred();
-    var datapatt = /\w+/;
-    var datalist = datapatt.exec(region);
+    var datapatt = /\w+/g;
+    var datalist = region.match(datapatt)
     if (datalist.length != 3) return;
     var jsondata = {"chr": datalist[0], "start":datalist[1], "end":datalist[2],"database":database};
-    $.post('/search/DoRegionSearch/', disease, null, 'json')
+    $.post('/search/DoRegionSearch/', jsondata, null, 'json')
         .done(function (data) {
             if (data.length === 0) {
             } else {
@@ -308,7 +319,7 @@ function DoRegionSearch(region) {
 
 function DoOntologySearch(Ontology) {
     var database = $('#Search_sel_DATABASE option:selected').val();
-    if(IsEmpty(VariantID) || IsEmpty(database))   return;
+    if(IsEmpty(Ontology) || IsEmpty(database))   return;
     var deferred = $.Deferred();
     var ontology = {"json_data": CorrectTerm(Ontology), "database":database};
     //$.busyLoadFull("show", { spinner: "accordion"});
@@ -332,13 +343,13 @@ function DoOntologySearch(Ontology) {
         if (tPos != -1){
             type = term.slice(0,tPos)
             ID = term.slice(tPos+1)
-            if (type.toUpperCase().indexOf('S')){
+            if (type.toUpperCase().indexOf('S') != -1){
                 type='SO'
-            }else if (type.toUpperCase().indexOf('H')){
+            }else if (type.toUpperCase().indexOf('H') != -1){
                 type='HP'
-            }else if (type.toUpperCase().indexOf('G')){
+            }else if (type.toUpperCase().indexOf('G') != -1){
                 type='GO'
-            }else if (type.toUpperCase().indexOf('D')){
+            }else if (type.toUpperCase().indexOf('D') != -1){
                 type='DOID'
             }
             return type+':'+ID;

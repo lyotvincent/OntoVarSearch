@@ -172,6 +172,18 @@ def ConvertGeneName2cp(condition):
 #search data
 @csrf_exempt
 def doexactSearch(request):
+    def check_json_value(dic_json, k):
+        if isinstance(dic_json, dict):
+            for key in dic_json:
+                if key.upper() == k.upper():
+                    dic_json[key] = str(dic_json[key])
+                elif isinstance(dic_json[key], dict) or isinstance(dic_json[key], list):
+                    check_json_value(dic_json[key], k)
+        elif isinstance(dic_json, list):
+            for ele in dic_json:
+                check_json_value(ele, k)
+
+
     if request.method == 'POST':
         condition = request.POST.get("condition")
         database = request.POST.get("database")
@@ -185,6 +197,8 @@ def doexactSearch(request):
             collection_vcf = connection.vcf_hpo[database]
         #collection_vcf = connection.vcf_hpo.autosomes
         Allresults=[]
+        #转变chrom为字符串类型
+        check_json_value(condition, 'chrom')
         results = collection_vcf.find(condition, {"_id": 0})
         for result in results:
             Allresults.append(result)
@@ -562,8 +576,14 @@ def uploadimportDB(request):
             ImportJson2Mongodb(jsonpath, datacollection)
             #updatekeyfield(datacollection)
             CreatIndex(datacollection)
+            addHeader2DB(md5, result["filepath"] + result["filename_vcf"], collection)
             collection.update({'filemd5': md5}, {'$set': {'isimportcomplete': True}})
     return HttpResponse()
+
+def addHeader2DB(md5, vcfpath, collection):
+    V2J = Transform()
+    infofields = V2J.GetVCFHeader(vcfpath)
+    collection.update({'filemd5': md5}, {'$set': {'InfoFields': ','.join(infofields)}})
 
 #每个字段都创建索引
 def CreatIndex(collection):
@@ -710,7 +730,7 @@ def doVariantIDSearch(request):
         else:
             collection_vcf = connection.vcf_hpo[database]
         regx = re.compile(".*" + variantID + ".*", re.IGNORECASE)
-        results_vcf = collection_vcf.find({"ID": regx },{"_id": 0})
+        results_vcf = collection_vcf.find({"ID": variantID },{"_id": 0})
         Allresults=[]
         for result_vcf in results_vcf:
             Allresults.append(result_vcf)
@@ -752,3 +772,15 @@ def doOntologySearch(request):
         for result_vcf in results_vcf:
             Allresults.append(result_vcf)
         return JsonResponse(Allresults, safe=False)
+
+@csrf_exempt
+def doGetInfoFields(request):
+    if request.method == 'GET':
+        database = request.POST.get("database")
+        connection = MongoClient(MongodbAddrRemote)
+        result_file = connection.mydb.genefile.find_one({'collectionName':database})
+        Allresults = []
+        if result_file and 'InfoFields' in result_file:
+            Allresults.extend(result_file['InfoFields'].split(','))
+        return JsonResponse(Allresults, safe=False)
+

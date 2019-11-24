@@ -904,6 +904,97 @@ function CreatVCFColums(data) {
     return columns;
 }
 
+function CreatVCFColums2() {
+    // var sort_up = function (x,y) {
+    //     return x.position - y.position;
+    // };
+    // var GetColumnPos = function(ColumnName){
+    //     switch (ColumnName) {
+    //         case "CHROM":
+    //             return 0;
+    //         case "POS":
+    //             return 1;
+    //         case "ID":
+    //             return 2;
+    //         case "REF":
+    //             return 3;
+    //         case "ALT":
+    //             return 4;
+    //         case "QUAL":
+    //             return 5;
+    //         case "FILTER":
+    //             return 6;
+    //         case "Info":
+    //             return 7;
+    //         case "Samples":
+    //             return 8;
+    //         default:
+    //             return 100;
+    //     }
+    // };
+    var CreateColumns = function (InfoFields) {
+        var columns = [{"data": "CHROM", "title": "CHROM"},
+            {"data": "POS", "title": "POS"},
+            {"data": "ID", "title": "ID"},
+            {"data": "REF", "title": "REF"},
+            {"data": "ALT", "title": "ALT", "name": "ALT"},
+            {"data": "QUAL", "title": "QUAL", "name": "QUAL"},
+            {"data": "FILTER", "title": "FILTER", "name": "FILTER",'className':'details-control','targets':-1,'orderable':false,'defaultContent':' '},
+            // {"data": "SAMPLES", "title": "SAMPLES", "name": "SAMPLES",'className':'details-control','targets':-1,'orderable':false,'defaultContent':' '},
+           ];
+        for (var ele in InfoFields) {
+            var column = {};
+            column.data = "INFO."+ele;
+            column.title = ele;
+            column.name = ele;
+            columns.push(column)
+            // column.className = 'gridtitle ';内容过长自动隐藏
+
+        };
+        var samplefield = {"data": "SAMPLES", "title": "SAMPLES", "name": "SAMPLES",'className':'details-control','targets':-1,'orderable':false,'defaultContent':' '}
+        columns.push(samplefield)
+        return columns;
+    };
+
+    var database = $('#Search_sel_DATABASE option:selected').val();
+    $.get('/search/DoGetInfoFields/', {'database': database}, null, 'json')
+        .done(function (data) {
+            if (data === null || data.length === 0) {
+
+            }else{
+               return CreateColumns(data);
+            }
+
+        })
+        .fail(function () {
+
+        });
+
+    // var columns = [];
+    // var rowData = data instanceof Array? data[0] : data;
+    // for (var k in rowData){
+    //     var column = {};
+    //     column.data = k;
+    //     column.title = k;
+    //     column.className = 'gridtitle ';
+    //     column.position = GetColumnPos(k);
+    //
+    //     if (rowData[k] instanceof Object && (k === 'INFO' || k === 'SAMPLES' || k === 'FILTER')){
+    //         column.className += 'details-control';
+    //         column.targets = -1;
+    //         column.orderable = false;
+    //         column.defaultContent = '';
+    //     }
+    //     column.createdCell = function (td, cellData, rowData, row, col) {
+    //         $(td).attr('title', cellData);//设置单元格title，鼠标移上去时悬浮框展示全部内容
+    //     };
+    //     column.data === 'SampleNo'?columns.unshift(column):columns.push(column);
+    // }
+    // columns.sort(sort_up);
+    // return columns;
+}
+
+
 function CreatVCFTable(tableID, data, IsRoot) {
     if (data.length === 0 && IsRoot){
         if ($.fn.DataTable.isDataTable(tableID)) {
@@ -951,7 +1042,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
         paging: paging, // 禁止分页
         bInfo : bInfo, //Showing x to x of x entries
         scrollX: !IsRoot,  //水平滚动条
-        columns: CreatVCFColums(data),
+        columns: IsRoot?CreatVCFColums2():CreatVCFColums(data),
         data: data,
         ordering: true,
         colReorder: {

@@ -305,12 +305,12 @@ class TransformV2J(object):
     def GetVCFHeader(self, filepath_vcf):
         headers = allel.read_vcf_headers(filepath_vcf)
         infofields = []
-        ontologyfield = ['HPO', 'DO', 'SO', 'GO', ]
+        ontologyfield = ['HPO', 'DO', 'SO', 'MC', 'GO', ]
         i = 0
         for ontoele in ontologyfield:
             if ontoele in headers.infos:
                 i += 1
-        if i == 4:  # has ontology, these ontology should be put behind
+        if i == len(ontologyfield):  # has ontology, these ontology should be put behind
             for ele in headers.infos:
                 if ele not in ontologyfield:
                     infofields.append(ele)

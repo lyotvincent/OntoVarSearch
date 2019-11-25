@@ -776,7 +776,7 @@ def doOntologySearch(request):
 @csrf_exempt
 def doGetInfoFields(request):
     if request.method == 'GET':
-        database = request.POST.get("database")
+        database = request.GET.get("database")
         connection = MongoClient(MongodbAddrRemote)
         result_file = connection.mydb.genefile.find_one({'collectionName':database})
         Allresults = []

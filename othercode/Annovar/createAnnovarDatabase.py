@@ -49,14 +49,14 @@ def CreateDB(inFile, outFile):
 def AddOntology2DB(inFile, outFile):
     con = MongoClient('localhost', 27017)
     inlist = ['#chrom', 'start', 'end', 'ref', 'alt', 'ALLELEID', 'CLNDN', 'CLNDNINCL', 'CLNDISDB', 'CLNDISDBINCL',
-             'CLNHGVS', 'CLNREVSTAT', 'CLNSIG', 'CLNSIGCONF', 'CLNSIGINCL', 'CLNVC', 'CLNVCSO', 'CLNVI', 'DBVARID ',
+             'CLNHGVS', 'CLNREVSTAT', 'CLNSIG', 'CLNSIGCONF', 'CLNSIGINCL', 'CLNVC', 'CLNVCSO', 'CLNVI', 'DBVARID',
              'GENEINFO', 'MC', 'ORIGIN', 'RS', 'SSR']
     #SO=CLNVCSO|CLNVC,MC GO=GENEINFO->goa->goa_terms HPO=OMIM->Hpoteam.hpo->hpoanno.termname DO=OMIM->obo.DO->obo.DO.termname
     outlist =['#chrom', 'start', 'end', 'ref', 'alt', 'ALLELEID', 'CLNDN', 'CLNDNINCL', 'CLNDISDB', 'CLNDISDBINCL',
-             'CLNHGVS', 'CLNREVSTAT', 'CLNSIG', 'CLNSIGCONF', 'CLNSIGINCL', 'CLNVI', 'DBVARID ',
+             'CLNHGVS', 'CLNREVSTAT', 'CLNSIG', 'CLNSIGCONF', 'CLNSIGINCL', 'CLNVI', 'DBVARID',
              'GENEINFO', 'ORIGIN', 'RS', 'SSR']
     filds =['#chrom', 'start', 'end', 'ref', 'alt', 'ALLELEID', 'CLNDN', 'CLNDNINCL', 'CLNDISDB', 'CLNDISDBINCL',
-             'CLNHGVS', 'CLNREVSTAT', 'CLNSIG', 'CLNSIGCONF', 'CLNSIGINCL', 'CLNVI', 'DBVARID ',
+             'CLNHGVS', 'CLNREVSTAT', 'CLNSIG', 'CLNSIGCONF', 'CLNSIGINCL', 'CLNVI', 'DBVARID',
              'GENEINFO', 'ORIGIN', 'RS', 'SSR', 'SO', 'MC', 'HPO', 'DO', 'GO']
     linecount = 0
     with open(inFile, 'r') as inputf:

@@ -12,6 +12,7 @@ import time
 import sys
 import gzip
 import copy
+import vcf
 if sys.platform.startswith('linux'):
     import fcntl
 else:
@@ -181,7 +182,6 @@ class TransformV2J(object):
         return
 
     #useless function. just for test
-    #because of lib of scikit-allel has bug on clinvar data, regard this function as main transform
     def vcf2json_Single(self, filepath_vcf, filepath_json, mode):
         fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['*'], chunk_length=50)
 
@@ -196,7 +196,14 @@ class TransformV2J(object):
 
         return
 
-    def  vcf2json_multi2(self, filepath_vcf, filepath_json, md5, mode, IsAddHead= True):
+    #because of lib of scikit-allel has bug on clinvar data, regard this function as main transform
+    def vcf2json_Main(self, filepath_vcf, filepath_json):
+        # don't use mode currently
+        self.TransformWithSamples(filepath_vcf, filepath_json)
+        return
+
+
+    def vcf2json_multi2(self, filepath_vcf, filepath_json, md5, mode, IsAddHead= True):
         fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['variants/*', 'calldata/*'],chunk_length=500)
 
         if os.path.exists(filepath_json):
@@ -319,3 +326,64 @@ class TransformV2J(object):
             for ele in headers.infos:
                 infofields.append(ele)
         return infofields
+
+    def TransformWithSamples(self, input, output):
+        def WriteFile(list):
+            recordstring = json.dumps(list, cls=MyEncoder)
+            recordstring = recordstring[1:-1]  # delete first and last brackets.  "[...]" ----> "..."
+            recordstring = recordstring + ',' + '\n'
+            with open(output, 'a') as fp:
+                fp.write(recordstring)
+
+        vcf_reader = vcf.Reader(open(input, 'r'))
+        li = []
+        count = 0
+        for record in vcf_reader:
+            # basic
+            recorddict1 = {
+                "CHROM": record.CHROM if record.CHROM != None else '.',
+                "POS": record.POS if record.POS != None else '.',
+                "ID": record.ID if record.ID != None else '.',
+                "REF": record.REF if record.REF != None else '.',
+                "ALT": str(record.ALT)[1:-1] if str(record.ALT)[1:-1] != 'None' else '.',
+                "QUAL": record.QUAL if record.QUAL != None else '.',
+                "FILTER": record.FILTER if record.FILTER != None else '.'
+            }
+            # info
+            recorddict2 = {
+                "INFO": {
+                    k_info: record.INFO[k_info] if 'None' not in str(record.INFO[k_info]) else '.' for k_info in
+                    record.INFO
+                }
+            }
+            # Samples
+            recordsamples = []
+            for k_sample in record.samples:
+                recordsample1 = {
+                    "SAMPLENO": k_sample.sample
+                }
+                recordsample2 = {}
+                for k_smple_d, i in zip(k_sample.data._fields, range(len(k_sample.data._fields))):
+                    if isinstance(k_sample.data[i], list):
+                        tmplist = ['.' if j == None else j for j in k_sample.data[i]]
+                        recordsample2[k_smple_d] = tmplist
+                    else:
+                        if k_sample.data[i] == None:
+                            recordsample2[k_smple_d] = '.'
+                        else:
+                            recordsample2[k_smple_d] = k_sample.data[i]
+
+                recordsample = dict(recordsample1, **recordsample2)
+                recordsamples.append(recordsample)
+            recorddict3 = {
+                "SAMPLES": recordsamples
+            }
+            recorddictMerge = dict(recorddict1, **recorddict2, **recorddict3)
+            li.append(recorddictMerge)
+            count += 1
+            if count == 100:
+                WriteFile(li)
+                count = 0
+                li = []
+        WriteFile(li)
+        print("done!")

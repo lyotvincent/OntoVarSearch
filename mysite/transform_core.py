@@ -351,33 +351,36 @@ class TransformV2J(object):
                 }
             }
             # Samples
-            recordsamples = []
-            for k_sample in record.samples:
-                recordsample1 = {
-                    "SAMPLENO": k_sample.sample
-                }
-                recordsample2 = {}
-                for k_smple_d, i in zip(k_sample.data._fields, range(len(k_sample.data._fields))):
-                    if isinstance(k_sample.data[i], list):
-                        tmplist = ['.' if j == None else j for j in k_sample.data[i]]
-                        recordsample2[k_smple_d] = tmplist
-                    else:
-                        if k_sample.data[i] == None:
-                            recordsample2[k_smple_d] = '.'
+            if record.samples != None:
+                recordsamples = []
+                for k_sample in record.samples:
+                    recordsample1 = {
+                        "SAMPLENO": k_sample.sample
+                    }
+                    recordsample2 = {}
+                    for k_smple_d, i in zip(k_sample.data._fields, range(len(k_sample.data._fields))):
+                        if isinstance(k_sample.data[i], list):
+                            tmplist = ['.' if j == None else j for j in k_sample.data[i]]
+                            recordsample2[k_smple_d] = tmplist
                         else:
-                            recordsample2[k_smple_d] = k_sample.data[i]
+                            if k_sample.data[i] == None:
+                                recordsample2[k_smple_d] = '.'
+                            else:
+                                recordsample2[k_smple_d] = k_sample.data[i]
 
-                recordsample = dict(recordsample1, **recordsample2)
-                recordsamples.append(recordsample)
-            recorddict3 = {
-                "SAMPLES": recordsamples
-            }
-            recorddictMerge = dict(recorddict1, **recorddict2, **recorddict3)
+                    recordsample = dict(recordsample1, **recordsample2)
+                    recordsamples.append(recordsample)
+                recorddict3 = {
+                    "SAMPLES": recordsamples
+                }
+                recorddictMerge = dict(recorddict1, **recorddict2, **recorddict3)
+            else:
+                recorddictMerge = dict(recorddict1, **recorddict2)
             li.append(recorddictMerge)
             count += 1
-            if count == 100:
+            if count == 50:
                 WriteFile(li)
                 count = 0
                 li = []
         WriteFile(li)
-        print("done!")
+        print("TransformMain done!")

@@ -52,23 +52,20 @@ $(document).ready(function() {
     var GetVCFFilelist = function() {
       $.post('/download/showfiellist').done(function (data) {
             $("#Search_sel_DATABASE option").remove();
-            for (let i of data){
-                //default database clinvar
-                if (i['collectionName'] == 'clinvar_20190520'){
-                    $("#Search_sel_DATABASE").prepend("<option value='clinvar_20190520'>clinvar_20190520</option>");
-                    $("#Search_sel_DATABASE").find("option[value='clinvar_20190520']").attr("selected",true);
+            //default database clinvar
+            var defaultdatabase = 'hg38_clinvar_20191105';
+            for (var i in data){
+                if (data[i]['collectionName'] == defaultdatabase){
+                    $("#Search_sel_DATABASE").prepend("<option value="+defaultdatabase+">"+defaultdatabase+"</option>");
+                    $("#Search_sel_DATABASE").find("option[value="+defaultdatabase+"]").attr("selected",true);
                 }else {
-                    $("#Search_sel_DATABASE").append("<option value=" + i['collectionName'] + ">" + i['collectionName'] + "</option>");
+                    $("#Search_sel_DATABASE").append("<option value=" + data[i]['collectionName'] + ">" + data[i]['collectionName'] + "</option>");
                 }
             }
             Render();
         })
     };
     GetVCFFilelist();
-
-
-
-
 
 });
 
@@ -545,25 +542,21 @@ function CreatGeneInfoTable2(tableID, data) {
         "<a class='btn btn-danger' role='button' href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + GeneName + "'>GeneCard</a>" + "&nbsp" +
         "<a class='btn btn-warning' role='button' href='https://www.ncbi.nlm.nih.gov/gene/?term=" + GeneName + "'>NCBI</a>" + "&nbsp" +
         "<a class='btn btn-info' role='button' href='https://gtexportal.org/home/gene/" + GeneName + "'>GTExPortal" + "</a></td></tr>" +
-        "<tr><td style='color: #f07b05;'>Ontology</td><td>" +
-        //"<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoGeneDiseaseSearch(\"" + data[0]["GeneName"] + "\")'>HPO</a>" + "&nbsp" +
-        "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"ALL"+"\")'>Ontology</a>" + "&nbsp&nbsp&nbsp" +
-        // "<a class='button button-border button-rounded btn-success button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"GO"+"\")'>GO</a>" + "&nbsp" +
-        // "<a class='button button-border button-rounded button-highlight button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"SO"+"\")'>SO</a>" + "&nbsp" +
-        // "<a class='button button-border button-rounded button-royal button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"DO"+"\")'>DO</a></td></tr>" + "&nbsp" +
-        "<label class=\"checkbox-inline\">" +
-        "  <input type=\"checkbox\" id=\"inlineCheckbox1\" value=\"GO\" checked> GO" +
-        "</label>" +
-        "<label class=\"checkbox-inline\">" +
-        "  <input type=\"checkbox\" id=\"inlineCheckbox2\" value=\"SO\" checked> SO" +
-        "</label>" +
-        "<label class=\"checkbox-inline\">" +
-        "  <input type=\"checkbox\" id=\"inlineCheckbox3\" value=\"DO\" checked> DO" +
-        "</label>" +
-        "<label class=\"checkbox-inline\">" +
-        "  <input type=\"checkbox\" id=\"inlineCheckbox3\" value=\"HPO\" checked> HPO" +
-        "</label>" +
-        "</td></tr>"+
+        // "<tr><td style='color: #f07b05;'>Ontology</td><td>" +
+        // "<a class='button button-border button-rounded button-caution button-small' style='font-size: 16px' type='button' onclick='DoVCFSearchwithOntology(\"" + data[0]["Chr"]+"\",\""+data[0]["Start"]+"\",\"" +data[0]["End"]+ "\",\"" +"ALL"+"\")'>Ontology</a>" + "&nbsp&nbsp&nbsp" +
+        // "<label class=\"checkbox-inline\">" +
+        // "  <input type=\"checkbox\" id=\"inlineCheckbox1\" value=\"GO\" checked> GO" +
+        // "</label>" +
+        // "<label class=\"checkbox-inline\">" +
+        // "  <input type=\"checkbox\" id=\"inlineCheckbox2\" value=\"SO\" checked> SO" +
+        // "</label>" +
+        // "<label class=\"checkbox-inline\">" +
+        // "  <input type=\"checkbox\" id=\"inlineCheckbox3\" value=\"DO\" checked> DO" +
+        // "</label>" +
+        // "<label class=\"checkbox-inline\">" +
+        // "  <input type=\"checkbox\" id=\"inlineCheckbox3\" value=\"HPO\" checked> HPO" +
+        // "</label>" +
+        // "</td></tr>"+
         "</tbody>";
     $(tableID).html(content);
     $(tableID).parents('div').show();

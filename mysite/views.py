@@ -444,7 +444,7 @@ def doupload(request):
         #更新mongodb
         connection = MongoClient(MongodbAddrRemote)
         collection = connection.mydb.genefile
-        result = collection.find_one({'filem0d5': md5})
+        result = collection.find_one({'filemd5': md5})
         if result:
             #之前有记录, 更新
             collection.update({'filemd5': md5}, {'$push': {'chunklist': chunk}})

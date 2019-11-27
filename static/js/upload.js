@@ -1,5 +1,13 @@
 var timer;
 $(function () {
+    layui.use('form', function () {
+        var layer = layui.layer, form = layui.form;
+        form.render();
+    });
+    layui.use(['layer', 'element'], function () {
+        var element = layui.element;
+    });
+
     $('#progress-control').hide();  //隐藏进度条
     var task_id = WebUploader.Base.guid();        //产生task_id
     var md5;
@@ -96,10 +104,20 @@ $(function () {
             title: 'VCF',
             extensions: 'vcf,gz',
             mimeTypes: '.vcf,.gz'
-        }
+        },
+        //fileSingleSizeLimit: 10 * 1024 * 1024   //上传文件大小限制
     });
 
     uploader.on('fileQueued', function (file) { // 当有文件被添加进队列的时候
+        if (file.size>11*1024*1024){
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('file too large, only accept 10M!' +
+                    'Sorry, our application  is deployed on a virtual machine with ' +
+                    'very little free hard disk space');
+            });
+            return
+        }
         if ($('h4.info', '#thelist').size()){
             var fileid = $('h4.info', '#thelist').attr('id');
             uploader.removeFile(fileid);

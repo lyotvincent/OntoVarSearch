@@ -196,13 +196,6 @@ class TransformV2J(object):
 
         return
 
-    #because of lib of scikit-allel has bug on clinvar data, regard this function as main transform
-    def vcf2json_Main(self, filepath_vcf, filepath_json):
-        # don't use mode currently
-        self.TransformWithSamples(filepath_vcf, filepath_json)
-        return
-
-
     def vcf2json_multi2(self, filepath_vcf, filepath_json, md5, mode, IsAddHead= True):
         fields, samples, headers, chunks = allel.iter_vcf_chunks(filepath_vcf, fields=['variants/*', 'calldata/*'],chunk_length=500)
 
@@ -327,7 +320,8 @@ class TransformV2J(object):
                 infofields.append(ele)
         return infofields
 
-    def TransformWithSamples(self, input, output):
+    # because of lib of scikit-allel has bug on clinvar data, regard this function as main transform
+    def TransformMain(self, input, output):
         def WriteFile(list):
             recordstring = json.dumps(list, cls=MyEncoder)
             recordstring = recordstring[1:-1]  # delete first and last brackets.  "[...]" ----> "..."

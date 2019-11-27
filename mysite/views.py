@@ -36,15 +36,20 @@ class MyEncoder(json.JSONEncoder):
 
 class Transform(TransformV2J):
 
+    #Not applicable for clinvar
     def dotranform(self, filepath_vcf, mode, IsAddHead):
         TransformV2J.dotranform(self, filepath_vcf, mode, IsAddHead)
 
-    # with output path
+    #Not applicable for clinvar
     def dotransformWithOutPath(self, filepath_vcf, filepath_json, mode, IsAddHead):
         TransformV2J.dotransformWithOutPath(self, filepath_vcf, filepath_json, mode, IsAddHead)
 
     def preview(self, filepath_vcf, mode):
         return TransformV2J.preview(self, filepath_vcf, mode)
+
+    #Applicable for all type of vcf files
+    def dotransformMain(self, filepath_vcf, filepath_json):
+        TransformV2J.TransformMain(self, filepath_vcf, filepath_json)
 
 #UploadFilePath = "C:/Project/vcf2json_file/"
 #UploadFilePath = '/home/qz/project/GeneSearch/'
@@ -543,7 +548,7 @@ def uploadconvert(request):
             jsonpath = result["filepath"]+result["filename_json"]
             filesize_vcf = int(result['size_vcf'])
             V2J = Transform()
-            V2J.dotransformWithOutPath(vcfpath,jsonpath, mode='MergeAll', IsAddHead=False)
+            V2J.dotransformMain(vcfpath, jsonpath)
             # if os.path.splitext(vcfpath)[1] == ".gz" or filesize_vcf <= 100 * 1024 * 1024:
             #     vcf2json_Single(vcfpath, jsonpath)
             # else:
@@ -609,11 +614,9 @@ def CreatIndex(collection):
     #建立INFO字段的全文索引，暂时不用，内存消耗严重
     # collection.create_index({"INFO":'text'})
     #ontology字段创建索引
-    collection.create_index([('INFO.SO', 1)], background=True)
-    collection.create_index([('INFO.MC', 1)], background=True)
-    collection.create_index([('INFO.GO', 1)], background=True)
-    collection.create_index([('INFO.HPO', 1)], background=True)
-    collection.create_index([('INFO.DO', 1)], background=True)
+    ontologyFields = ['HPO','DO','SO','MC','GO']
+    for field in ontologyFields:
+        collection.create_index([('INFO.' + field, 'hashed')], background=True)
     return
 
 #获取表的key, 用于查询时的字段提示

@@ -1003,6 +1003,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
         });
         return;
     }
+    $.fn.dataTable.ext.errMode = 'none';       //屏蔽掉报错弹窗
     bLengthChange = IsRoot;
     bPaginate = IsRoot;
     paging = IsRoot;
@@ -1022,6 +1023,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
         columns: clomuns,
         data: data,
         ordering: true,
+        columnDefs: [{"defaultContent": "", "targets": "_all"}],
         colReorder: {
           order: [0]
         },

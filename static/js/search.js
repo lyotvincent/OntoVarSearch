@@ -932,7 +932,7 @@ function CreatVCFColums2() {
             {"data": "REF", "title": "REF"},
             {"data": "ALT", "title": "ALT", "name": "ALT"},
             {"data": "QUAL", "title": "QUAL", "name": "QUAL"},
-            {"data": "FILTER", "title": "FILTER", "name": "FILTER",'className':'details-control','targets':-1,'orderable':false,'defaultContent':'.'},
+            {"data": "FILTER", "title": "FILTER", "name": "FILTER"},
             // {"data": "SAMPLES", "title": "SAMPLES", "name": "SAMPLES",'className':'details-control','targets':-1,'orderable':false,'defaultContent':' '},
            ];
         for (var ele in InfoFields) {
@@ -1012,7 +1012,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
         "autoWidth": true,
         paging: paging, // 禁止分页
         bInfo : bInfo, //Showing x to x of x entries
-        scrollX: IsRoot,  //水平滚动条
+        scrollX: true,  //水平滚动条
         columns: clomuns,
         data: data,
         ordering: true,
@@ -1023,7 +1023,7 @@ function CreatVCFTable(tableID, data, IsRoot) {
         "fnCreatedRow": function (nRow, aData, iDataIndex) {
             for (var i = 0; i < clomuns.length; ++i){
                 var isobject = $('td:eq('+i+')', nRow).hasClass("details-control");
-                if (isobject){
+                if (isobject && "SAMPLES" in aData){
                     //$('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'>&nbsp;" + $('td:eq('+i+')', nRow).attr("title")+"</span>");
                     $('td:eq('+i+')', nRow).html("<span class='row-details fa fa-plus-square-o'></span>");
                 }

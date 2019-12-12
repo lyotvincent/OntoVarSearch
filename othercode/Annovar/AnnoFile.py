@@ -13,6 +13,14 @@ DatabaaseFilds = ['#chrom', 'start', 'end', 'ref', 'alt', 'Func.refGene', 'Gene.
 
 GoaData = []
 SoaData = []
+count = 0
+
+def CountLoop(bulk=1000000):
+    global count
+    count += 1
+    if count % bulk == 0:
+        print("run data num: ", count)
+
 
 def PreprocessData():
     #trim space
@@ -47,6 +55,7 @@ def ConvertAnnovaroutfile2Database(input,output):
     rgo = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True, db=1)
     rso = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True, db=2)
     if not (rgo and rso):
+        print("db load error")
         return False
     with open(input, 'r') as inf:
         with open(output, 'w') as outf:
@@ -55,6 +64,7 @@ def ConvertAnnovaroutfile2Database(input,output):
                 if line.startswith('Chr\t'):
                     continue
                 else:
+                    CountLoop()
                     lines = line.strip('\n').split('\t')
                     tmp_dict = dict(zip(DatabaaseFilds, lines))
 
@@ -94,6 +104,7 @@ def ConvertAnnovaroutfile2Database(input,output):
                             l.append('.')
                     str = '\t'.join(l) + '\n'
                     outf.write(str)
+    return True
 
 
 
@@ -114,11 +125,15 @@ def CreateGOA_ALL():
                 goaALL.insert({'DB_Object_Symbol':geneName,'GO_ID':GOID})
 
 
-
-
-if __name__ == '__main__':
+def CreateDB(input, output):
     LoadData()
-    input = '/home/qz/Downloads/annovar/myanno.hg19_multianno.txt'
-    out = '/home/qz/Downloads/annovar/hg19_tmpdb.txt'
-    ConvertAnnovaroutfile2Database(input, out)
-    print('done')
+    print("load db complete!")
+    return ConvertAnnovaroutfile2Database(input, output)
+
+#if __name__ == '__main__':
+    # LoadData()
+    # print("load db complete")
+    # input = '/home/qz/Desktop/clinvar/wgsanno.hg19_multianno.txt'
+    # out = '/home/qz/Desktop/clinvar/wgsanno.tmpdb.txt'
+    # ConvertAnnovaroutfile2Database(input, out)
+    #print('done')

@@ -328,7 +328,9 @@ class TransformV2J(object):
             recordstring = recordstring + ',' + '\n'
             with open(output, 'a') as fp:
                 fp.write(recordstring)
-
+        #clear file
+        with open(output, 'w') as f:
+            pass
         vcf_reader = vcf.Reader(open(input, 'r'))
         li = []
         count = 0

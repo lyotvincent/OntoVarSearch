@@ -1,17 +1,26 @@
 import sys
 import subprocess
 import os
-from othercode.Annovar.AnnoFile import CreateDB
+from AnnoFile import CreateDB
+import configparser
 
-
-refVersion = 'hg19'    #hg19 or hg38
-annovarAddr = '/home/qz/Downloads/annovar/'
-InputVCFPath = '/home/qz/Downloads/annovar/out/ex2.vcf'
-InputVCFName = os.path.basename(InputVCFPath)
-InputVCFPureName, _ = os.path.splitext(InputVCFName)
-
+refVersion = ''
+annovarAddr = ''
+InputVCFPath = ''
+InputVCFName = ''
+InputVCFPureName = ''
 
 def PreProcess():
+    #read conf
+    cf = configparser.ConfigParser()
+    cf.read('./MainAnnotation.conf')
+    global refVersion, annovarAddr, InputVCFPath, InputVCFName, InputVCFPureName
+    refVersion = cf.get("MainAnnotation", 'RefVersion').strip()
+    annovarAddr = cf.get("MainAnnotation", 'AnnovarAddr').strip()
+    InputVCFPath = cf.get("MainAnnotation", 'InputVCFPath').strip()
+    InputVCFName = os.path.basename(InputVCFPath)
+    InputVCFPureName, _ = os.path.splitext(InputVCFName)
+    #create out dir
     if not os.path.exists(annovarAddr+'/out'):
         os.makedirs(annovarAddr+'/out')
 
@@ -84,7 +93,7 @@ if __name__ == '__main__':
         #use ontology database for annotation
         if AnnotateVCF() != 0:
             os._exit()
-        print('All done, annotated vcf has been saved in out/')
+        print('All done, annotated vcf has been saved in '+annovarAddr+'/out/')
 
     except Exception as e:
         print(str(e))

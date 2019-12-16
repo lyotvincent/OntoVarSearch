@@ -12,8 +12,11 @@ InputVCFPureName = ''
 
 def PreProcess():
     #read conf
+    # get current code file addr
+    currcodedir = os.path.dirname(os.path.realpath(__file__))
+    MainConffile = currcodedir + os.sep + "MainAnnotation.conf"
     cf = configparser.ConfigParser()
-    cf.read('./MainAnnotation.conf')
+    cf.read(MainConffile)
     global refVersion, annovarAddr, InputVCFPath, InputVCFName, InputVCFPureName
     refVersion = cf.get("MainAnnotation", 'RefVersion').strip()
     annovarAddr = cf.get("MainAnnotation", 'AnnovarAddr').strip()
@@ -72,24 +75,24 @@ def AnnotateVCF():
 if __name__ == '__main__':
     #dir exist
     PreProcess()
-
+    print("PreProcess complete! running Covert2Annovarinput...")
     try:
         # convert available input
         if Covert2Annovarinput() != 0:
             os._exit()
-        print('convert complete')
+        print('convert complete! running FirstAnnotate...')
         #use refgene and clinvar_ontology for annotation
         if FirstAnnotate() != 0:
             os._exit()
-        print('first annotation complete')
+        print('first annotation complete! running CreateRealOntologyDB...')
         #create ontology database
         if CreateRealOntologyDB() != True:
             os._exit()
-        print('create ontology db complete')
+        print('create ontology db complete! running CreateDBindex...')
         #create db index
         if CreateDBindex() != 0:
             os._exit()
-        print('Create db index complete')
+        print('Create db index complete! running AnnotateVCF...')
         #use ontology database for annotation
         if AnnotateVCF() != 0:
             os._exit()

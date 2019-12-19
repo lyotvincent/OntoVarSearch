@@ -35,6 +35,12 @@ class MyEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
+count = 0
+def CountLoop(bulk=1000000):
+    global count
+    count += 1
+    if count % bulk == 0:
+        print("run data num: ", count)
 
 def RenameJsonKey(strJson):
     if isinstance(strJson,dict):
@@ -335,6 +341,7 @@ class TransformV2J(object):
         li = []
         count = 0
         for record in vcf_reader:
+            CountLoop()
             # basic
             recorddict1 = {
                 "CHROM": record.CHROM if record.CHROM != None else '.',

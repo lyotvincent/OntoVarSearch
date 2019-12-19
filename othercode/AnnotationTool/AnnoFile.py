@@ -16,8 +16,8 @@ Currcodedir = os.path.dirname(os.path.realpath(__file__))
 
 GoaData = []
 SoaData = []
-count = 0
 
+count = 0
 def CountLoop(bulk=1000000):
     global count
     count += 1

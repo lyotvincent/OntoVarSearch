@@ -778,14 +778,19 @@ def doRegionSearch(request):
 @csrf_exempt
 def doOntologySearch(request):
     if request.method == 'POST':
-        ontology = request.POST.get("json_data")
+        ontology = request.POST.get("json_data").strip()
         database = request.POST.get("database")
         connection = MongoClient(MongodbAddrRemote)
         if database in connection.mydb.collection_names():
             collection_vcf = connection.mydb[database]
         else:
             collection_vcf = connection.vcf_hpo[database]
-        regx = re.compile(".*" + ontology + ".*", re.IGNORECASE)
+        if ' ' in ontology:
+            # xxx yyy ---> xxx_yyy
+            newontology = ontology.replace(' ', '_')
+            regx = re.compile(".*" + ontology + '.*|.*' +newontology+'.*', re.IGNORECASE)
+        else:
+            regx = re.compile(".*" + ontology + ".*", re.IGNORECASE)
         results_vcf = collection_vcf.find({'$or':[{"INFO.SO":regx},{"INFO.MC":regx},{"INFO.HPO":regx},{"INFO.DO":regx},{"INFO.GO":regx}]}, {"_id":0})
         #results_vcf = collection_vcf.find({"$or":[{"INFO.SO":ontology},{"INFO.MC":ontology}]},{"_id": 0})
         Allresults=[]

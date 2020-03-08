@@ -11,8 +11,8 @@ filelock==3.0.4
 ijson==2.3
 itsdangerous==0.24
 lockfile==0.12.2
-numpy==1.14.3
-pandas==0.22.0
+numpy
+pandas
 pymongo==3.6.1
 python-dateutil==2.7.3
 pytz==2018.4

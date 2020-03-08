@@ -2,18 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. add GO to antology function&#10;2. add code for process goa data&#10;3.">
-      <change afterPath="$PROJECT_DIR$/othercode/process_goa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GeneJson.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OntoVarsMiner.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OntoVarsMiner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OntoVarsMiner.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeneJson/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/transform_core.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/transform_core.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/default.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/default.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/download.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/download.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,11 +59,17 @@
   </component>
   <component name="ProjectId" id="1PzMkcsmY3lh8Bc8N1FkgQmQKHo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="FullScreen" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/othercode" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AJIA" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -85,18 +91,6 @@
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\plugins\FlexiJsonEditor" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\plugins" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Django server.GeneJson">
     <configuration default="true" type="tests" factoryName="Attests">
@@ -189,6 +183,9 @@
       <module name="OntoVarsMiner" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -208,6 +205,9 @@
       <module name="OntoVarsMiner" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -253,14 +253,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="GeneJson.settings" />
       </envs>
-      <option name="SDK_HOME" value="/usr/bin/python3.5" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
       <option name="port" value="8000" />
-      <option name="host" value="" />
+      <option name="host" value="127.0.0.1" />
       <option name="additionalOptions" value="" />
       <option name="browserUrl" value="http://127.0.0.1:8000/index" />
       <option name="runTestServer" value="false" />
@@ -337,6 +337,11 @@
       <workItem from="1569050956180" duration="80000" />
       <workItem from="1569247039958" duration="1371000" />
       <workItem from="1569322581542" duration="68340000" />
+      <workItem from="1583411485379" duration="2410000" />
+      <workItem from="1583416099251" duration="276000" />
+      <workItem from="1583460727416" duration="2431000" />
+      <workItem from="1583497410851" duration="633000" />
+      <workItem from="1583577004348" duration="65000" />
     </task>
     <task id="LOCAL-00001" summary="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json">
       <created>1532506113114</created>
@@ -697,6 +702,52 @@
     <MESSAGE value="1. add ontology column select function" />
     <option name="LAST_COMMIT_MESSAGE" value="1. add ontology column select function" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="391" y="0" width="598" height="728" key="#GeneJson" timestamp="1583414863401">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="391" y="0" width="598" height="728" key="#GeneJson/0.0.1366.728@0.0.1366.728" timestamp="1583414863401" />
+    <state x="131" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583462209410">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="131" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583462209410" />
+    <state x="310" y="0" key="CommitChangelistDialog2" timestamp="1583664661813">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1583664661813" />
+    <state x="193" y="151" key="FileChooserDialogImpl" timestamp="1583664578888">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="193" y="151" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583664578888" />
+    <state width="1322" height="153" key="GridCell.Tab.0.bottom" timestamp="1583501752623">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="153" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
+    <state width="1322" height="153" key="GridCell.Tab.0.center" timestamp="1583501752623">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="153" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
+    <state width="1322" height="153" key="GridCell.Tab.0.left" timestamp="1583501752623">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="153" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
+    <state width="1322" height="153" key="GridCell.Tab.0.right" timestamp="1583501752623">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="153" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
+    <state x="495" y="73" key="RollbackChangesDialog" timestamp="1583464710078">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="495" y="73" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1583464710078" />
+    <state x="268" y="0" key="SettingsEditor" timestamp="1583414992196">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="268" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583414992196" />
+    <state x="359" y="0" width="647" height="728" key="find.popup" timestamp="1583462620839">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="359" y="0" width="647" height="728" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583462620839" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -764,10 +815,10 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/GeneJson$Owldemo.coverage" NAME="Owldemo Coverage Results" MODIFIED="1559010031579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop/XMLdata" />
     <SUITE FILE_PATH="coverage/GeneJson$transformGFF3.coverage" NAME="transformGFF3 Coverage Results" MODIFIED="1566349299497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/othercode" />
     <SUITE FILE_PATH="coverage/OntoVarsMiner$process_hpoteam.coverage" NAME="process_hpoteam Coverage Results" MODIFIED="1570877314385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/othercode" />
     <SUITE FILE_PATH="coverage/GeneJson$Owldemo_real.coverage" NAME="Owldemo_real Coverage Results" MODIFIED="1559214713090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop/XMLdata" />
+    <SUITE FILE_PATH="coverage/GeneJson$Owldemo.coverage" NAME="Owldemo Coverage Results" MODIFIED="1559010031579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop/XMLdata" />
     <SUITE FILE_PATH="coverage/OntoVarsMiner$createAnnovarDatabase.coverage" NAME="createAnnovarDatabase Coverage Results" MODIFIED="1570628688585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/othercode" />
   </component>
 </project>

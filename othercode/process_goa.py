@@ -1,14 +1,14 @@
 import json
-from rdflib import *
+#from rdflib import *
 import re
 from pymongo import *
 import os
 import time
 import sys
 import os
+import csv
 
-
-def process_goa(filepath):
+def create_goa_db(filepath):
     con = MongoClient('localhost', 27017)
     my_db = con.goa
     i = 0
@@ -31,21 +31,37 @@ def process_goa(filepath):
                 i = i+1
     return i
 
-
-if __name__ == "__main__":
+def process_goa():
     goapath = '/home/qz/Desktop/XMLdata/goa/'
     f = open('/home/qz/Desktop/XMLdata/goa_time.txt', 'a')
     for file in os.listdir(goapath):
         print(file)
         file_path = os.path.join(goapath, file)
         start = time.clock()
-        s = process_goa(file_path)
+        s = create_goa_db(file_path)
         end = time.clock()
         total_time = (end - start)
         f.write(file+'\t'+str(s)+'\t'+str(total_time)+'\n')
-    # start = time.clock()
-    # process_goa(goapath)
-    # end = time.clock()
-    # total_time = (end - start)
         print(total_time)
     f.close()
+
+#input: goaAll.csv
+#output: create mongodb collection goa_terms
+def csv2db():
+    goaAllpath = './Annovar/data/goaALL.csv'
+    #con = MongoClient('localhost', 27017)
+    con = MongoClient('123.207.240.94', 28019)
+    with open(goaAllpath, 'r') as fgoa:
+        reader = csv.DictReader(fgoa)
+        for line in reader:
+            ele={}
+            ele['DB_Object_Symbol']=line['DB_Object_Symbol'].strip()
+            ele['GO_ID']=line['GO_ID'].strip()
+            ele['GO Term'] = line['GO Term'].strip()
+            con.vcf_hpo.goa_terms.insert_one(ele)
+            #rcon1.lpush(line['DB_Object_Symbol'].strip(), line['GO_ID'] + '|' + line['GO Term'])
+
+
+if __name__ == "__main__":
+    csv2db()
+    print("ALL done!")

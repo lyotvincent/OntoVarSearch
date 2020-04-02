@@ -279,15 +279,28 @@ def compareFuncSO(SO):
         chrom = CLVresult["CHROM"]
         pos = CLVresult["POS"]
         if pos not in pos_clv:
-            preNA_result = NAcollect.find_one({"CHROM": str(chrom), "POS": int(pos)})
+            preNA_result = NAcollect.find_one({"CHROM": str(chrom), "POS": int(pos),"REF":CLVresult["REF"],"ALT":CLVresult["ALT"]})
             if preNA_result:
                 pos_clv.append(pos)
     #pos_clv = list(set(pos_clv))
     INDend = time.time()
     print("INdir: ", len(pos_clv),"---time:",INDend-INDstart)
+    ###########debug###########
+    print("DIR's unique")
+    print(set(pos_na).difference(set(pos_clv)))
+    print("INDIR's unique")
+    print(set(pos_clv).difference(set(pos_na)))
 
 def processSO():
     solist=['SO:0000289','SO:0001628', 'SO:0001589', 'SO:0001619', 'SO:0001650', 'SO:0001632', 'SO:0001909', 'SO:0001583', 'SO:0001624', 'SO:0001791', 'SO:0001821', 'SO:0001822', 'SO:0001623', 'SO:0001060', 'SO:0001819', 'SO:0001578', 'SO:0001627', 'SO:0001587', 'SO:0001910', 'SO:0001568', 'SO:0001631']
+    for so in solist:
+        print(so)
+        compareFuncSO(so)
+
+
+def debugSO():
+    #两个SO数量不一致 有可能是ClinVar版本不一致
+    solist=['SO:0001483','SO:0000289']
     for so in solist:
         print(so)
         compareFuncSO(so)
@@ -402,7 +415,7 @@ def DrawResults():
 if __name__ == '__main__':
     #processGOtxt("GoResult.txt")
     #processGO()
-    DrawResults()
+    debugSO()
     print("All done!")
 
 

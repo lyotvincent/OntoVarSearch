@@ -26,10 +26,17 @@ def CreateDB(inFile, outFile):
         else:
             lines = line.strip('\n').split('\t')
             chrom = lines[0]
-            start = lines[1]
+            pos = lines[1]
             ref = lines[3]
             alt = lines[4]
-            end = str(int(start) + len(ref) - 1)
+            if len(ref)==1 and len(alt)!=1 and alt.startswith(ref): #insert
+                start, end = pos, pos
+                ref, alt = '-', alt[1:]
+            elif len(ref)!=1 and len(alt)==1 and ref.startswith(alt):   #delete
+                start, end = str(int(pos)+1), str(int(pos)+len(ref) - 1)
+                ref, alt = ref[1:], '-'
+            else:
+                start, end = pos, str(int(pos) + len(ref) - 1)
             clinvar = lines[7]
 
             clins = clinvar.split(';')
@@ -132,10 +139,22 @@ def AddOntology2DB(inFile, outFile):
                     str = '\t'.join(l) + '\n'
                     outputf.write(str)
 
-
+#hg19: clinvar_20191007
+#hg38: clinvar_20191105
 if __name__ == '__main__':
-    # CreateDB('/home/qz/Desktop/clinvar/clinvar_20191105_GRCh38.vcf',
-    #          '/home/qz/Desktop/clinvar/hg38_clinvar_20191105.txt')
-    AddOntology2DB('/home/qz/Desktop/clinvar/hg38_clinvar_20191105.txt',
-                   '/home/qz/Desktop/clinvar/hg38_clinvar_20191105_ontology.txt')
-    print('done')
+    #input: python createAnnovarDatabasepy clinvar_xxxx.txt hg19
+    Clinvarfile = sys.argv[1]
+    hgver = sys.argv[2]
+    FilePath = os.path.dirname(Clinvarfile)
+    tmpFile = os.path.join(FilePath,"tmpfile")
+    if hgver=='hg19':
+        outfile='hg19_clinvar_20191007_ontology.txt'
+    elif hgver=='hg38':
+        outfile='hg38_clinvar_20191105_ontology.txt'
+    else:
+        print("builder version input invalid")
+    print("begin convert clinvar db...")
+    CreateDB(Clinvarfile,tmpFile)
+    print("convert clinvar db success! begin add ontology info...")
+    AddOntology2DB(tmpFile,outfile)
+    print('All done!')

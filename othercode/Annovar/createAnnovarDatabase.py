@@ -100,7 +100,7 @@ def AddOntology2DB(inFile, outFile):
                     for result_GO in results_GO:
                         go_id = result_GO["GO_ID"]
                         go_term = con.goa.goa_terms.find_one({"GO_ID":go_id})
-                        if go_term and 'GO Term' in go_term:
+                        if go_term and 'GO Term' in go_term and go_term['GO Term'] is not None:
                             go_list.append(go_id+'|'+go_term['GO Term'])
                         else:
                             go_list.append(go_id)

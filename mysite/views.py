@@ -59,6 +59,12 @@ MongodbAddrLocal = "mongodb://127.0.0.1:28019"
 MongodbAddrRemote = "mongodb://123.207.240.94:28019"
 MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO', 'SAMPLES', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
 
+count = 0
+def CountLoop(bulk=1000000):
+    global count
+    count += 1
+    if count % bulk == 0:
+        print("run data num: ", count)
 
 def html_index(request):
     return render(request, "index.html")
@@ -548,6 +554,7 @@ def uploadconvert(request):
             jsonpath = result["filepath"]+result["filename_json"]
             filesize_vcf = int(result['size_vcf'])
             V2J = Transform()
+            print("Begin transform vcf to json...")
             V2J.dotransformMain(vcfpath, jsonpath)
             # if os.path.splitext(vcfpath)[1] == ".gz" or filesize_vcf <= 100 * 1024 * 1024:
             #     vcf2json_Single(vcfpath, jsonpath)
@@ -578,11 +585,15 @@ def uploadimportDB(request):
         if result and result['isimportcomplete'] is False:
             jsonpath = result["filepath"] + result["filename_json"]
             datacollection = connection.mydb[result['collectionName']]
+            print("Begin import json file into mongo db ...")
             ImportJson2Mongodb(jsonpath, datacollection)
+            print("Import json file into mongo db complete! Begin to create db index ...")
             #updatekeyfield(datacollection)
             CreatIndex(datacollection)
+            print("Create db index complete!")
             addHeader2DB(md5, result["filepath"] + result["filename_vcf"], collection)
             collection.update({'filemd5': md5}, {'$set': {'isimportcomplete': True}})
+            print("Upload function complete!")
     return HttpResponse()
 
 def addHeader2DB(md5, vcfpath, collection):
@@ -614,10 +625,14 @@ def CreatIndex(collection):
     #建立INFO字段的全文索引，暂时不用，内存消耗严重
     # collection.create_index({"INFO":'text'})
     #ontology字段创建索引
-    ontologyFields = ['HPO','DO','SO','MC','GO']
-    for field in ontologyFields:
-        collection.create_index([('INFO.' + field, 'hashed')], background=True)
-    return
+    collection.create_index(
+        [('INFO.HPO', "text"), ('INFO.DO', "text"), ('INFO.SO', "text"), ('INFO.MC', "text"), ('INFO.GO', "text")],
+        background=True)
+    # ontologyFields = ['HPO','DO','SO','MC','GO']
+    # for field in ontologyFields:
+    #     #collection.create_index([('INFO.' + field, 'hashed')], background=True)
+    #     collection.create_index([('INFO.' + field, "text")], background=True)
+    # return
 
 #获取表的key, 用于查询时的字段提示
 def updatekeyfield(collection):
@@ -675,6 +690,7 @@ def GetKeyField(request):
         keyfield = []
         for result in results:
             keyfield.append(result)
+
     return JsonResponse(keyfield, safe=False)
 
 def ImportJson2Mongodb(filepath_json, collection):
@@ -685,6 +701,7 @@ def ImportJson2Mongodb(filepath_json, collection):
                 break
             else:
                 #delete space and \r\n
+                CountLoop(20000)
                 line = '[' + line[:-2] + ']'
                 line = RenameJsonKey(line)
                 buf = json.loads(line)
@@ -732,8 +749,8 @@ def doVariantIDSearch(request):
             collection_vcf = connection.mydb[database]
         else:
             collection_vcf = connection.vcf_hpo[database]
-        regx = re.compile(".*" + variantID + ".*", re.IGNORECASE)
-        results_vcf = collection_vcf.find({"ID": variantID },{"_id": 0})
+        regx = re.compile(variantID, re.IGNORECASE)
+        results_vcf = collection_vcf.find({"ID": regx},{"_id": 0})
         Allresults=[]
         for result_vcf in results_vcf:
             Allresults.append(result_vcf)
@@ -761,14 +778,19 @@ def doRegionSearch(request):
 @csrf_exempt
 def doOntologySearch(request):
     if request.method == 'POST':
-        ontology = request.POST.get("json_data")
+        ontology = request.POST.get("json_data").strip()
         database = request.POST.get("database")
         connection = MongoClient(MongodbAddrRemote)
         if database in connection.mydb.collection_names():
             collection_vcf = connection.mydb[database]
         else:
             collection_vcf = connection.vcf_hpo[database]
-        regx = re.compile(".*" + ontology + ".*", re.IGNORECASE)
+        if ' ' in ontology:
+            # xxx yyy ---> xxx_yyy
+            newontology = ontology.replace(' ', '_')
+            regx = re.compile(".*" + ontology + '.*|.*' +newontology+'.*', re.IGNORECASE)
+        else:
+            regx = re.compile(".*" + ontology + ".*", re.IGNORECASE)
         results_vcf = collection_vcf.find({'$or':[{"INFO.SO":regx},{"INFO.MC":regx},{"INFO.HPO":regx},{"INFO.DO":regx},{"INFO.GO":regx}]}, {"_id":0})
         #results_vcf = collection_vcf.find({"$or":[{"INFO.SO":ontology},{"INFO.MC":ontology}]},{"_id": 0})
         Allresults=[]

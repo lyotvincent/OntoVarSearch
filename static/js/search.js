@@ -134,13 +134,19 @@ function DoMainSearch() {
     ClearOldData();
     IsResultsFound = false;
     if (input == "polyneuropathy"){
-        $.when(DoDiseaseSearch(input)).then(Done);
+        $.when(DoDiseaseSearch(input),DoOntologySearch(input)).then(Done);
     }
     else if (input == "ESRRB"){ //MYPN
         $.when(DoGeneInfoSearch(input)).then(Done);
     }
-    else if (input == "SO:0000825"){
+    else if (input == "GO:0003707" || input == "steroid_hormone_receptor_activity"){
         $.when(DoOntologySearch(input)).then(Done);
+    }
+    else if (input == "14:76310712-76501837"){
+        $.when(DoRegionSearch(input)).then(Done);
+    }
+    else  if (input == "rs79212057"){
+        $.when(DoVariantIDSearch(input)).then(Done);
     }
     else{
         $.when(DoGeneInfoSearch(input), DoDiseaseSearch(input), DoOntologySearch(input),DoRegionSearch(input),DoVariantIDSearch(input)).then(Done);

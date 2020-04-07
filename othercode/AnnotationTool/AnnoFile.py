@@ -11,10 +11,13 @@ DatabaaseFilds = ['#chrom', 'start', 'end', 'ref', 'alt', 'Func.refGene', 'Gene.
                   'CLNDISDBINCL', 'CLNHGVS', 'CLNREVSTAT', 'CLNSIG', 'CLNSIGCONF', 'CLNSIGINCL', 'CLNVI', 'DBVARID',
                   'GENEINFO', 'ORIGIN', 'RS', 'SSR', 'SO', 'MC', 'HPO', 'DO', 'GO']
 
+Currcodedir = os.path.dirname(os.path.realpath(__file__))
+
+
 GoaData = []
 SoaData = []
-count = 0
 
+count = 0
 def CountLoop(bulk=1000000):
     global count
     count += 1
@@ -24,8 +27,8 @@ def CountLoop(bulk=1000000):
 
 def PreprocessData():
     #trim space
-    with open('data/soaALL.csv', 'r') as fgoa:
-        with open('data/tmp', 'w') as wf:
+    with open(Currcodedir+'/data/soaALL.csv', 'r') as fgoa:
+        with open(Currcodedir+'/data/tmp', 'w') as wf:
             reader = csv.DictReader(fgoa)
             for line in reader:
                 str = line['Value'].strip()+','+line['SO Term'].strip()+','+line['SO ID'].strip()
@@ -35,7 +38,7 @@ def PreprocessData():
 def LoadData():
     rcon1 = redis.Redis(host='127.0.0.1', port=6379, db=1)
     rcon1.flushdb()
-    with open('data/goaALL.csv', 'r') as fgoa:
+    with open(Currcodedir+'/data/goaALL.csv', 'r') as fgoa:
         reader = csv.DictReader(fgoa)
         for line in reader:
             rcon1.lpush(line['DB_Object_Symbol'].strip(), line['GO_ID'] + '|' + line['GO Term'])
@@ -43,7 +46,7 @@ def LoadData():
 
     rcon2 = redis.Redis(host='127.0.0.1', port=6379, db=2)
     rcon2.flushdb()
-    with open('data/soaALL.csv', 'r') as fsoa:
+    with open(Currcodedir+'/data/soaALL.csv', 'r') as fsoa:
         reader = csv.DictReader(fsoa)
         for line in reader:
             rcon2.lpush(line['Value'].strip(), line['SO ID']+'|'+ line['SO Term'])

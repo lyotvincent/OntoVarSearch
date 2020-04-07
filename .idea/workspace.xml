@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. add GO to antology function&#10;2. add code for process goa data&#10;3.">
-      <change beforePath="$PROJECT_DIR$/.idea/OntoVarsMiner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OntoVarsMiner.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/transform_core.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/transform_core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/default.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/download.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/download.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/othercode/AnnotationTool/humandb/hg19_clinvar_ontology.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/othercode/AnnotationTool/humandb/hg38_clinvar_ontology.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/othercode/AnnotationTool/makeAnnovarIndex.pl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -342,6 +335,8 @@
       <workItem from="1583460727416" duration="2431000" />
       <workItem from="1583497410851" duration="633000" />
       <workItem from="1583577004348" duration="65000" />
+      <workItem from="1586263309374" duration="1520000" />
+      <workItem from="1586264858261" duration="656000" />
     </task>
     <task id="LOCAL-00001" summary="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json">
       <created>1532506113114</created>
@@ -735,6 +730,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1322" height="153" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
+    <state x="133" y="55" key="MergeDialog" timestamp="1586265451838">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="133" y="55" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1586265451838" />
+    <state x="396" y="79" key="MultipleFileMergeDialog" timestamp="1586265451853">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="396" y="79" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1586265451853" />
     <state x="495" y="73" key="RollbackChangesDialog" timestamp="1583464710078">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -743,10 +746,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="268" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583414992196" />
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1586263676299">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1586263676299" />
     <state x="359" y="0" width="647" height="728" key="find.popup" timestamp="1583462620839">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="359" y="0" width="647" height="728" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583462620839" />
+    <state x="367" y="154" key="git4idea.merge.GitPullDialog" timestamp="1586264908360">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="367" y="154" key="git4idea.merge.GitPullDialog/0.0.1366.728@0.0.1366.728" timestamp="1586264908360" />
+    <state x="398" y="227" key="git4idea.rebase.GitRebaseDialog" timestamp="1586263641916">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="398" y="227" key="git4idea.rebase.GitRebaseDialog/0.0.1366.728@0.0.1366.728" timestamp="1586263641916" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -758,12 +773,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/static/js/search.js</url>
-          <line>431</line>
+          <line>437</line>
           <option name="timeStamp" value="219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mysite/views.py</url>
-          <line>174</line>
+          <line>180</line>
           <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

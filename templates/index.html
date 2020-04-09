@@ -70,14 +70,23 @@
                     {#            <h4>A web server for ontology-variants integrated analysis</h4>#}
                     {#            <br/>#}
                     <h4 style="text-align:justify;" class="normallinehight">
-                        OntoVarSearch is an open web platform to search ontology and genetic variation. It could help
-                        researchers identify genetic variants by uploading their own VCF files as database. Meanwhile,
-                        it is not limited to genetic variants, but could also be comprised ontology like human
-                        phenotype ontology (HPO), disease ontology (DO), gene ontology (GO) and sequence ontology (SO).
-                        Currently, OGS contains 130,000 records of ontology annotations, about 2,700,000
-                        records
-                        of genes and more than 79 million variants data.
+                        Ontology and Variants Search (<b>OntoVarSearch</b>) is an open web platform, in which filtering genetic data based on ontologies and
+                        the basic queries on user-provided VCF content are supported. In order to take advantage of several ontologies for leveraging
+                        knowledge across multiple biomedical fields (such as genes, diseases and phenotypes), we also develop a workflow to annotate
+                        user-provided VCF files with ontologies (<b>OntoAnnotation</b>). By this way, the OntoVarSearch platform could integrate both ontologies and genetic
+                        data to accelerate clinical diagnosis by filtering variants effectively. This web application is developed with Python and
+                        can be deployed on a personal computer or server.
                     </h4>
+
+{#                    <h4 style="text-align:justify;" class="normallinehight">#}
+{#                        OntoVarSearch is an open web platform to search ontology and genetic variation. It could help#}
+{#                        researchers identify genetic variants by uploading their own VCF files as database. Meanwhile,#}
+{#                        it is not limited to genetic variants, but could also be comprised ontology like human#}
+{#                        phenotype ontology (HPO), disease ontology (DO), gene ontology (GO) and sequence ontology (SO).#}
+{#                        Currently, OGS contains 130,000 records of ontology annotations, about 2,700,000#}
+{#                        records#}
+{#                        of genes and more than 79 million variants data.#}
+{#                    </h4>#}
                     {#            <br/>#}
                     <ul>
 {#                        <li>Upload: OGS accepts uncompressed or gzip-compatible compressed (*.gz) VCF files at#}
@@ -87,13 +96,9 @@
 {#                            downloading at this section#}
 {#                        </li>#}
                         <li style="text-align:justify;" class="normallinehight">
-                            Search: There are two types of search function in “search” section,
-                            one is gene and disease search in which human disease and gene name are mandatory.
-                            After input a disease word or gene name, the result table will show diseases name, gene
-                            name, etc.
-                            When choosing a database (VCF files) and clicking the gene name at result table,
-                            the corresponding variations are shown in below. Another is custom search for variants,
-                            flexible query is support for filtering variants.
+                            Search: There are two types of search function in “search” section, one is main search in which We not only provide gene,
+                            location and variant search similar to other search platforms, but we also provide phenotype and ontology search methods.
+                            Another is custom search on variants, flexible query is support for filtering variants.
 
                         </li>
                         <li style="text-align:justify;" class="normallinehight">
@@ -116,7 +121,9 @@
                             <li><span class="small text-muted">OntoVarSearch is now officially online in June 2019! More details see
                                 <a class="news_a" href="https://github.com/lyotvincent/GeneMiner"> GitHub </a></span>
                             </li>
-
+                            <li><span class="small text-muted">OntoAnnotation is now available for download,
+                                <a class="news_a" href="/download/dodownloadOntoAnnotation/"> click me! </a></span>
+                            </li>
                         </ul>
                     </div>
                 </aside>

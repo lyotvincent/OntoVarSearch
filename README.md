@@ -1,4 +1,4 @@
-#OntoVarSearch
+# OntoVarSearch
 ## introduce
 Ontology and Variants Search (OntoVarSearch) is an open web platform, in which filtering genetic data based on ontologies and
  the basic queries on user-provided VCF content are supported. In order to take advantage of several ontologies for leveraging
@@ -16,7 +16,7 @@ Another is custom search on variants, flexible query is support for filtering va
 1. pip install -r requirment.txt
 2. python manage.py runserver host+port
 
-#OntoAnnotation
+# OntoAnnotation
 **a command line tool for vcf annotation with ontology**
 
 ## How to use

@@ -40,6 +40,7 @@ urlpatterns = [
     path('search/doGFF3Search/', views.doGFF3Search),
     path('download/showfiellist', views.GetDownloadfileList),
     path('download/dodownload/', views.DownloadFile),
+    path('download/dodownloadOntoAnnotation/', views.DownloadOntoAnnotation),
     path('search/getkeyfield', views.GetKeyField),
     path('search/doSOInfoSearch/', views.doSOInfoSearch),
     path('search/doVCFSearchWithOntology/', views.doVCFSearchWithOntology),

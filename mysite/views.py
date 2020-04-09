@@ -50,14 +50,18 @@ class Transform(TransformV2J):
     #Applicable for all type of vcf files
     def dotransformMain(self, filepath_vcf, filepath_json):
         TransformV2J.TransformMain(self, filepath_vcf, filepath_json)
-
+Debug=False
 #UploadFilePath = "C:/Project/vcf2json_file/"
 #UploadFilePath = '/home/qz/project/GeneSearch/'
 UploadFilePath = 'E:/project/GeneSearch/'
 MongodbAddrLocal = "mongodb://127.0.0.1:28019"
-#MongodbAddrRemote = "mongodb://127.0.0.1:27017"
-MongodbAddrRemote = "mongodb://123.207.240.94:28019"
+if Debug:
+    MongodbAddrRemote = "mongodb://123.207.240.94:28019"
+else:
+    MongodbAddrRemote = "mongodb://127.0.0.1:28019"
+
 MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO', 'SAMPLES', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
+OntoAnnotationPos = 'E:/project/GeneSearch/tools/OntoAnnotation.zip'
 
 count = 0
 def CountLoop(bulk=1000000):
@@ -90,6 +94,15 @@ def DownloadFile(request):
         response = StreamingHttpResponse(FileWrapper(open(target, 'rb')), content_type="application/octet-stream")
         response['Content-Disposition'] = 'attachment;filename="{0}"'.format(result["filename_zip"])
         response['Content-Length'] = os.path.getsize(target)
+        return response
+
+@csrf_exempt
+def DownloadOntoAnnotation(request):
+    if request.method == 'GET':
+        toolname=os.path.basename(OntoAnnotationPos)
+        response = StreamingHttpResponse(FileWrapper(open(OntoAnnotationPos, 'rb')), content_type="application/octet-stream")
+        response['Content-Disposition'] = 'attachment;filename="{0}"'.format(toolname)
+        response['Content-Length'] = os.path.getsize(OntoAnnotationPos)
         return response
 
 

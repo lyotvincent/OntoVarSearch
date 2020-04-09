@@ -48,7 +48,7 @@ def process_goa():
 #input: goaAll.csv
 #output: create mongodb collection goa_terms
 def csv2db():
-    goaAllpath = './AnnotationTool/data/goaALL.csv'
+    goaAllpath = './OntoAnnotation/data/goaALL.csv'
     #con = MongoClient('localhost', 27017)
     con = MongoClient('123.207.240.94', 28019)
     with open(goaAllpath, 'r') as fgoa:

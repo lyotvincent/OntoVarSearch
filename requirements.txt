@@ -13,7 +13,7 @@ pandas
 pymongo==3.6.1
 python-dateutil==2.7.3
 pytz==2018.4
-scikit-allel==1.1.10
+scikit-allel==1.2.1
 simplejson==3.16.0
 six==1.11.0
 yos-social-sdk==0.0.2

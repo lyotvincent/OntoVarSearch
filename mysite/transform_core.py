@@ -309,7 +309,9 @@ class TransformV2J(object):
         return result
 
     def GetVCFHeader(self, filepath_vcf):
+        print("begin read header")
         headers = allel.read_vcf_headers(filepath_vcf)
+        print("read header complete")
         infofields = []
         ontologyfield = ['HPO', 'DO', 'SO', 'MC', 'GO', ]
         i = 0

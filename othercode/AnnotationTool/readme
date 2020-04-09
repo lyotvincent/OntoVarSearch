@@ -1,0 +1,21 @@
+OntoAnnotation
+a command line tool for vcf annotation with ontology
+
+## How to use
+1. download ANNOVAR
+2. download othercode's AnnotationTool in this project
+3. move makeAnnovarIndex.pl into annovar dir
+4. uncompress **hg38_clinvar_ontology.zip and hg19_clinvar_ontology.zip** and move to **annovar/humandb**
+5. download redis, and run redis-server
+6. modify MainAnnotation.conf
+7. pip install -r requirment_othercode.txt
+8. python MainAnnotation.py
+9. wait and the final file named "myAnno.hgxx_mutianno.vcf" will be accessed in annovar/out dir
+
+## TIP: How to create file hgxx_clinvar_ontology.zip
+hgxx_clinvar_ontology.zip contains many ontologies information from ClinVar, OBO foundry etc.
+The createion steps are as follows.
+1. download ClinVar file that you want to use
+2. import several files into mongodb, including GO Annotation, GO terms, HPO Annotation, HPOteam, OBO foundry etc.
+if you want create this file by yourself, pls contact us for detail.
+3. run command: python createAnnovarDatabase.py clinvar_xxxx.txt hg19/hg38

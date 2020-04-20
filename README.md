@@ -18,10 +18,12 @@ Another is custom search on variants, flexible query is support for filtering va
 
 # OntoAnnotation
 **a command line tool for vcf annotation with ontology**
+environment: python3  
+download link: [click me!](http://123.207.240.94:19008/download/dodownloadOntoAnnotation/)  
 
 ## How to use
 1. download ANNOVAR
-2. download _othercode's AnnotationTool_ in this project
+2. download OntoAnnotation (or download _othercode's AnnotationTool_ in this project)
 3. move makeAnnovarIndex.pl into annovar dir
 4. uncompress **hg38_clinvar_ontology.zip and hg19_clinvar_ontology.zip** and move to **annovar/humandb**
 5. download redis, and run redis-server
@@ -29,6 +31,7 @@ Another is custom search on variants, flexible query is support for filtering va
 7. pip install -r requirment_othercode.txt
 8. python MainAnnotation.py
 9. wait and the final file named "myAnno.hgxx_mutianno.vcf" will be accessed in annovar/out dir
+10. enjoy it!   
 
 ## TIP: How to create file hgxx_clinvar_ontology.zip
 hgxx_clinvar_ontology.zip contains many ontologies information from ClinVar, OBO foundry etc. 

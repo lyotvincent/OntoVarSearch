@@ -1,5 +1,7 @@
 import os
-import allel
+Debug=False
+if not Debug:
+    import allel
 import numpy as np
 import json
 import multiprocessing

@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import os
-import allel
+Debug=False
+if not Debug:
+    import allel
 import numpy as np
 import json
 import multiprocessing
@@ -50,7 +52,7 @@ class Transform(TransformV2J):
     #Applicable for all type of vcf files
     def dotransformMain(self, filepath_vcf, filepath_json):
         TransformV2J.TransformMain(self, filepath_vcf, filepath_json)
-Debug=False
+
 #UploadFilePath = "C:/Project/vcf2json_file/"
 #UploadFilePath = '/home/qz/project/GeneSearch/'
 UploadFilePath = 'E:/project/GeneSearch/'

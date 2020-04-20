@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. rename project">
+    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. modify readme">
+      <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OntoVarSearch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OntoVarSearch.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/httpd.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/transform_core.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/transform_core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/download.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/download.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/download.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/download.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,27 +68,29 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AJIA" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/GeneJson/settings.py" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/static/js" />
-      <recent name="$PROJECT_DIR$/doc" />
-      <recent name="$PROJECT_DIR$/othercode/Annovar" />
-      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module\webuploader" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/othercode" />
       <recent name="$PROJECT_DIR$/static/js" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\templates" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\plugins\FlexiJsonEditor" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\plugins" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\quz\PycharmProjects\OntoVarSearch\othercode\AnnotationTool" />
+      <recent name="$PROJECT_DIR$/static/js" />
+      <recent name="$PROJECT_DIR$/doc" />
+      <recent name="$PROJECT_DIR$/othercode/Annovar" />
+      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module\webuploader" />
     </key>
   </component>
   <component name="RunManager" selected="Django server.GeneJson">
@@ -126,28 +136,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="XMLParser" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="OntoVarSearch" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/XMLdata" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/XMLdata/XMLParser.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="OntoVarSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -184,6 +172,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othercode/Annovar/createAnnovarDatabase.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OntoVarSearch" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -244,9 +254,9 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="GeneJson.settings" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\quz\AppData\Local\Programs\Python\Python38\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
@@ -275,19 +285,19 @@
     </configuration>
     <list>
       <item itemvalue="Django server.GeneJson" />
-      <item itemvalue="Python.XMLParser" />
       <item itemvalue="Python.transformGFF3" />
       <item itemvalue="Python.Owldemo_real (1)" />
       <item itemvalue="Python.createAnnovarDatabase" />
       <item itemvalue="Python.process_hpoteam" />
+      <item itemvalue="Python.manage" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.manage" />
         <item itemvalue="Python.process_hpoteam" />
         <item itemvalue="Python.createAnnovarDatabase" />
         <item itemvalue="Python.Owldemo_real (1)" />
         <item itemvalue="Python.transformGFF3" />
-        <item itemvalue="Python.XMLParser" />
       </list>
     </recent_temporary>
   </component>
@@ -335,7 +345,14 @@
       <workItem from="1583577004348" duration="65000" />
       <workItem from="1586263309374" duration="1520000" />
       <workItem from="1586264858261" duration="2719000" />
-      <workItem from="1586353372779" duration="3224000" />
+      <workItem from="1586353372779" duration="3406000" />
+      <workItem from="1586401223414" duration="10213000" />
+      <workItem from="1586440147016" duration="658000" />
+      <workItem from="1586522261166" duration="1328000" />
+      <workItem from="1586568483510" duration="778000" />
+      <workItem from="1586657443236" duration="1091000" />
+      <workItem from="1587297121742" duration="1572000" />
+      <workItem from="1587386180636" duration="3266000" />
     </task>
     <task id="LOCAL-00001" summary="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json">
       <created>1532506113114</created>
@@ -575,7 +592,56 @@
       <option name="project" value="LOCAL" />
       <updated>1586268231153</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="1. modify readme">
+      <created>1586356714469</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1586356714469</updated>
+    </task>
+    <task id="LOCAL-00036" summary="1. modify index ui">
+      <created>1586407359262</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1586407359262</updated>
+    </task>
+    <task id="LOCAL-00037" summary="1. add OntoAnnotation readme file">
+      <created>1586407378700</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1586407378700</updated>
+    </task>
+    <task id="LOCAL-00038" summary="1. rename AnnotationTool to OntoAnnotation">
+      <created>1586407519211</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1586407519211</updated>
+    </task>
+    <task id="LOCAL-00039" summary="1. add OntoAnnotaion download">
+      <created>1586407704939</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1586407704939</updated>
+    </task>
+    <task id="LOCAL-00040" summary="1. modify scikit-allel version for function read_header">
+      <created>1586422313782</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1586422313782</updated>
+    </task>
+    <task id="LOCAL-00041" summary="1. modify readme">
+      <created>1586440201069</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1586440201069</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -683,11 +749,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. add gene information (position and external)" />
-    <MESSAGE value="1. modify function name&#10;2. add keyboard respond of enter&#10;3. delete useless code&#10;4. debug function doGeneInfoSearch" />
-    <MESSAGE value="1. add function transform gff3 to json" />
-    <MESSAGE value="1. add gff3 search" />
-    <MESSAGE value="1. add readme&#10;2. use correct external link name GTExPortal" />
     <MESSAGE value="1. index all field on VCF" />
     <MESSAGE value="ui change&#10;1. Combine upload page and download page, and the new page named File&#10;2. delete upload page&#10;3. change example words bellow the input at search page" />
     <MESSAGE value="1. modify website name" />
@@ -699,7 +760,6 @@
     <MESSAGE value="1. add SO search" />
     <MESSAGE value="1. add file that lost in last commit&#10;2. UI: association --&gt; transcript" />
     <MESSAGE value="1. add readme" />
-    <MESSAGE value="1. modify readme" />
     <MESSAGE value="1. delete useless page&#10;2. redesign webuploader UI &#10;3. optimize example search&#10;4." />
     <MESSAGE value="1. add ontology" />
     <MESSAGE value="1. ui change" />
@@ -708,42 +768,80 @@
     <MESSAGE value="1. add ontology column select function" />
     <MESSAGE value="1. del useless code" />
     <MESSAGE value="1. rename project" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. rename project" />
+    <MESSAGE value="1. modify index ui" />
+    <MESSAGE value="1. add OntoAnnotation readme file" />
+    <MESSAGE value="1. rename AnnotationTool to OntoAnnotation" />
+    <MESSAGE value="1. add OntoAnnotaion download" />
+    <MESSAGE value="1. modify scikit-allel version for function read_header" />
+    <MESSAGE value="1. modify readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. modify readme" />
   </component>
   <component name="WindowStateProjectService">
     <state x="391" y="0" width="598" height="728" key="#GeneJson" timestamp="1583414863401">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="0" width="598" height="728" key="#GeneJson/0.0.1366.728@0.0.1366.728" timestamp="1583414863401" />
-    <state x="224" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586355417279">
-      <screen x="0" y="0" width="1600" height="860" />
+    <state x="277" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586404797529">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state x="277" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586404797529" />
     <state x="224" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586355417279" />
     <state x="131" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583462209410" />
-    <state x="310" y="0" key="CommitChangelistDialog2" timestamp="1586268229227">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="572" y="251" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586407230770">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state x="572" y="251" key="#com.intellij.fileTypes.FileTypeChooser/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586407230770" />
+    <state x="494" y="28" width="984" height="818" key="CommitChangelistDialog2" timestamp="1587390010709">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state x="494" y="28" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390010709" />
+    <state x="363" y="0" width="984" height="818" key="CommitChangelistDialog2/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356711904" />
     <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1586268229227" />
-    <state x="193" y="151" key="FileChooserDialogImpl" timestamp="1583664578888">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="154" y="92" width="1354" height="716" key="DiffContextDialog" timestamp="1586418361768">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state x="154" y="92" width="1354" height="716" key="DiffContextDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586418361768" />
+    <state x="279" y="187" key="FileChooserDialogImpl" timestamp="1587386679425">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state x="279" y="187" key="FileChooserDialogImpl/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386679425" />
     <state x="193" y="151" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583664578888" />
-    <state width="1322" height="153" key="GridCell.Tab.0.bottom" timestamp="1583501752623">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1494" height="170" key="GridCell.Tab.0.bottom" timestamp="1587387111506">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state width="1494" height="170" key="GridCell.Tab.0.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
     <state width="1322" height="153" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1322" height="153" key="GridCell.Tab.0.center" timestamp="1583501752623">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1494" height="170" key="GridCell.Tab.0.center" timestamp="1587387111506">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state width="1494" height="170" key="GridCell.Tab.0.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
     <state width="1322" height="153" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1322" height="153" key="GridCell.Tab.0.left" timestamp="1583501752623">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1494" height="170" key="GridCell.Tab.0.left" timestamp="1587387111506">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state width="1494" height="170" key="GridCell.Tab.0.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
     <state width="1322" height="153" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1322" height="153" key="GridCell.Tab.0.right" timestamp="1583501752623">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1494" height="170" key="GridCell.Tab.0.right" timestamp="1587387111506">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state width="1494" height="170" key="GridCell.Tab.0.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
     <state width="1322" height="153" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
+    <state width="1494" height="183" key="GridCell.Tab.1.bottom" timestamp="1587386582808">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state width="1494" height="183" key="GridCell.Tab.1.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582808" />
+    <state width="1494" height="183" key="GridCell.Tab.1.center" timestamp="1587386582807">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state width="1494" height="183" key="GridCell.Tab.1.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582807" />
+    <state width="1494" height="183" key="GridCell.Tab.1.left" timestamp="1587386582807">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state width="1494" height="183" key="GridCell.Tab.1.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582807" />
+    <state width="1494" height="183" key="GridCell.Tab.1.right" timestamp="1587386582808">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state width="1494" height="183" key="GridCell.Tab.1.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582808" />
     <state x="133" y="55" key="MergeDialog" timestamp="1586265451838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -756,17 +854,28 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="495" y="73" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1583464710078" />
-    <state x="268" y="0" key="SettingsEditor" timestamp="1583414992196">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="376" y="70" key="SettingsEditor" timestamp="1587386827210">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state x="376" y="70" key="SettingsEditor/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386827210" />
     <state x="268" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583414992196" />
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1586268244120">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="164" y="119" width="1354" height="716" key="VCS.FileHistoryDialog" timestamp="1586404475694">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state x="164" y="119" width="1354" height="716" key="VCS.FileHistoryDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586404475694" />
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1586522344387">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586522344387" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1586268244120" />
-    <state x="359" y="0" width="647" height="728" key="find.popup" timestamp="1583462620839">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586356801268">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
+    <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356801268" />
+    <state x="466" y="0" width="729" height="900" key="find.popup" timestamp="1586407839643">
+      <screen x="62" y="0" width="1538" height="900" />
+    </state>
+    <state x="466" y="0" width="729" height="900" key="find.popup/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586407839643" />
     <state x="359" y="0" width="647" height="728" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583462620839" />
     <state x="367" y="154" key="git4idea.merge.GitPullDialog" timestamp="1586264908360">
       <screen x="0" y="0" width="1366" height="728" />
@@ -781,19 +890,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/static/js/download.js</url>
-          <line>34</line>
-          <option name="timeStamp" value="206" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/static/js/search.js</url>
           <line>437</line>
           <option name="timeStamp" value="219" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mysite/views.py</url>
-          <line>180</line>
-          <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$USER_HOME$/Desktop/XMLdata/Owldemo.py</url>

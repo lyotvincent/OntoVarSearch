@@ -21,22 +21,35 @@ Another is custom search on variants, flexible query is support for filtering va
 environment: python3  
 download link: [click me!](http://123.207.240.94:19008/download/dodownloadOntoAnnotation/)  
 
-## How to use
+## How to use tool
 1. download ANNOVAR
-2. download OntoAnnotation (or download _othercode's AnnotationTool_ in this project)
-3. move makeAnnovarIndex.pl into annovar dir
-4. uncompress **hg38_clinvar_ontology.zip and hg19_clinvar_ontology.zip** and move to **annovar/humandb**
+2. download OntoAnnotation  and read the readme in tool dir
+3. move makeAnnovarIndex.pl (in "/tool/MoveToAnnovar") into annovar dir
+4. uncompress **hg38_clinvar_ontology.zip and hg19_clinvar_ontology.zip** (in "/tool/MoveToAnnovar") and move to **annovar/humandb**
 5. download redis, and run redis-server
+    >wget http://download.redis.io/releases/redis-2.8.17.tar.gz    
+ tar xzf redis-2.8.17.tar.gz  
+ cd redis-2.8.17  
+ make  
+ cd src  
+ ./redis-server   
+
 6. modify MainAnnotation.conf 
+    > config hg version, annovar path, input file (vcf) path
 7. pip install -r requirment_othercode.txt
-8. python MainAnnotation.py
+8. run command "python MainAnnotation.py"
 9. wait and the final file named "myAnno.hgxx_mutianno.vcf" will be accessed in annovar/out dir
 10. enjoy it!   
+
+## How to use demo
+1. download OntoAnnotation
+2. pls read readme in demo dir
+3. do as the readme says
 
 ## TIP: How to create file hgxx_clinvar_ontology.zip
 hgxx_clinvar_ontology.zip contains many ontologies information from ClinVar, OBO foundry etc. 
 The createion steps are as follows.
 1. download ClinVar file that you want to use
 2. import several files into mongodb, including GO Annotation, GO terms, HPO Annotation, HPOteam, OBO foundry etc. 
-if you want create this file by yourself, pls contact us for detail.
+if you want create this file by yourself, pls contact us for downloading these databases.
 3. run command: python createAnnovarDatabase.py clinvar_xxxx.txt hg19/hg38

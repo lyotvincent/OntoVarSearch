@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. modify readme">
-      <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OntoVarSearch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OntoVarSearch.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. modify .idea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/httpd.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/transform_core.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/transform_core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/download.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/download.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/download.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/download.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +48,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="5cf87f14-8862-434f-a373-141c96f87cfd" />
+  </component>
   <component name="ProjectId" id="1PzMkcsmY3lh8Bc8N1FkgQmQKHo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -75,7 +70,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -352,7 +347,11 @@
       <workItem from="1586568483510" duration="778000" />
       <workItem from="1586657443236" duration="1091000" />
       <workItem from="1587297121742" duration="1572000" />
-      <workItem from="1587386180636" duration="3266000" />
+      <workItem from="1587386180636" duration="4011000" />
+      <workItem from="1587436044821" duration="2659000" />
+      <workItem from="1587450916939" duration="733000" />
+      <workItem from="1587519303422" duration="238000" />
+      <workItem from="1587520325660" duration="17000" />
     </task>
     <task id="LOCAL-00001" summary="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json">
       <created>1532506113114</created>
@@ -641,7 +640,35 @@
       <option name="project" value="LOCAL" />
       <updated>1586440201069</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="1. add tool download to Upload&amp;Download tab&#10;2. modify news&#10;3. add Debug variable for import allel">
+      <created>1587389992278</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1587389992278</updated>
+    </task>
+    <task id="LOCAL-00043" summary="1. modify .idea">
+      <created>1587390047740</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1587390047740</updated>
+    </task>
+    <task id="LOCAL-00044" summary="1. modify readme">
+      <created>1587390560814</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1587390560814</updated>
+    </task>
+    <task id="LOCAL-00045" summary="1. modify README.md">
+      <created>1587437130571</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1587437130571</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -749,9 +776,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. index all field on VCF" />
-    <MESSAGE value="ui change&#10;1. Combine upload page and download page, and the new page named File&#10;2. delete upload page&#10;3. change example words bellow the input at search page" />
-    <MESSAGE value="1. modify website name" />
     <MESSAGE value="1. optimize search in mongodb&#10;2. simplify web ui" />
     <MESSAGE value="1. delete fuzzy search by gene name&#10;2. add no results found message popup" />
     <MESSAGE value="1. modify home page word&#10;2. delete [object object] in nest table" />
@@ -773,8 +797,11 @@
     <MESSAGE value="1. rename AnnotationTool to OntoAnnotation" />
     <MESSAGE value="1. add OntoAnnotaion download" />
     <MESSAGE value="1. modify scikit-allel version for function read_header" />
+    <MESSAGE value="1. add tool download to Upload&amp;Download tab&#10;2. modify news&#10;3. add Debug variable for import allel" />
+    <MESSAGE value="1. modify .idea" />
     <MESSAGE value="1. modify readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. modify readme" />
+    <MESSAGE value="1. modify README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. modify README.md" />
   </component>
   <component name="WindowStateProjectService">
     <state x="391" y="0" width="598" height="728" key="#GeneJson" timestamp="1583414863401">
@@ -791,10 +818,10 @@
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="572" y="251" key="#com.intellij.fileTypes.FileTypeChooser/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586407230770" />
-    <state x="494" y="28" width="984" height="818" key="CommitChangelistDialog2" timestamp="1587390010709">
+    <state x="494" y="28" width="984" height="818" key="CommitChangelistDialog2" timestamp="1587451639462">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="494" y="28" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390010709" />
+    <state x="494" y="28" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587451639462" />
     <state x="363" y="0" width="984" height="818" key="CommitChangelistDialog2/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356711904" />
     <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1586268229227" />
     <state x="154" y="92" width="1354" height="716" key="DiffContextDialog" timestamp="1586418361768">
@@ -806,42 +833,42 @@
     </state>
     <state x="279" y="187" key="FileChooserDialogImpl/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386679425" />
     <state x="193" y="151" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583664578888" />
-    <state width="1494" height="170" key="GridCell.Tab.0.bottom" timestamp="1587387111506">
+    <state width="1494" height="183" key="GridCell.Tab.0.bottom" timestamp="1587390566746">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
+    <state width="1494" height="183" key="GridCell.Tab.0.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566746" />
     <state width="1322" height="153" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="170" key="GridCell.Tab.0.center" timestamp="1587387111506">
+    <state width="1494" height="183" key="GridCell.Tab.0.center" timestamp="1587390566746">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
+    <state width="1494" height="183" key="GridCell.Tab.0.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566746" />
     <state width="1322" height="153" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="170" key="GridCell.Tab.0.left" timestamp="1587387111506">
+    <state width="1494" height="183" key="GridCell.Tab.0.left" timestamp="1587390566746">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
+    <state width="1494" height="183" key="GridCell.Tab.0.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566746" />
     <state width="1322" height="153" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="170" key="GridCell.Tab.0.right" timestamp="1587387111506">
+    <state width="1494" height="183" key="GridCell.Tab.0.right" timestamp="1587390566746">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587387111506" />
+    <state width="1494" height="183" key="GridCell.Tab.0.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566746" />
     <state width="1322" height="153" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="183" key="GridCell.Tab.1.bottom" timestamp="1587386582808">
+    <state width="1494" height="183" key="GridCell.Tab.1.bottom" timestamp="1587390566747">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="183" key="GridCell.Tab.1.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582808" />
-    <state width="1494" height="183" key="GridCell.Tab.1.center" timestamp="1587386582807">
+    <state width="1494" height="183" key="GridCell.Tab.1.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566747" />
+    <state width="1494" height="183" key="GridCell.Tab.1.center" timestamp="1587390566747">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="183" key="GridCell.Tab.1.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582807" />
-    <state width="1494" height="183" key="GridCell.Tab.1.left" timestamp="1587386582807">
+    <state width="1494" height="183" key="GridCell.Tab.1.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566747" />
+    <state width="1494" height="183" key="GridCell.Tab.1.left" timestamp="1587390566746">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="183" key="GridCell.Tab.1.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582807" />
-    <state width="1494" height="183" key="GridCell.Tab.1.right" timestamp="1587386582808">
+    <state width="1494" height="183" key="GridCell.Tab.1.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566746" />
+    <state width="1494" height="183" key="GridCell.Tab.1.right" timestamp="1587390566747">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="183" key="GridCell.Tab.1.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386582808" />
+    <state width="1494" height="183" key="GridCell.Tab.1.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587390566747" />
     <state x="133" y="55" key="MergeDialog" timestamp="1586265451838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -854,19 +881,19 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="495" y="73" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1583464710078" />
-    <state x="376" y="70" key="SettingsEditor" timestamp="1587386827210">
+    <state x="199" y="84" key="SettingsEditor" timestamp="1587451685812">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="376" y="70" key="SettingsEditor/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386827210" />
+    <state x="199" y="84" key="SettingsEditor/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587451685812" />
     <state x="268" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583414992196" />
     <state x="164" y="119" width="1354" height="716" key="VCS.FileHistoryDialog" timestamp="1586404475694">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="164" y="119" width="1354" height="716" key="VCS.FileHistoryDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586404475694" />
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1586522344387">
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1587519569529">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586522344387" />
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587519569529" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1586268244120" />
     <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586356801268">
       <screen x="0" y="0" width="1600" height="860" />
@@ -881,9 +908,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="367" y="154" key="git4idea.merge.GitPullDialog/0.0.1366.728@0.0.1366.728" timestamp="1586264908360" />
-    <state x="398" y="227" key="git4idea.rebase.GitRebaseDialog" timestamp="1586263641916">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="510" y="281" key="git4idea.rebase.GitRebaseDialog" timestamp="1587438089386">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state x="510" y="281" key="git4idea.rebase.GitRebaseDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587438089386" />
     <state x="398" y="227" key="git4idea.rebase.GitRebaseDialog/0.0.1366.728@0.0.1366.728" timestamp="1586263641916" />
   </component>
   <component name="XDebuggerManager">

@@ -17,13 +17,13 @@ Another is custom search on variants, flexible query is support for filtering va
 2. python manage.py runserver host+port
 
 # OntoAnnotation
-**a command line tool for vcf annotation with ontology**
+**a command line tool for vcf annotation with ontology**   
 environment: python3  
 download link: [click me!](http://123.207.240.94:19008/download/dodownloadOntoAnnotation/)  
 
 ## How to use tool
 1. download ANNOVAR
-2. download OntoAnnotation  and read the readme in tool dir
+2. download [OntoAnnotation](http://123.207.240.94:19008/download/dodownloadOntoAnnotation/)  and read the readme in tool dir
 3. move makeAnnovarIndex.pl (in "/tool/MoveToAnnovar") into annovar dir
 4. uncompress **hg38_clinvar_ontology.zip and hg19_clinvar_ontology.zip** (in "/tool/MoveToAnnovar") and move to **annovar/humandb**
 5. download redis, and run redis-server

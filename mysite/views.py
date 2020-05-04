@@ -3,7 +3,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import os
-Debug=False
+import configparser
+cf = configparser.ConfigParser()
+cf.read("project.config")
+Debug = cf.get("backend", "Debug")=="True"
 if not Debug:
     import allel
 import numpy as np

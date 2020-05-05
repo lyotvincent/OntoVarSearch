@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from mysite import views
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index', views.html_index),
@@ -48,7 +50,12 @@ urlpatterns = [
     path('search/DoRegionSearch/', views.doRegionSearch),
     path('search/DoOntologySearch/', views.doOntologySearch),
     path('search/DoGetInfoFields/', views.doGetInfoFields),
-
-
-
 ]
+
+import configparser
+cf = configparser.ConfigParser()
+cf.read("project.config")
+HASKBQA = cf.get("backend", "HASKBQA")=="True"
+if HASKBQA:
+    from mysite import KBQA
+    urlpatterns.append(path('KBQA/domainsearch', KBQA.domainsearch))

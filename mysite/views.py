@@ -22,6 +22,15 @@ from wsgiref.util import FileWrapper
 from functools import partial
 from mysite.transform_core import *
 
+HASKBQA = cf.get("backend", "HASKBQA")=="True"
+if HASKBQA:
+    import sys
+    sys.path.append("D:\\Users\\quz\\PycharmProjects\\KBQA")
+    import KBQA
+    def init():
+        KBQA.init()
+        print("init done!")
+    init()
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):

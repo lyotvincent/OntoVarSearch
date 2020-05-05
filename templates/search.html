@@ -153,6 +153,19 @@
                     </div>
                     </br>
                 </div>
+                <div data-tab="KBQA">
+                    <div class="search d2 tabcontent">
+                        <form onsubmit="return false;">
+
+                            <input id="KBQA_input" type="text" onkeypress="return onKeyPress(event)" >
+                            <button id="KBQA_button" type="button" onclick="KBQASearch()"></button>
+                            <h4 class="instructions_left">You can input a sentense, example-the definition of MESH:C481454
+                            </h4>
+
+                        </form>
+                        <div id="viz"></div>
+                    </div>
+                </div>
             </div>
 
 
@@ -272,6 +285,8 @@
 {#layui#}
 <script type='text/javascript' src='/static/plugins/layui/layui.js'></script>
 <script src="/static/js/jquery.json-editor.min.js"></script>
+{#neovis#}
+<script src="https://cdn.neo4jlabs.com/neovis.js/v1.4.0/neovis.js"></script>
 {#my js#}
 <script type="text/javascript" src="/static/js/search.js"></script>
 </body>

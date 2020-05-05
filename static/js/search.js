@@ -40,6 +40,7 @@ function Render() {
 
     });
     Search_bind_autocomplete($("input[name='key']"),true);
+    vizdraw()
 }
 
 function IsEmpty(str){
@@ -113,6 +114,156 @@ function BindAutoconplete(element) {
 function  DoMainSearchManual(input) {
     $('#search_disease_input').val(input);
     DoMainSearch();
+}
+var viz;
+function vizdraw() {
+    var config = {
+        container_id: "viz",
+        server_url: "bolt://localhost:7687",
+        // server_user: "neo4j",
+        // server_password: "sorts-swims-burglaries",
+        labels: {
+            "Gene": {
+                "caption": "attribute_gene_name",
+                "size": 15,
+                // "size": "pagerank",
+                // "community": "community",
+                // "title_properties": [
+                //     "name",
+                //     "pagerank"
+                // ]
+            },
+            "Chemical": {
+                "caption": "name",
+                "size": 15,
+
+            },
+            "DO": {
+                "caption": "name",
+                "size": 15,
+            },
+            "Disease": {
+                "caption": "name",
+                "size": 15,
+            },
+            "ExO": {
+                "caption": "name",
+                "size": 15,
+            },
+            "Exposure": {
+                "caption": "exposurestressors",
+                "size": 15,
+            },
+            "GO": {
+                "caption": "name",
+                "size": 15,
+            },
+            "HPO": {
+                "caption": "name",
+                "size": 15,
+            },
+            "OMIM": {
+                "caption": "name",
+                "size": 15,
+            },
+            "Pathway": {
+                "caption": "name",
+                "size": 15,
+            },
+            "SO": {
+                "caption": "name",
+                "size": 15,
+            },
+        },
+        relationships: {
+            "leadtoD": {
+                // "thickness": "weight",
+                "thickness": "light",
+                "caption": false
+            },
+            "Association": {
+                "thickness": "light",
+                "caption": false
+            },
+            "CinteractionD": {
+                "thickness": "light",
+                "caption": false
+            },
+            "CinteractionG": {
+                "thickness": "light",
+                "caption": false
+            },
+            "CinteractionGO": {
+                "thickness": "light",
+                "caption": false
+            },
+            "CinteractionP": {
+                "thickness": "light",
+                "caption": false
+            },
+            "DinteractionP": {
+                "thickness": "light",
+                "caption": false
+            },
+            "GOinteractionD": {
+                "thickness": "light",
+                "caption": false
+            },
+            "GeinteractionD": {
+                "thickness": "light",
+                "caption": false
+            },
+            "GeinteractionP": {
+                "thickness": "light",
+                "caption": false
+            },
+            "alt": {
+                "thickness": "light",
+                "caption": false
+            },
+            "father": {
+                "thickness": "light",
+                "caption": false
+            },
+            "in": {
+                "thickness": "light",
+                "caption": false
+            },
+            "leadtoG": {
+                "thickness": "light",
+                "caption": false
+            },
+        },
+        initial_cypher: "MATCH p=()-[r:Association]->() RETURN p LIMIT 25"
+    };
+
+    viz = new NeoVis.default(config);
+    viz.render();
+}
+
+function KBQASearch(){
+    var input = $('#KBQA_input').val();
+    if (input.length < 5) return;
+    var sentence = {"data": input};
+    $.busyLoadFull("show", { spinner: "accordion"});
+    $.post('/KBQA/domainsearch', sentence, null, 'json')
+        .done(function (cql) {
+            if (IsEmpty(cql)) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('no results have been found for: ' + input);
+                });
+            }else {
+                viz.renderWithCypher(cql);
+            }
+        })
+    .fail(function () {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('no results have been found for: ' + input);
+        });
+    });
+    $.busyLoadFull("hide");
 }
 
 function DoMainSearch() {

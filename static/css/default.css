@@ -723,4 +723,12 @@ div.tabcontent{
 .specialli{
     padding: 1.3em 3.8em 1.35em !important;
 }
+
+#viz {
+    /*width: 900px;*/
+    height: 700px;
+    border: 1px solid lightgray;
+    font: 22pt arial;
+}
+
 /*search.css end*/

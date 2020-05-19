@@ -12,9 +12,17 @@ Ontology and Variants Search (OntoVarSearch) is an open web platform, in which f
 + Search: There are two types of search function in “search” section, one is main search in which We not only provide gene, 
 location and variant search similar to other search platforms, but we also provide phenotype and ontology search methods. 
 Another is custom search on variants, flexible query is support for filtering variants.
-## How to use
-1. pip install -r requirment.txt
-2. python manage.py runserver host+port
+## How to depoly OntoVarSearch website
+1. download this project  
+2. download DB dump file form http://123.207.240.94:19008/download/dodownloadDBdump/   
+3. download MongoDB  
+4. import DBdump to MongoDB  
+    >unzip DBdump.zip    
+mongorestore --port 27017  --gzip --archive=./vcf_hpo.agz    
+mongorestore --port 27017  --gzip --archive=./mydb.agz   
+
+5. pip install -r requirment.txt
+6. python manage.py runserver host+port
 
 # OntoAnnotation
 **a command line tool for vcf annotation with ontology**   

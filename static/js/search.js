@@ -40,7 +40,7 @@ function Render() {
 
     });
     Search_bind_autocomplete($("input[name='key']"),true);
-    vizdraw()
+    // vizdraw()
 }
 
 function IsEmpty(str){

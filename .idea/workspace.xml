@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. add KNQA ui and function">
+    <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. add DBdump download url&#10;2. add port to config">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeneJson/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config" beforeDir="false" afterPath="$PROJECT_DIR$/project.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/search.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -361,7 +358,7 @@
       <workItem from="1588724661523" duration="4426000" />
       <workItem from="1589206706250" duration="1497000" />
       <workItem from="1589676262594" duration="8032000" />
-      <workItem from="1589849048756" duration="6314000" />
+      <workItem from="1589849048756" duration="8746000" />
     </task>
     <task id="LOCAL-00001" summary="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json">
       <created>1532506113114</created>
@@ -699,7 +696,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588685123332</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="1. add DBdump download url&#10;2. add port to config">
+      <created>1589875023137</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1589875023137</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -807,7 +811,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. modify home page word&#10;2. delete [object object] in nest table" />
     <MESSAGE value="1. add news on home page&#10;2. remove bug: if have no results find, the busyload don't hide&#10;3. delete useless code" />
     <MESSAGE value="1. delete  search bar at child table&#10;2. instead of using DoVCFSearch, we use DoMianSearch for processing gene" />
     <MESSAGE value="1. add SO search" />
@@ -832,7 +835,8 @@
     <MESSAGE value="1. modify .idea" />
     <MESSAGE value="1. add config file" />
     <MESSAGE value="1. add KNQA ui and function" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. add KNQA ui and function" />
+    <MESSAGE value="1. add DBdump download url&#10;2. add port to config" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. add DBdump download url&#10;2. add port to config" />
   </component>
   <component name="WindowStateProjectService">
     <state x="391" y="0" width="598" height="728" key="#GeneJson" timestamp="1583414863401">
@@ -849,10 +853,10 @@
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="572" y="251" key="#com.intellij.fileTypes.FileTypeChooser/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588596482444" />
-    <state x="494" y="28" width="984" height="818" key="CommitChangelistDialog2" timestamp="1588685117338">
+    <state x="314" y="28" width="998" height="818" key="CommitChangelistDialog2" timestamp="1589875020371">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="494" y="28" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588685117338" />
+    <state x="314" y="28" width="998" height="818" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589875020371" />
     <state x="363" y="0" width="984" height="818" key="CommitChangelistDialog2/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356711904" />
     <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1586268229227" />
     <state width="962" height="466" key="DebuggerActiveHint" timestamp="1588639203242">
@@ -925,19 +929,19 @@
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="164" y="119" width="1354" height="716" key="VCS.FileHistoryDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586404475694" />
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1589874921539">
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1589875048075">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589874921539" />
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589875048075" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1586268244120" />
     <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586356801268">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356801268" />
-    <state x="829" y="107" width="729" height="751" key="find.popup" timestamp="1589870257734">
+    <state x="680" y="68" width="729" height="751" key="find.popup" timestamp="1589875921909">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="829" y="107" width="729" height="751" key="find.popup/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589870257734" />
+    <state x="680" y="68" width="729" height="751" key="find.popup/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589875921909" />
     <state x="359" y="0" width="647" height="728" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583462620839" />
     <state x="475" y="190" key="git4idea.merge.GitPullDialog" timestamp="1589874835936">
       <screen x="62" y="0" width="1538" height="900" />

@@ -72,11 +72,11 @@ MongodbAddrLocal = "mongodb://127.0.0.1:28019"
 if Debug:
     MongodbAddrRemote = "mongodb://123.207.240.94:28019"
 else:
-    MongodbAddrRemote = "mongodb://127.0.0.1:28019"
+    MongodbAddrRemote = "mongodb://127.0.0.1:{0}".format(cf.get("backend", "MongoPort"))
 
 MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO', 'SAMPLES', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
 OntoAnnotationPos = 'E:/project/GeneSearch/tools/OntoAnnotation.zip'
-
+DBdumpPos="E:/project/GeneSearch/DBdump/DBdump.zip"
 count = 0
 def CountLoop(bulk=1000000):
     global count
@@ -119,6 +119,14 @@ def DownloadOntoAnnotation(request):
         response['Content-Length'] = os.path.getsize(OntoAnnotationPos)
         return response
 
+@csrf_exempt
+def DownloadDBdump(request):
+    if request.method == 'GET':
+        toolname=os.path.basename(DBdumpPos)
+        response = StreamingHttpResponse(FileWrapper(open(DBdumpPos, 'rb')), content_type="application/octet-stream")
+        response['Content-Disposition'] = 'attachment;filename="{0}"'.format(toolname)
+        response['Content-Length'] = os.path.getsize(DBdumpPos)
+        return response
 
 #get download file list
 @csrf_exempt

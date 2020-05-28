@@ -14,12 +14,13 @@ location and variant search similar to other search platforms, but we also provi
 Another is custom search on variants, flexible query is support for filtering variants.
 ## How to depoly OntoVarSearch website
 1. download this project  
-2. download DB dump file form http://123.207.240.94:19008/download/dodownloadDBdump/   
-3. download MongoDB  
+2. download MongoDB  
+3. download DB dump file form http://123.207.240.94:19008/download/dodownloadDBdump/   
 4. import DBdump to MongoDB  
     >unzip DBdump.zip    
 mongorestore --port 27017  --gzip --archive=./vcf_hpo.agz    
-mongorestore --port 27017  --gzip --archive=./mydb.agz   
+mongorestore --port 27017  --gzip --archive=./mydb.agz
+mongorestore --port 27017  --gzip --archive=./website.agz   
 
 5. pip install -r requirment.txt
 6. python manage.py runserver 0.0.0.0:yourport --insecure

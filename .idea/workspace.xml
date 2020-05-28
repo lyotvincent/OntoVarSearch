@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. add DBdump download url&#10;2. add port to config">
-      <change afterPath="$PROJECT_DIR$/othercode/ExtractKeyWord.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeneJson/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config" beforeDir="false" afterPath="$PROJECT_DIR$/project.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,14 +360,7 @@
       <workItem from="1589849048756" duration="10933000" />
       <workItem from="1589933990418" duration="586000" />
       <workItem from="1590563052965" duration="15369000" />
-      <workItem from="1590625721925" duration="1171000" />
-    </task>
-    <task id="LOCAL-00002" summary="1. 完成下载功能">
-      <created>1532682246431</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1532682246431</updated>
+      <workItem from="1590625721925" duration="3700000" />
     </task>
     <task id="LOCAL-00003" summary="1. 修改上传界面, 加入伪进度条&#10;2. 删除browse页面&#10;3. 修改重复提交文件,后台相关逻辑">
       <created>1532910285387</created>
@@ -710,7 +698,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589879396927</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="1. add Get key word label">
+      <created>1590627520873</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1590627520875</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -818,7 +813,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. add news on home page&#10;2. remove bug: if have no results find, the busyload don't hide&#10;3. delete useless code" />
     <MESSAGE value="1. delete  search bar at child table&#10;2. instead of using DoVCFSearch, we use DoMianSearch for processing gene" />
     <MESSAGE value="1. add SO search" />
     <MESSAGE value="1. add file that lost in last commit&#10;2. UI: association --&gt; transcript" />
@@ -843,7 +837,8 @@
     <MESSAGE value="1. add config file" />
     <MESSAGE value="1. add KNQA ui and function" />
     <MESSAGE value="1. add DBdump download url&#10;2. add port to config" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. add DBdump download url&#10;2. add port to config" />
+    <MESSAGE value="1. add Get key word label" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. add Get key word label" />
   </component>
   <component name="WindowStateProjectService">
     <state x="391" y="0" width="598" height="728" key="#GeneJson" timestamp="1583414863401">
@@ -860,10 +855,10 @@
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="572" y="251" key="#com.intellij.fileTypes.FileTypeChooser/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588596482444" />
-    <state x="357" y="37" width="998" height="818" key="CommitChangelistDialog2" timestamp="1590566188699">
+    <state x="203" y="30" width="998" height="818" key="CommitChangelistDialog2" timestamp="1590627517990">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="357" y="37" width="998" height="818" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590566188699" />
+    <state x="203" y="30" width="998" height="818" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590627517990" />
     <state x="363" y="0" width="984" height="818" key="CommitChangelistDialog2/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356711904" />
     <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1586268229227" />
     <state width="962" height="466" key="DebuggerActiveHint" timestamp="1590586028351">
@@ -923,9 +918,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="396" y="79" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1586265451853" />
-    <state x="495" y="73" key="RollbackChangesDialog" timestamp="1583464710078">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="619" y="90" key="RollbackChangesDialog" timestamp="1590628106547">
+      <screen x="62" y="0" width="1538" height="900" />
     </state>
+    <state x="619" y="90" key="RollbackChangesDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590628106547" />
     <state x="495" y="73" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1583464710078" />
     <state x="372" y="96" key="SettingsEditor" timestamp="1588600123656">
       <screen x="62" y="0" width="1538" height="900" />
@@ -936,10 +932,10 @@
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="164" y="119" width="1354" height="716" key="VCS.FileHistoryDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586404475694" />
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1589879404293">
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1590627557117">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589879404293" />
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590627557117" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1586268244120" />
     <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586356801268">
       <screen x="0" y="0" width="1600" height="860" />

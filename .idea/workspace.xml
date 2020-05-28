@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23325775-9cc4-485e-b8a4-55f56575c603" name="Default" comment="1. add DBdump download url&#10;2. add port to config">
+      <change afterPath="$PROJECT_DIR$/othercode/ExtractKeyWord.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GeneJson/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneJson/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.config" beforeDir="false" afterPath="$PROJECT_DIR$/project.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/search.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
     </list>
@@ -74,19 +78,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\quz\PycharmProjects\OntoVarSearch\othercode\AnnotationTool" />
-      <recent name="$PROJECT_DIR$/static/js" />
-      <recent name="$PROJECT_DIR$/doc" />
-      <recent name="$PROJECT_DIR$/othercode/Annovar" />
-      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module\webuploader" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Users\quz\PycharmProjects\OntoVarSearch\templates" />
       <recent name="$PROJECT_DIR$/othercode" />
       <recent name="$PROJECT_DIR$/static/js" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\templates" />
       <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\plugins\FlexiJsonEditor" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\quz\PycharmProjects\OntoVarSearch\othercode\AnnotationTool" />
+      <recent name="$PROJECT_DIR$/static/js" />
+      <recent name="$PROJECT_DIR$/doc" />
+      <recent name="$PROJECT_DIR$/othercode/Annovar" />
+      <recent name="C:\Users\quz\PycharmProjects\GeneJson\static\module\webuploader" />
     </key>
   </component>
   <component name="RunManager" selected="Django server.GeneJson">
@@ -110,6 +114,28 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration name="ExtractKeyWord" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OntoVarSearch" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othercode/ExtractKeyWord.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="KBQA" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OntoVarSearch" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -125,28 +151,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysite/KBQA.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Owldemo_real (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="OntoVarSearch" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/othercode" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othercode/Owldemo_real.py" />
-      <option name="PARAMETERS" value="$USER_HOME$/Desktop/so" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -281,19 +285,19 @@
     </configuration>
     <list>
       <item itemvalue="Django server.GeneJson" />
-      <item itemvalue="Python.Owldemo_real (1)" />
       <item itemvalue="Python.createAnnovarDatabase" />
       <item itemvalue="Python.process_hpoteam" />
       <item itemvalue="Python.manage" />
       <item itemvalue="Python.KBQA" />
+      <item itemvalue="Python.ExtractKeyWord" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ExtractKeyWord" />
         <item itemvalue="Python.KBQA" />
         <item itemvalue="Python.manage" />
         <item itemvalue="Python.process_hpoteam" />
         <item itemvalue="Python.createAnnovarDatabase" />
-        <item itemvalue="Python.Owldemo_real (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -358,14 +362,10 @@
       <workItem from="1588724661523" duration="4426000" />
       <workItem from="1589206706250" duration="1497000" />
       <workItem from="1589676262594" duration="8032000" />
-      <workItem from="1589849048756" duration="8746000" />
-    </task>
-    <task id="LOCAL-00001" summary="1. 初步完成搜索显示 的功能. 使用多级表格打开嵌套json">
-      <created>1532506113114</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1532506113114</updated>
+      <workItem from="1589849048756" duration="10933000" />
+      <workItem from="1589933990418" duration="586000" />
+      <workItem from="1590563052965" duration="15369000" />
+      <workItem from="1590625721925" duration="1171000" />
     </task>
     <task id="LOCAL-00002" summary="1. 完成下载功能">
       <created>1532682246431</created>
@@ -703,7 +703,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589875023137</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="1. add DBdump download url&#10;2. add port to config">
+      <created>1589879396925</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1589879396927</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -843,26 +850,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="0" width="598" height="728" key="#GeneJson/0.0.1366.728@0.0.1366.728" timestamp="1583414863401" />
-    <state x="277" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588597070024">
+    <state x="304" y="60" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590582846721">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="277" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588597070024" />
+    <state x="304" y="60" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590582846721" />
     <state x="224" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586355417279" />
     <state x="131" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583462209410" />
     <state x="572" y="251" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588596482444">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="572" y="251" key="#com.intellij.fileTypes.FileTypeChooser/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588596482444" />
-    <state x="314" y="28" width="998" height="818" key="CommitChangelistDialog2" timestamp="1589875020371">
+    <state x="357" y="37" width="998" height="818" key="CommitChangelistDialog2" timestamp="1590566188699">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="314" y="28" width="998" height="818" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589875020371" />
+    <state x="357" y="37" width="998" height="818" key="CommitChangelistDialog2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590566188699" />
     <state x="363" y="0" width="984" height="818" key="CommitChangelistDialog2/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356711904" />
     <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1586268229227" />
-    <state width="962" height="466" key="DebuggerActiveHint" timestamp="1588639203242">
+    <state width="962" height="466" key="DebuggerActiveHint" timestamp="1590586028351">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="962" height="466" key="DebuggerActiveHint/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588639203242" />
+    <state width="962" height="466" key="DebuggerActiveHint/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590586028351" />
     <state x="154" y="92" width="1354" height="716" key="DiffContextDialog" timestamp="1589874918260">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
@@ -872,42 +879,42 @@
     </state>
     <state x="279" y="187" key="FileChooserDialogImpl/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1587386679425" />
     <state x="193" y="151" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583664578888" />
-    <state width="1494" height="170" key="GridCell.Tab.0.bottom" timestamp="1589810364473">
+    <state width="1494" height="165" key="GridCell.Tab.0.bottom" timestamp="1590588182544">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589810364473" />
+    <state width="1494" height="165" key="GridCell.Tab.0.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182544" />
     <state width="1322" height="153" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="170" key="GridCell.Tab.0.center" timestamp="1589810364472">
+    <state width="1494" height="165" key="GridCell.Tab.0.center" timestamp="1590588182544">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589810364472" />
+    <state width="1494" height="165" key="GridCell.Tab.0.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182544" />
     <state width="1322" height="153" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="170" key="GridCell.Tab.0.left" timestamp="1589810364472">
+    <state width="1494" height="165" key="GridCell.Tab.0.left" timestamp="1590588182544">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589810364472" />
+    <state width="1494" height="165" key="GridCell.Tab.0.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182544" />
     <state width="1322" height="153" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="170" key="GridCell.Tab.0.right" timestamp="1589810364473">
+    <state width="1494" height="165" key="GridCell.Tab.0.right" timestamp="1590588182544">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="170" key="GridCell.Tab.0.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589810364473" />
+    <state width="1494" height="165" key="GridCell.Tab.0.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182544" />
     <state width="1322" height="153" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583501752623" />
-    <state width="1494" height="166" key="GridCell.Tab.1.bottom" timestamp="1588685175795">
+    <state width="1494" height="165" key="GridCell.Tab.1.bottom" timestamp="1590588182545">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="166" key="GridCell.Tab.1.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588685175795" />
-    <state width="1494" height="166" key="GridCell.Tab.1.center" timestamp="1588685175795">
+    <state width="1494" height="165" key="GridCell.Tab.1.bottom/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182545" />
+    <state width="1494" height="165" key="GridCell.Tab.1.center" timestamp="1590588182544">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="166" key="GridCell.Tab.1.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588685175795" />
-    <state width="1494" height="166" key="GridCell.Tab.1.left" timestamp="1588685175795">
+    <state width="1494" height="165" key="GridCell.Tab.1.center/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182544" />
+    <state width="1494" height="165" key="GridCell.Tab.1.left" timestamp="1590588182544">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="166" key="GridCell.Tab.1.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588685175795" />
-    <state width="1494" height="166" key="GridCell.Tab.1.right" timestamp="1588685175795">
+    <state width="1494" height="165" key="GridCell.Tab.1.left/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182544" />
+    <state width="1494" height="165" key="GridCell.Tab.1.right" timestamp="1590588182544">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state width="1494" height="166" key="GridCell.Tab.1.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1588685175795" />
+    <state width="1494" height="165" key="GridCell.Tab.1.right/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590588182544" />
     <state x="133" y="55" key="MergeDialog" timestamp="1586265451838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -929,19 +936,19 @@
       <screen x="62" y="0" width="1538" height="900" />
     </state>
     <state x="164" y="119" width="1354" height="716" key="VCS.FileHistoryDialog/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1586404475694" />
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1589875048075">
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2" timestamp="1589879404293">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589875048075" />
+    <state x="372" y="119" key="Vcs.Push.Dialog.v2/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589879404293" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1586268244120" />
     <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586356801268">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="92" y="92" width="1416" height="676" key="com.intellij.history.integration.ui.views.FileHistoryDialog/-1366.0.1366.728/0.0.1600.860@0.0.1600.860" timestamp="1586356801268" />
-    <state x="680" y="68" width="729" height="751" key="find.popup" timestamp="1589875921909">
+    <state x="680" y="68" width="729" height="751" key="find.popup" timestamp="1590581876435">
       <screen x="62" y="0" width="1538" height="900" />
     </state>
-    <state x="680" y="68" width="729" height="751" key="find.popup/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1589875921909" />
+    <state x="680" y="68" width="729" height="751" key="find.popup/-1304.0.1304.768/62.0.1538.900@62.0.1538.900" timestamp="1590581876435" />
     <state x="359" y="0" width="647" height="728" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1583462620839" />
     <state x="475" y="190" key="git4idea.merge.GitPullDialog" timestamp="1589874835936">
       <screen x="62" y="0" width="1538" height="900" />
@@ -959,7 +966,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/static/js/search.js</url>
-          <line>588</line>
+          <line>639</line>
           <option name="timeStamp" value="219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -986,6 +993,11 @@
           <url>file://$PROJECT_DIR$/othercode/Annovar/createAnnovarDatabase.py</url>
           <line>42</line>
           <option name="timeStamp" value="231" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mysite/views.py</url>
+          <line>294</line>
+          <option name="timeStamp" value="233" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -6,7 +6,7 @@ var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
 var IconMinus = "fa fa-minus-square-o";
 var IsResultsFound = false;
-
+var InputDataType = {"Other": 0, "Phenotype": 1, "Gene": 2, "Ontology": 3, "Region": 4, "variantID": 5};
 
 function onKeyPress(e) {
     var keyCode = null;
@@ -269,7 +269,7 @@ function KBQASearch(){
 function DoMainSearch() {
     //输入合法判断
     var input = $('#search_disease_input').val();
-    patt=/\w[\w|\d|\:|\-|\s]*\w$/
+    patt=/\w[\w|\d|\:|\-|\s]*\w\s*$/
     if (!patt.test(input)){
          layui.use('layer', function () {
                 var layer = layui.layer;
@@ -277,31 +277,45 @@ function DoMainSearch() {
             });
          return;
     }
-
     //去掉空格
     input = input.replace(/^\s*|\s*$/g,"");
     $.busyLoadFull("show", { spinner: "accordion"});
     //clear old tables
     ClearOldData();
+    //get data label
+    var labellist = GetDataLabel(input);
     IsResultsFound = false;
-    if (input == "polyneuropathy"){
+    if (IsEmpty(labellist) || labellist.indexOf(InputDataType.Other)!=-1){
+        $.when(DoGeneInfoSearch(input), DoDiseaseSearch(input), DoOntologySearch(input),DoRegionSearch(input),DoVariantIDSearch(input)).then(Done);
+    }else if(labellist.indexOf(InputDataType.Phenotype)!=-1||labellist.indexOf(InputDataType.Ontology)!=-1){
         $.when(DoDiseaseSearch(input),DoOntologySearch(input)).then(Done);
-    }
-    else if (input == "ESRRB"){ //MYPN
+    }else if(labellist.indexOf(InputDataType.Gene)!=-1){
         $.when(DoGeneInfoSearch(input)).then(Done);
-    }
-    else if (input == "GO:0003707" || input == "steroid_hormone_receptor_activity"){
-        $.when(DoOntologySearch(input)).then(Done);
-    }
-    else if (input == "14:76310712-76501837"){
+    }else if(labellist.indexOf(InputDataType.Region)!=-1){
         $.when(DoRegionSearch(input)).then(Done);
-    }
-    else  if (input == "rs79212057"){
+    }else if(labellist.indexOf(InputDataType.variantID)!=-1){
         $.when(DoVariantIDSearch(input)).then(Done);
     }
-    else{
-        $.when(DoGeneInfoSearch(input), DoDiseaseSearch(input), DoOntologySearch(input),DoRegionSearch(input),DoVariantIDSearch(input)).then(Done);
-    }
+
+
+    // if (input == "polyneuropathy"){
+    //     $.when(DoDiseaseSearch(input),DoOntologySearch(input)).then(Done);
+    // }
+    // else if (input == "ESRRB"){ //MYPN
+    //     $.when(DoGeneInfoSearch(input)).then(Done);
+    // }
+    // else if (input == "GO:0003707" || input == "steroid_hormone_receptor_activity"){
+    //     $.when(DoOntologySearch(input)).then(Done);
+    // }
+    // else if (input == "14:76310712-76501837"){
+    //     $.when(DoRegionSearch(input)).then(Done);
+    // }
+    // else  if (input == "rs79212057"){
+    //     $.when(DoVariantIDSearch(input)).then(Done);
+    // }
+    // else{
+    //     $.when(DoGeneInfoSearch(input), DoDiseaseSearch(input), DoOntologySearch(input),DoRegionSearch(input),DoVariantIDSearch(input)).then(Done);
+    // }
     function Done() {
         $.busyLoadFull("hide");
         if (IsResultsFound == false) {
@@ -313,6 +327,43 @@ function DoMainSearch() {
             return;
         }
     }
+}
+
+function GetDataLabel(input) {
+    var inputdata = {"json_data": input};
+    var returndata;
+    $.ajax({
+        url: "/search/GetDataLabel/",
+        async: false,
+        data: inputdata,
+        success: function (datalist) {
+            if (datalist.length === 0){
+                returndata= [InputDataType.Other]
+            }else{
+                returndata= datalist
+            }
+        },
+        error:function(xhr,state,errorThrown) {
+            returndata= [InputDataType.Other]
+        }
+    });
+    return returndata;
+
+    // $.ajaxSettings.async = false;
+    // var returndata;
+    // $.get('/search/GetDataLabel/', inputdata, null, 'json')
+    //     .done(function (datalist) {
+    //         if (datalist.length === 0){
+    //             returndata= [InputDataType.Other]
+    //         }else{
+    //             returndata= datalist
+    //         }
+    //     })
+    //     .fail(function () {
+    //         returndata= [InputDataType.Other]
+    //     });
+    // $.ajaxSettings.async = true;
+    // return returndata;
 }
 
 function DoGeneInfoSearch(inputgene) {

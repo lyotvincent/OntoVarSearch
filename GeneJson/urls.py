@@ -51,6 +51,7 @@ urlpatterns = [
     path('search/DoRegionSearch/', views.doRegionSearch),
     path('search/DoOntologySearch/', views.doOntologySearch),
     path('search/DoGetInfoFields/', views.doGetInfoFields),
+    path('search/GetDataLabel/', views.doGetInputDataLabel),
 ]
 
 import configparser

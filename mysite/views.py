@@ -72,6 +72,7 @@ MongodbAddrLocal = "mongodb://127.0.0.1:28019"
 if Debug:
     MongodbAddrRemote = "mongodb://123.207.240.94:28019"
 else:
+    #tencent server use port 28019
     MongodbAddrRemote = "mongodb://127.0.0.1:{0}".format(cf.get("backend", "MongoPort"))
 
 MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO', 'SAMPLES', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
@@ -843,4 +844,29 @@ def doGetInfoFields(request):
         if result_file and 'InfoFields' in result_file:
             Allresults.extend(result_file['InfoFields'].split(','))
         return JsonResponse(Allresults, safe=False)
+
+Datatype={"Other": 0, "Phenotype": 1, "Gene": 2, "Ontology": 3, "Region": 4, "variantID": 5}
+@csrf_exempt
+def doGetInputDataLabel(request):
+    if request.method == 'GET':
+        inputdata = request.GET.get("json_data")
+        connection = MongoClient(MongodbAddrRemote)
+        pattern="^[A-Za-z]+\\:[0-9]+$"
+        matchOB=re.match(pattern,inputdata)
+        if matchOB:
+            return JsonResponse([Datatype["Ontology"]], safe=False)
+        pattern = "^\w+[:-][0-9]+-[0-9]+$"
+        matchOB=re.match(pattern,inputdata)
+        if matchOB:
+            return JsonResponse([Datatype["Region"]], safe=False)
+        pattern = "^rs[0-9]+$"
+        matchOB = re.match(pattern, inputdata)
+        if matchOB:
+            return JsonResponse([Datatype["variantID"]], safe=False)
+
+        result_file = connection.website.KeyDataLabel.find_one({"$text": {"$search": inputdata,"$caseSensitive" :False}}, {"_id": 0})
+        if result_file:
+            return JsonResponse([result_file["Label"]], safe=False)
+        else:
+            return JsonResponse([0], safe=False)
 

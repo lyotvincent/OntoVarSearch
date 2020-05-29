@@ -825,13 +825,27 @@ def doOntologySearch(request):
             # xxx yyy ---> xxx_yyy
             newontology = ontology.replace(' ', '_')
             regx = re.compile(".*" + ontology + '.*|.*' +newontology+'.*', re.IGNORECASE)
-        else:
+            results_vcf = collection_vcf.find({'$text': {'$search': newontology}},{"_id": 0})
+        elif ':' in ontology:
             regx = re.compile(".*" + ontology + ".*", re.IGNORECASE)
-        results_vcf = collection_vcf.find({'$or':[{"INFO.SO":regx},{"INFO.MC":regx},{"INFO.HPO":regx},{"INFO.DO":regx},{"INFO.GO":regx}]}, {"_id":0})
+            if ontology.upper().startswith("DO"):
+                results_vcf = collection_vcf.find({"INFO.DO": regx}, {"_id": 0})
+            elif ontology.upper().startswith("GO"):
+                results_vcf = collection_vcf.find({"INFO.GO": regx}, {"_id": 0})
+            elif ontology.upper().startswith("SO"):
+                results_vcf = collection_vcf.find({"INFO.SO": regx}, {"_id": 0})
+            elif ontology.upper().startswith("HP"):
+                results_vcf = collection_vcf.find({"INFO.HPO": regx}, {"_id": 0})
+            #results_vcf = collection_vcf.find({'$or':[{"INFO.SO":regx},{"INFO.MC":regx},{"INFO.HPO":regx},{"INFO.DO":regx},{"INFO.GO":regx}]}, {"_id":0})
+            #results_vcf = collection_vcf.find({'$text':{'$search':ontology}},{"_id": 0})
+        else:
+            results_vcf = collection_vcf.find({'$text': {'$search': ontology}}, {"_id": 0})
+        #results_vcf = collection_vcf.find({'$or':[{"INFO.SO":regx},{"INFO.MC":regx},{"INFO.HPO":regx},{"INFO.DO":regx},{"INFO.GO":regx}]}, {"_id":0})
         #results_vcf = collection_vcf.find({"$or":[{"INFO.SO":ontology},{"INFO.MC":ontology}]},{"_id": 0})
         Allresults=[]
         for result_vcf in results_vcf:
-            Allresults.append(result_vcf)
+            if result_vcf not in Allresults:
+                Allresults.append(result_vcf)
         return JsonResponse(Allresults, safe=False)
 
 @csrf_exempt

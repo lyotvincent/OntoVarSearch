@@ -1,6 +1,6 @@
 
 Render();
-
+var isKBQA = false
 var Search_rownum = 1;
 var tableIndex = 1;
 var IconPlus = "fa fa-plus-square-o";
@@ -40,7 +40,9 @@ function Render() {
 
     });
     Search_bind_autocomplete($("input[name='key']"),true);
-    // vizdraw()
+    if (isKBQA){
+        vizdraw()
+    }
 }
 
 function IsEmpty(str){
@@ -236,9 +238,10 @@ function vizdraw() {
         },
         initial_cypher: "MATCH p=()-[r:Association]->() RETURN p LIMIT 25"
     };
-
-    viz = new NeoVis.default(config);
-    viz.render();
+    if (isKBQA){
+        viz = new NeoVis.default(config);
+        viz.render();
+    }
 }
 
 function KBQASearch(){

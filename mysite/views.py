@@ -65,10 +65,12 @@ class Transform(TransformV2J):
     def dotransformMain(self, filepath_vcf, filepath_json):
         TransformV2J.TransformMain(self, filepath_vcf, filepath_json)
 
-#UploadFilePath = "C:/Project/vcf2json_file/"
-#UploadFilePath = '/home/qz/project/GeneSearch/'
-UploadFilePath = 'E:/project/GeneSearch/'
-MongodbAddrLocal = "mongodb://127.0.0.1:28019"
+
+UploadFilePath = cf.get("backend", "UploadFilePath")
+OntoAnnotationPos = cf.get("backend", "AnnotationToolAddr")
+DBdumpPos=cf.get("backend", "DBdumpAddr")
+
+#MongodbAddrLocal = "mongodb://127.0.0.1:28019"
 if Debug:
     MongodbAddrRemote = "mongodb://123.207.240.94:28019"
 else:
@@ -76,8 +78,7 @@ else:
     MongodbAddrRemote = "mongodb://127.0.0.1:{0}".format(cf.get("backend", "MongoPort"))
 
 MongoIndexField = ['CHROM', 'POS', 'ID', 'QUAL', 'ALT', 'FILTER', 'REF', 'INFO', 'SAMPLES', 'SEQNAME', 'FEATURE', 'START', 'END', 'ENTREZ_GENE_ID', 'ENTREZ_GENE_SYMBOL','HPO_TERM_NAME','HPO_TERM_ID']
-OntoAnnotationPos = 'E:/project/GeneSearch/tools/OntoAnnotation.zip'
-DBdumpPos="E:/project/GeneSearch/DBdump/DBdump.zip"
+
 count = 0
 def CountLoop(bulk=1000000):
     global count

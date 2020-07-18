@@ -879,9 +879,13 @@ def doGetInputDataLabel(request):
         if matchOB:
             return JsonResponse([Datatype["variantID"]], safe=False)
 
-        result_file = connection.website.KeyDataLabel.find_one({"$text": {"$search": inputdata,"$caseSensitive" :False}}, {"_id": 0})
-        if result_file:
-            return JsonResponse([result_file["Label"]], safe=False)
+        result_files = connection.website.KeyDataLabel.find({"$text": {"$search": inputdata,"$caseSensitive" :False}}, {"_id": 0})
+        for result_file in result_files:
+            if len(result_file["KeyWord"])==len(inputdata):
+                return JsonResponse([result_file["Label"]], safe=False)
+
+        if result_files:
+            return JsonResponse([result_files[0]["Label"]], safe=False)
         else:
             return JsonResponse([0], safe=False)
 

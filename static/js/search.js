@@ -1146,6 +1146,7 @@ function CreatVCFColums2() {
             {"data": "FILTER", "title": "FILTER", "name": "FILTER"},
             // {"data": "SAMPLES", "title": "SAMPLES", "name": "SAMPLES",'className':'details-control','targets':-1,'orderable':false,'defaultContent':' '},
            ];
+
         for (var ele in InfoFields) {
             var column = {};
             column.data = "INFO."+InfoFields[ele];
@@ -1276,6 +1277,55 @@ function CreatVCFTable(tableID, data, IsRoot) {
         }
 
     });
+
+    var ToggleFunction = function () {
+        //edit cloumn html
+        var InfoFields = [];
+        var database = $('#Search_sel_DATABASE option:selected').val();
+        $.ajax({
+            url: '/search/DoGetInfoFields/', async: false, data: {'database': database}, dataType: "json",
+            success: function (data) {
+                if (data === null || data.length === 0) {
+
+                } else {
+                    InfoFields = data;
+                }
+            }
+        });
+        var htmlcontent = "Toggle column: "
+        var index = 0
+        var BaseColumns=["CHROM","POS","ID","REF","ALT","QUAL","FILTER"]
+        var TotalColumns=BaseColumns.concat(InfoFields)
+        for (var ele in TotalColumns) {
+            htmlcontent += "<a class='toggle-vis' data-column=" + index + ">" + TotalColumns[ele] + "</a> - ";
+            index++;
+        }
+
+        $('div.Toggle-div').html(htmlcontent)
+
+        //add toggle function
+        $('a.toggle-vis').on('click', function (e) {
+            e.preventDefault();
+
+            // Get the column API object
+            var column = table.column($(this).attr('data-column'));
+
+            // Toggle the visibility
+            column.visible(!column.visible());
+        });
+
+        //unvisible useless columns
+        var UsefulColumns=["CHROM","POS","ID","REF","ALT","QUAL","FILTER","GENEINFO","HPO","DO","SO","MC","GO"]
+        for (var ele in TotalColumns) {
+            if (UsefulColumns.indexOf(TotalColumns[ele])==-1){
+                var column = table.column(ele);
+                column.visible(false);
+            }
+        }
+    }
+    if (IsRoot){
+        ToggleFunction()
+    }
 }
 
 function CreatVCFTableWithOntology(tableID, data, IsRoot, ontology) {

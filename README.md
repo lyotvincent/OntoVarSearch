@@ -23,7 +23,8 @@ mongorestore --port 27017  --gzip --archive=./mydb.agz
 mongorestore --port 27017  --gzip --archive=./website.agz   
 
 5. pip install -r requirment.txt
-6. python manage.py runserver 0.0.0.0:yourport --insecure
+6. edit project.config
+7. python manage.py runserver 0.0.0.0:yourport --insecure
 
 # OntoAnnotation
 **a command line tool for vcf annotation with ontology**   
